@@ -1,0 +1,46 @@
+# Integrated Logistics Control
+
+**Conferência documental e acompanhamento de entregas.**
+
+Case educacional de dados e automação aplicado à logística, desenvolvido por João Pedro Caneca com orientação técnica. O objetivo é aprender a transformar necessidades operacionais em uma solução verificável com Python, SQL, integração REST, aplicação web e indicadores.
+
+> **Estado: planejamento documentado; implementação ainda não iniciada.** As funcionalidades abaixo são planejadas, não entregas já disponíveis. Meta de demonstração: 21/10/2026.
+
+## Problema e valor esperado
+
+O cenário fictício considera informações de pedidos, eventos de transporte e comprovantes em fontes distintas. Um analista precisa identificar entregas sem comprovante e divergências documentais para priorizar a regularização. A liderança precisa acompanhar essas pendências com métricas consistentes.
+
+**Entrega concluída e documentação aprovada são estados independentes.** A solução deve preservar essa distinção.
+
+## Demonstração planejada
+
+1. Ingerir pedidos e consumir eventos de uma API local simulada.
+2. Preservar a origem, tratar os dados e registrar a execução.
+3. Extrair campos de PDF textual e XML de formato educacional.
+4. Conciliar documentos com entregas e explicar divergências.
+5. Consultar pendências em uma aplicação Python.
+6. Apresentar uma página de indicadores no Power BI Desktop.
+7. Avaliar um experimento de LLM local para ocorrências textuais, condicionado à viabilidade no equipamento.
+
+## Tecnologias propostas
+
+Python, PostgreSQL, SQL, Streamlit, FastAPI, Git e Power BI Desktop. Execução local; sem contratação de serviços ou dependência de créditos de nuvem. Agendamento inicial pelo Windows. OCR e LLM local dependem de avaliação; RAG fica para evolução.
+
+## Documentação
+
+- [Entendimento do negócio](docs/01-business-understanding.md)
+- [Escopo e critérios de aceite](docs/02-scope-and-acceptance.md)
+- [Arquitetura e decisões iniciais](docs/03-architecture.md)
+- [Plano de execução e aprendizagem](docs/04-delivery-and-learning-plan.md)
+- [Métricas e regras](docs/05-metrics-and-rules.md)
+- [Fluxo de contribuição](CONTRIBUTING.md)
+
+## Execução
+
+Ainda não há aplicação executável, dependências fixadas ou instruções de instalação validadas. Essas instruções serão adicionadas conforme cada etapa for implementada e testada.
+
+## Limites e transparência
+
+Dados e documentos exclusivamente sintéticos. Não há integração com ERP/WMS reais nem representação oficial da Ever Express. O case foi motivado por requisitos profissionais, sem afirmar conhecimento da arquitetura interna de qualquer empresa.
+
+Não há resultados operacionais reais ou ganhos financeiros medidos. Evidências futuras serão resultados da simulação. Revisão humana será necessária em situações ambíguas.
