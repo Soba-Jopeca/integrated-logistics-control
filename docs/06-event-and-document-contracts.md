@@ -24,6 +24,24 @@ Case educacional com dados sintéticos.
 - received_at, ingested_at e run_id são registrados pelo sistema.
 - A entrada original é preservada com referência e checksum.
 - Metadados de execução não alteram a identidade de negócio.
+### Recebimento original e tentativas
+
+received_at é o horário do primeiro recebimento da entrada pelo sistema,
+gerado pelo sistema em UTC e preservado após aceitação, rejeição
+recuperável, reenvio, reprocessamento ou resolução tardia de vínculo.
+
+Cada tentativa possui attempt_id, attempt_received_at quando houver
+nova chegada externa, started_at, ended_at, run_id, resultado e erro
+quando aplicável. Reprocessamento interno sem nova chegada externa
+não inventa outro horário de recebimento.
+
+Reenvios idênticos geram tentativas rastreáveis, sem alterar received_at
+do registro original. Entradas conflitantes preservam seu próprio
+horário de chegada e sua relação com o registro original.
+
+M4 utiliza received_at original do primeiro documento que satisfaça
+o critério de recebimento válido, nunca o horário da última tentativa
+ou da resolução do vínculo.
 
 ### Reenvio e conflito
 
@@ -86,6 +104,50 @@ Não se cria uma entrega fictícia para satisfazer o vínculo.
 
 NOT_CONFIRMED significa falta de confirmação nos dados disponíveis;
 não significa que a entrega não ocorreu.
+### Múltiplos eventos de conclusão
+
+Eventos DELIVERED com identificadores distintos e horários de ocorrência
+diferentes para a mesma entrega constituem ambiguidade de conclusão.
+
+Preservar como conclusão provisória a primeira aceita pelo sistema.
+Registrar as alternativas e sinalizar conflito para revisão explícita.
+Não trocar automaticamente para o menor horário, maior horário ou
+último evento recebido.
+
+"Primeira aceita" é determinada pela sequência de aceitação persistida
+pelo sistema, e não por occurred_at. Empates de recebimento não autorizam
+seleção arbitrária; a aceitação deve possuir ordem rastreável.
+
+Independentemente da ordem de chegada, o resultado obrigatório é:
+uma entrega, todos os eventos preservados e conflito de conclusão aberto.
+O horário provisório pode variar conforme a ordem de aceitação.
+Portanto, não há independência de ordem para esse horário enquanto
+o conflito estiver aberto.
+
+Enquanto houver conflito, a situação física permanece concluída,
+com horário efetivo contestado. Para M1 e M4, excluir a entrega dos
+elegíveis e apresentar separadamente a quantidade excluída por conflito.
+M2 continua considerando a entrega concluída.
+
+Não emitir nova aprovação documental dependente desse horário.
+Avaliações anteriores permanecem no histórico, mas a regularidade
+atual fica pendente de revisão.
+
+A resolução exige escolha explícita da conclusão válida, autor,
+horário e motivo, preservando as alternativas e disparando reavaliação
+documental. Esse fluxo é uma exigência contratual, não implementação
+comprovada neste passo.
+
+Exemplo de ordem:
+- A às 17:00Z aceito antes de B às 17:10Z:
+  preservar 17:00Z provisoriamente e abrir conflito.
+- B às 17:10Z aceito antes de A às 17:00Z:
+  preservar 17:10Z provisoriamente e abrir conflito.
+- Em ambos: uma entrega, dois eventos preservados, conflito aberto
+  e mesmas restrições de uso até resolução explícita.
+
+Mesmo event_id com horário diferente continua sendo conflito
+de identidade, sem substituir o evento original.
 
 ### Exemplo válido
 
@@ -300,32 +362,60 @@ O hash acima é ilustrativo; deve corresponder ao arquivo na execução.
 - Declarar período, instante de referência, fuso, atualização e versão.
 - Sem SLA documental validado, exibir tempo decorrido sem alegar violação.
 
-## 5. Fixture conceitual ENT-001
+## 5. Fixtures conceituais
 
-Premissas sintéticas:
-entrega ENT-001; quantidade esperada 10; unidade VOLUME.
+### A — Três eventos e dois comprovantes de famílias distintas
+
+Entrega ENT-001; quantidade esperada 10; unidade VOLUME.
 
 Eventos:
-- EVT-001: DISPATCHED, 16/10/2026 às 12:00Z.
-- EVT-002: IN_TRANSIT, 16/10/2026 às 14:00Z.
-- EVT-003: DELIVERED, 16/10/2026 às 17:00Z.
+- EVT-001: DISPATCHED, 2026-10-16T12:00:00Z.
+- EVT-002: IN_TRANSIT, 2026-10-16T14:00:00Z.
+- EVT-003: DELIVERED, 2026-10-16T17:00:00Z.
 
-Documentos da família POD-001:
-- DOC-001, v1: quantidade extraída 9; REVIEW_REQUIRED.
-- DOC-002, v2, substitui DOC-001: quantidade 10, unidade VOLUME,
-  referência ENT-001, conclusão 17:00Z e recebedor sintético preenchido;
-  APPROVED se todos os demais critérios forem satisfeitos.
+Comprovantes:
+- DOC-A1, família POD-A, versão 1: quantidade 10;
+  demais campos consistentes; avaliação APPROVED.
+- DOC-B1, família POD-B, versão 1: quantidade 9;
+  avaliação REVIEW_REQUIRED por VALUE_MISMATCH.
 
-Resultado esperado:
-uma entrega, três eventos e duas versões documentais históricas.
-DOC-002 é vigente após substituição estrutural válida.
-DOC-001 e sua divergência permanecem no histórico.
-Situação física concluída; documental regular após aprovação de DOC-002.
+Ambos referenciam ENT-001 e são vigentes em suas próprias famílias.
+Nenhum substitui o outro.
 
-Um cruzamento 3 × 2 pode gerar seis linhas, mas continua uma entrega.
-Se houver outra família vigente divergente, a regularidade fica pendente.
+Esperado:
+uma entrega, três eventos e dois comprovantes vigentes.
+O cruzamento pode gerar seis linhas, mas continua uma entrega.
+Situação física concluída; documental pendente pela divergência de DOC-B1.
+A aprovação de DOC-A1 não encobre a pendência de DOC-B1.
 
-Esta fixture descreve resultados esperados; não foi executada.
+### B — Substituição na mesma família
+
+Cenário independente da fixture A.
+Entrega ENT-002; quantidade esperada 10; unidade VOLUME;
+conclusão inequívoca em 2026-10-16T17:00:00Z.
+
+- DOC-C1, família POD-C, versão 1: quantidade 9;
+  recebido em 2026-10-16T17:10:00Z;
+  avaliação REVIEW_REQUIRED.
+- DOC-C2, família POD-C, versão 2: substitui DOC-C1;
+  quantidade 10, unidade VOLUME, referência ENT-002,
+  conclusão 2026-10-16T17:00:00Z e recebedor sintético preenchido;
+  recebido em 2026-10-16T17:30:00Z.
+
+Esperado:
+antes da aceitação estrutural de DOC-C2, DOC-C1 permanece vigente.
+Após aceitação estrutural, DOC-C2 torna-se vigente, ainda sem aprovação.
+Após conferência consistente, DOC-C2 fica APPROVED e a entrega regular.
+DOC-C1 e sua avaliação permanecem no histórico, sem bloquear a situação atual.
+
+Reenvio idêntico de DOC-C2 às 17:40Z registra nova tentativa,
+mantendo seu received_at original em 17:30Z.
+
+Para M4, o primeiro recebimento válido é DOC-C1 às 17:10Z,
+mesmo divergente e posteriormente substituído.
+Intervalo esperado: 10 minutos, ou 1/6 de hora.
+
+As fixtures descrevem resultados esperados; não foram executadas.
 
 ## 6. Decisões e participação
 
