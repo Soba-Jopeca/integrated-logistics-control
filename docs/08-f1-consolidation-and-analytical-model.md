@@ -123,7 +123,7 @@ Definição documental não significa implementação comprovada.
 | ID | Definição/artefato na F1 | Evidência futura exigida |
 |---|---|---|
 | R01 | Negócio, personas e decisões em 01; aceite P01 com aprendizagem autodeclarada | Sem alegação de explicação autoral independente |
-| R02 | Contratos 06, relações/dicionário 07, proposta analítica 08 | Verificações visuais pendentes; integridade executável nas fases seguintes |
+| R02 | Contratos 06, relações/dicionário 07, proposta analítica 08 | Três diagramas conferidos visualmente em P04; integridade executável nas fases seguintes |
 | R03 | Ambiente reproduzível previsto em 02/03/04 | F2: versões oficiais, isolamento, lock, .env.example, migração e rollback |
 | R04 | Fixtures conceituais em 06/07 | F2: gerador com semente, pequenos casos esperados e volume configurável |
 | R05 | API local simulada no escopo | F3: OpenAPI, paginação/cursor, timeout, HTTP/JSON inválidos e indisponibilidade |
@@ -151,12 +151,16 @@ não substituem R01–R17.
 | Proteção inicial Git | 54fc765 publicado; regras verificadas |
 | Modelo conceitual/lógico | 8339239 publicado |
 | Fixtures A/B/C | Inspeção documental; sem execução |
-| Três diagramas Mermaid | Conferência visual ainda pendente |
-| Consolidação P04 | Aguardando aplicação, diff, commit e publicação |
+| Três diagramas Mermaid | Capturas fornecidas por João e inspecionadas pelo assistente em 16/10/2026; renderização completa, sem erro aparente |
+| Consolidação P04 | Aplicada e publicada em b327043; quatro ajustes publicados até 7ed35cb; atualização local fast-forward e diretório limpo informados por João |
 | Software/banco/ETL | Não implementados na F1 |
 
-O commit de P04 será registrado na passagem após sua criação.
-Não inserir antecipadamente hash ou resultado de comando.
+Evidência visual: image.png (conflitos), image(1).png (relações principais)
+e image(2).png (origem, recebimentos e tentativas), anexadas neste chat.
+Não foram identificados cortes ou sobreposições impeditivas.
+O diagrama principal possui texto pequeno no zoom geral; ampliar para leitura.
+Capturas não substituem testes de integridade ou execução das fixtures.
+O commit deste registro será informado na passagem após sua criação.
 
 ## 6. Participação, aprendizagem e tempo
 
@@ -177,12 +181,10 @@ Não converter intervalo entre mensagens em esforço trabalhado.
 
 ## 7. Pendências e passagem
 
-Antes de solicitar fechamento:
-- Conferir visualmente os três diagramas.
-- Revisar a consolidação e suas relações analíticas.
-- Verificar diff e registrar commit/push.
-- Registrar resultados observados e limitações.
-- Levar artefatos e passagem ao gerente.
+Verificações documentais e visuais realizadas; consolidação publicada.
+Próximas ações:
+- Sincronizar localmente este último registro de evidências.
+- Levar artefatos e passagem ao gerente para avaliação de fechamento.
 - Atualizar a fonte compartilhada na transição, após decisão central,
   sem presumir sincronização automática.
 
