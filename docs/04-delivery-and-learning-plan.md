@@ -13,7 +13,7 @@ Chats executores produzem artefatos e evidências e retornam ao gerente.
 Preparação de chat não significa início da fase.
 Trivialidades são resolvidas sem aprovação ritual.
 
-## Sequência e dependências
+## Histórico — sequência e dependências no início de F1-P04
 
 | Fase | Ordem interna | Estado no início de F1-P04 |
 |---|---|---|
@@ -51,3 +51,13 @@ OCR, RAG e evolução para Docker/Linux não bloqueiam o núcleo.
 Demonstração futura: problema, arquitetura, caso correto,
 divergente, reexecução, painel, trade-off e limitações.
 Separar resultados sintéticos de impacto empresarial real.
+
+## Estado atual — VAL-F1-P04-001
+
+F1 FECHADA no escopo documental em 16/10/2026, por VAL-F1-P04-001.
+F2 pronta para receber o primeiro cartão do gerente, ainda não iniciada.
+F3–F6 bloqueadas pelas dependências anteriores.
+
+Fechamento limitado aos artefatos documentais. Evidências e limitações
+na passagem final do documento 08; histórico anterior preservado.
+Aguardar cartão específico antes de executar qualquer atividade da F2.
