@@ -94,7 +94,10 @@ resultados de fotografias anteriores.
 - D_MOTIVO 1:N P_AVALIACAO_MOTIVO.
 
 Filtros unidirecionais da dimensão para o fato.
-Não criar relação direta entre fatos nem filtro bidirecional automático.
+Não relacionar diretamente os fatos de entrega e documento.
+A relação da avaliação histórica com sua ponte de motivos é a exceção
+explícita de detalhamento; não deve multiplicar métricas documentais.
+Não criar filtro bidirecional automático.
 Filtro por motivo em métricas documentais exige semijunção/conjunto
 distinto explícito de avaliações, sem multiplicar documentos.
 Campos dimensionais não aplicáveis usam membro desconhecido explícito;
