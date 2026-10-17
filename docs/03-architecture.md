@@ -64,3 +64,17 @@ Somente dados sintéticos. Credenciais via configuração externa ao Git; exempl
 - https://learn.microsoft.com/power-bi/
 
 Versões e compatibilidade serão verificadas antes da instalação. Nenhum serviço em nuvem ou API paga é obrigatório.
+
+## Consolidação F1-P04
+
+O modelo conceitual/lógico foi definido no documento 07.
+A estrutura física, migrações e mecanismos de restrição pertencem à F2;
+não foram implementados.
+
+Origem preservada inclui ocorrência, recebimento original,
+chegadas posteriores, tentativas e ingestão como horários distintos.
+Reenvio idêntico não duplica; conflito não sobrescreve.
+
+A proposta de fatos, dimensões e relações está no documento 08.
+Sua implementação pertence à F5.
+A avaliação formal de IA pertence à F4.

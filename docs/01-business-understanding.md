@@ -28,24 +28,42 @@ O comprovante pode chegar antes ou depois do evento de entrega. Ausência de eve
 - Quais pendências estão há mais tempo sem regularização?
 - Como as ocorrências textuais podem ser estruturadas com qualidade mensurável?
 
-## Premissas propostas
+## Premissas consolidadas na F1
 
-- Um pedido corresponde a uma entrega nesta primeira versão.
-- Uma entrega pode ter vários eventos e vários documentos.
-- Somente documento aprovado atende à regularidade documental.
-- Documento extraído ainda não é documento aprovado.
-- XML é um contrato simplificado próprio, sem alegar conformidade fiscal.
-- Valores e volumes gerados não representam a operação real.
-- Datas são armazenadas com referência temporal explícita; exibição em America/Sao_Paulo.
+- Pedido representa solicitação; entrega representa execução.
+- Na v1, um pedido admite zero ou uma entrega; cada entrega pertence a um pedido.
+- Uma entrega admite vários eventos e famílias documentais.
+- Cada família possui versões imutáveis e uma versão vigente.
+- Regularidade exige ao menos uma versão vigente aprovada e nenhuma vigente pendente.
+- Conflito de conclusão impede usar uma aprovação dependente do horário contestado.
+- Entrega física e regularidade documental são independentes.
+- Documento recebido ou extraído não é automaticamente aprovado.
+- Ausência de evento não prova ausência de entrega.
+- Referência desconhecida fica recuperável, sem criar vínculo fictício.
+- Datas persistidas em UTC; exibição em America/Sao_Paulo.
+- XML educacional, sem conformidade fiscal alegada.
+- Dados e resultados são sintéticos; nenhum ganho empresarial real foi medido.
 
-## Perguntas pendentes antes do contrato dos dados
+## Decisões detalhadas
 
-1. Quais campos mínimos permitem conciliar um comprovante?
-2. Qual evento define conclusão e como uma correção posterior é representada?
-3. Qual tempo de atualização é útil à decisão operacional?
-4. Quem resolve cada motivo de divergência?
-5. Há prazo de regularização? Até validação, mostrar tempo decorrido sem classificá-lo como violação de SLA.
+Campos, estados, reenvios, conflitos e substituições:
+[contratos](06-event-and-document-contracts.md).
 
-## Exercício do autor
+Relações, chaves, histórico e grãos:
+[modelo conceitual e lógico](07-conceptual-and-logical-model.md).
 
-Explicar com suas palavras: quem decide, o que decide, quais dados precisa e o que acontece se a informação estiver errada. Registrar ajustes neste documento antes de implementar regras.
+Na operação simulada, o analista investiga divergências e solicita correções;
+o coordenador prioriza e encaminha casos sem resolução;
+o responsável técnico trata ingestão, parsing e reprocessamento.
+Esses papéis não representam uma estrutura empresarial real.
+
+Frequência de atualização será definida e medida na operação.
+Até lá, apresentar horário da última atualização, sem prometer latência.
+Sem SLA documental validado: apresentar tempo decorrido.
+
+## Participação e estado
+
+F1-P01 aceito pela gestão com aprendizagem autodeclarada.
+Respostas conceituais preparadas pelo assistente e adotadas por João;
+explicação autoral independente não foi verificada.
+F1 permanece aberta até avaliação central do conjunto.

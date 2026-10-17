@@ -1,43 +1,53 @@
 # 04 — Plano de execução e aprendizagem
 
-Data-base: 16/10/2026. Meta: demonstração em 21/10/2026.
-Estimativa inicial: 20–25 horas orientadas, ainda sem medição. Rever a estimativa ao final de cada sessão.
+Data-base: 16/10/2026.
+21/10/2026 é alvo de demonstração inicial, não compromisso comprovado.
+A estimativa antiga de 20–25 horas não constitui esforço medido.
+Tempo dedicado: não medido.
 
-## Método
+## Governança
 
-Problema → conceito → implementação pelo autor → validação → revisão → registro Git.
+Negócio → contratos → modelos.
+Cada passo depende de liberação e validação pelo chat 00.
+Chats executores produzem artefatos e evidências e retornam ao gerente.
+Preparação de chat não significa início da fase.
+Trivialidades são resolvidas sem aprovação ritual.
 
-João implementa a solução e explica as decisões. A orientação técnica prepara documentação, ensina conceitos e revisa evidências. Uma etapa só é concluída com resultado observado; disponibilidade de tempo não elimina a necessidade de compreensão.
+## Sequência e dependências
 
-## Agenda proposta
+| Fase | Ordem interna | Estado no início de F1-P04 |
+|---|---|---|
+| F1 | Negócio → contratos → modelos → consolidação | P01/P02/H01/P03 aceitos; P04 em execução; fase aberta |
+| F2 | Diagnóstico/ambiente → banco/migrações → gerador | Bloqueada |
+| F3 | API → ingestão → falhas/reprocessamento | Bloqueada |
+| F4 | Extração → conferência/histórico → experimento IA | Bloqueada |
+| F5 | Aplicação → camada analítica → Power BI | Bloqueada |
+| F6 | Scheduler/CI → recuperação/reprodução → release/demo | Bloqueada |
 
-| Data | Foco | Conceito praticado | Evidência |
-|---|---|---|---|
-| 16/10 | Documentação inicial e validação do negócio | Requisito vs solução | Ajustes do autor nas premissas |
-| 17/10 | Contratos, ambiente, primeira ingestão e ensaio de IA | Granularidade, chaves e viabilidade | Primeiro lote pequeno persistido |
-| 18/10 | API e ETL | Idempotência, transações e eventos atrasados | Reexecução e falha controlada |
-| 19/10 | Documentos e conferência | Extração vs validação de negócio | Casos aprovado, pendente e divergente |
-| 20/10 | Aplicação, agendamento e experimento LLM | Fluxo do utilizador e observabilidade | Navegação e execução rastreável |
-| 21/10 | Power BI, integração e apresentação | Semântica, evidência e comunicação | Demonstração reproduzível |
+Não instalar dependências nem criar banco durante a F1.
+Versões, ambiente virtual, lock e .env.example pertencem à F2.
+O .gitignore foi antecipado exclusivamente como proteção do repositório.
 
-Se houver atraso, reduzir interface, volume e extensões antes de eliminar integridade, testes essenciais ou documentação de limitações. OCR/RAG não bloqueiam o núcleo.
+## Prática e evidências
 
-## Próxima atividade concreta
+João aplica alterações, executa verificações e interpreta resultados.
+O assistente prepara rascunhos, esclarece conceitos e revisa evidências.
+Registrar precisamente autoria, prática observada e limitações;
+não atribuir respostas simuladas a João.
 
-1. Ler documentos 01 e 02.
-2. Validar ou ajustar os utilizadores e as três situações principais.
-3. Explicar por que entrega física e aprovação documental têm estados diferentes.
-4. Clonar o repositório no computador do autor.
-5. Criar branch para definir contratos dos dados, antes de escrever ETL.
+Passagem contém fase, passo, data, estado, repositório, branch,
+commit, requisitos, artefatos, comandos, esperado/observado,
+aprendizagem, limitações, bloqueadores e próximo passo.
 
-## Exercícios por perspectiva
+Fechamento de fase exige validação central, artefatos versionados,
+evidências, commit, aprendizagem registrada e passagem atualizada.
 
-- Estratégia: qual decisão justifica cada dado e cada indicador?
-- Engenharia: o que acontece se o lote repetir ou falhar pela metade?
-- Analytics Engineering: qual é a granularidade e onde a métrica é definida?
-- Análise: uma variação representa problema de negócio ou dado ausente?
-- Liderança técnica: qual alternativa foi descartada, por quê e quando revisitá-la?
+## Prazo e apresentação
 
-## Preparação da apresentação
+Reestimar após evidências das primeiras fases.
+Reduzir volume e acabamento antes de integridade e testes essenciais.
+OCR, RAG e evolução para Docker/Linux não bloqueiam o núcleo.
 
-Demonstrar um caso correto, um divergente e uma reexecução. Explicar o problema, a arquitetura, uma escolha com trade-off e uma limitação. Separar resultados simulados de impacto real. Registrar evidências e roteiro ao final, sem antecipar funcionalidades entregues.
+Demonstração futura: problema, arquitetura, caso correto,
+divergente, reexecução, painel, trade-off e limitações.
+Separar resultados sintéticos de impacto empresarial real.
