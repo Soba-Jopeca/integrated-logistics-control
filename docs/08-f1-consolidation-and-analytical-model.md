@@ -2,7 +2,9 @@
 
 Data: 16/10/2026.
 Passo: F1-P04.
-Estado: em revisão; F1 aberta.
+Estado atual: F1 FECHADA no escopo documental — VAL-F1-P04-001.
+F2 pronta para receber o primeiro cartão do gerente, ainda não iniciada.
+As seções anteriores ao registro final preservam o histórico de elaboração.
 Implementação analítica: somente na F5.
 
 ## 1. Precedência e estado
@@ -191,3 +193,41 @@ Próximas ações:
 F1 continua aberta.
 F2–F6 bloqueadas.
 Nenhuma instalação, .env, ambiente virtual, banco ou ETL iniciado.
+
+## Registro final autorizado — VAL-F1-P04-001
+
+F1 FECHADA no escopo documental em 16/10/2026, por VAL-F1-P04-001.
+F2 pronta para receber o primeiro cartão do gerente, ainda não iniciada.
+F3–F6 bloqueadas pelas dependências anteriores.
+
+Autoridade: decisão do gerente do chat 00, encaminhada por João neste chat.
+P01: VAL-F1-P01-003, aceito com aprendizagem autodeclarada.
+P02, H01 e P03: aceitos conforme cartões humanos de liberação posteriores;
+identificadores de validação não fornecidos não foram inventados.
+P04 e fechamento documental: VAL-F1-P04-001.
+
+Artefatos: README, docs/01–08, CONTRIBUTING.md e .gitignore.
+Contratos: 92202af e 58a1ec3; proteção Git: 54fc765;
+modelo: 8339239; consolidação: b327043; ajustes até 7ed35cb;
+evidência visual: b836c199dd0ee6bcf90fc962b1debae6b8d49764.
+
+Verificações observadas: diffs revisados, checagens Git sem erros de
+whitespace reportados, leitura remota UTF-8 dos documentos corrigidos,
+e três capturas Mermaid inspecionadas sem erro aparente de renderização.
+Último estado local comprovado: 7ed35cb, diretório limpo e sincronizado.
+Sincronização local posterior não foi presumida.
+
+João aplicou alterações, executou Git e forneceu capturas.
+O assistente elaborou propostas e justificativas; aprendizagem de P01
+autodeclarada, sem explicação autoral independente adicional registrada.
+Tempo dedicado: não medido.
+
+Limitações preservadas: fixtures não executadas; integridade, SQL/DAX,
+instalação limpa e comportamento operacional ainda não comprovados.
+O aceite documental não constitui entrega executável nem validação
+integral de implementação de R01–R17. Matriz de evidências futuras na seção 4.
+Nenhuma dependência instalada, .env, ambiente virtual, banco ou ETL criado.
+
+Próximo passo: incluir esta passagem nas fontes compartilhadas e aguardar
+o primeiro cartão do gerente para F2. Não iniciar F2 por este registro.
+Registros de fase aberta acima são históricos, anteriores a esta decisão.
