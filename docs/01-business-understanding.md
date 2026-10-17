@@ -1,6 +1,6 @@
 # 01 — Entendimento do negócio
 
-Estado: proposta inicial para validação com o autor. Data: 16/10/2026.
+Estado: negócio aceito em F1-P01; consolidação F1-P04 em revisão. Data: 16/10/2026.
 
 ## Pessoas, necessidades e decisões
 
