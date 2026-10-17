@@ -23,7 +23,7 @@ O caminho síncrono de upload na aplicação e o pipeline agendado devem reutili
 | Analytics | Granularidade e métricas publicadas com regras únicas |
 | Auditoria | Execuções, contagens, falhas e rastreabilidade |
 
-A estrutura física de schemas, tabelas e arquivos será definida no exercício de modelagem. Não pressupor que todas as camadas precisem de cópias integrais.
+O modelo conceitual e lógico está no documento 07. A estrutura física de schemas, tabelas e arquivos será definida na F2. Não pressupor que todas as camadas precisem de cópias integrais.
 
 ## Decisões iniciais
 
