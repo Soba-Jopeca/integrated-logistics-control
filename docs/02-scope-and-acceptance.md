@@ -20,7 +20,7 @@ Estado: planejado. Nenhum critério está comprovado nesta versão.
 
 ## Experimento de IA
 
-Avaliação técnica no início: modelo local, licença do modelo, espaço disponível, latência e qualidade. Não presumir que 16 GB de RAM asseguram desempenho adequado.
+Avaliação técnica na F4, antes da integração de IA: modelo local, licença do modelo, espaço disponível, latência e qualidade. Não presumir que 16 GB de RAM asseguram desempenho adequado.
 
 Se viável: conjunto fixo de ocorrências sintéticas com respostas esperadas, prompt versionado, resultado estruturado validado e registro de erros/latência. Campo ausente não deve ser inventado. Comparar pelo menos duas versões do prompt sem alterar o conjunto de avaliação.
 
@@ -44,3 +44,20 @@ OCR em imagem, após concluir o fluxo com PDF textual/XML. E-mails, RAG, banco v
 ## Evidências necessárias
 
 Registrar entrada, resultado esperado, resultado observado, comando/consulta e commit para cada validação relevante. Testar falhas e reexecução, além do caminho de sucesso. Nenhum teste de software ou de integração foi executado nesta etapa documental.
+
+## Consolidação F1-P04
+
+Os aceites AC01–AC11 acima são futuros aceites de software,
+não comprovados pela documentação.
+A matriz completa R01–R17 está no documento 08.
+
+O experimento formal de IA pertence à F4.
+Diagnóstico e compatibilidade do ambiente pertencem à F2.
+Testes começam nas fases de implementação; CI é consolidada na F6.
+
+Documento recebido vinculado com divergência ou falha de parsing
+não é documento ausente. Referência ainda não resolvida permanece
+pendente, sem vínculo presumido.
+
+Contratos 06 e modelo 07 detalham identidade, estados e histórico.
+A F1 permanece aberta até avaliação central do conjunto.

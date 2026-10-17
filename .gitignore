@@ -1,0 +1,39 @@
+# Configurações locais e segredos
+.env
+.env.*
+!.env.example
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+ENV/
+
+# Caches Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyre/
+.ipynb_checkpoints/
+
+# Cobertura gerada
+.coverage
+.coverage.*
+htmlcov/
+
+# Logs e temporários
+logs/
+*.log
+tmp/
+temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

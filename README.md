@@ -44,3 +44,15 @@ Ainda não há aplicação executável, dependências fixadas ou instruções de
 Dados e documentos exclusivamente sintéticos. Não há integração com ERP/WMS reais nem representação oficial da Ever Express. O case foi motivado por requisitos profissionais, sem afirmar conhecimento da arquitetura interna de qualquer empresa.
 
 Não há resultados operacionais reais ou ganhos financeiros medidos. Evidências futuras serão resultados da simulação. Revisão humana será necessária em situações ambíguas.
+
+## Atualização documental — F1-P04
+
+Negócio, contratos, proteção inicial Git e modelagem foram aceitos
+por passo pela gestão. A F1 permanece aberta; P04 está em consolidação.
+Não há implementação executável.
+
+- [Contratos](docs/06-event-and-document-contracts.md)
+- [Modelo conceitual e lógico](docs/07-conceptual-and-logical-model.md)
+- [Consolidação, proposta analítica e R01–R17](docs/08-f1-consolidation-and-analytical-model.md)
+
+21/10/2026 é alvo de demonstração inicial sujeito a reestimativa.
