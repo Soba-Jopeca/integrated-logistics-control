@@ -4,7 +4,7 @@
 
 Case educacional de dados e automação aplicado à logística, desenvolvido por João Pedro Caneca com orientação técnica. O objetivo é aprender a transformar necessidades operacionais em uma solução verificável com Python, SQL, integração REST, aplicação web e indicadores.
 
-> **Estado: planejamento documentado; implementação ainda não iniciada.** As funcionalidades abaixo são planejadas, não entregas já disponíveis. Meta de demonstração: 21/10/2026.
+> **Estado: F1 FECHADA no escopo documental — VAL-F1-P04-001, 16/10/2026.** F2 pronta para receber o primeiro cartão do gerente, ainda não iniciada. Funcionalidades abaixo permanecem planejadas. Alvo de demonstração inicial: 21/10/2026, sujeito a reestimativa.
 
 ## Problema e valor esperado
 
@@ -45,7 +45,7 @@ Dados e documentos exclusivamente sintéticos. Não há integração com ERP/WMS
 
 Não há resultados operacionais reais ou ganhos financeiros medidos. Evidências futuras serão resultados da simulação. Revisão humana será necessária em situações ambíguas.
 
-## Atualização documental — F1-P04
+## Histórico — atualização documental durante F1-P04
 
 Negócio, contratos, proteção inicial Git e modelagem foram aceitos
 por passo pela gestão. A F1 permanece aberta; P04 está em consolidação.
@@ -56,3 +56,13 @@ Não há implementação executável.
 - [Consolidação, proposta analítica e R01–R17](docs/08-f1-consolidation-and-analytical-model.md)
 
 21/10/2026 é alvo de demonstração inicial sujeito a reestimativa.
+
+## Fechamento documental autorizado
+
+F1 FECHADA no escopo documental em 16/10/2026, por VAL-F1-P04-001.
+F2 pronta para receber o primeiro cartão do gerente, ainda não iniciada.
+F3–F6 bloqueadas pelas dependências anteriores.
+
+Artefatos, validações, commits, evidências, participação e limitações:
+[passagem consolidada](docs/08-f1-consolidation-and-analytical-model.md#registro-final-autorizado--val-f1-p04-001).
+Nenhuma instalação ou implementação iniciada por este fechamento.
