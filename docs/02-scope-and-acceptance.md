@@ -20,7 +20,7 @@ Estado: planejado. Nenhum critério está comprovado nesta versão.
 
 ## Experimento de IA
 
-Avaliação técnica no início: modelo local, licença do modelo, espaço disponível, latência e qualidade. Não presumir que 16 GB de RAM asseguram desempenho adequado.
+Avaliação técnica na F4, antes da integração de IA: modelo local, licença do modelo, espaço disponível, latência e qualidade. Não presumir que 16 GB de RAM asseguram desempenho adequado.
 
 Se viável: conjunto fixo de ocorrências sintéticas com respostas esperadas, prompt versionado, resultado estruturado validado e registro de erros/latência. Campo ausente não deve ser inventado. Comparar pelo menos duas versões do prompt sem alterar o conjunto de avaliação.
 
