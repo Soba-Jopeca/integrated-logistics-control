@@ -8,7 +8,16 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from scripts.migration_config import TEST_DATABASE, test_engine
 
-TABLES = {"sources", "inputs", "receipts", "runs", "attempts", "orders", "deliveries", "events"}
+TABLES = {
+    "sources",
+    "inputs",
+    "receipts",
+    "runs",
+    "attempts",
+    "orders",
+    "deliveries",
+    "events",
+}
 
 
 def main():
@@ -21,16 +30,22 @@ def main():
         with engine.connect() as connection:
             catalog = inspect(connection)
             schema_exists = "ilc" in catalog.get_schema_names()
-            tables = set(catalog.get_table_names(schema="ilc")) if schema_exists else set()
+            tables = (
+                set(catalog.get_table_names(schema="ilc")) if schema_exists else set()
+            )
             revisions = []
             if catalog.has_table("alembic_version", schema="public"):
-                revisions = list(connection.execute(
-                    text("SELECT version_num FROM public.alembic_version")
-                ).scalars())
+                revisions = list(
+                    connection.execute(
+                        text("SELECT version_num FROM public.alembic_version")
+                    ).scalars()
+                )
             if args.expect == "base":
                 valid = not schema_exists and not revisions
             else:
-                valid = schema_exists and tables == TABLES and revisions == ["0001_core"]
+                valid = (
+                    schema_exists and tables == TABLES and revisions == ["0001_core"]
+                )
             print("Database:", args.database)
             print("Domain tables:", ", ".join(sorted(tables)) or "none")
             print("Revision:", ", ".join(revisions) or "base")

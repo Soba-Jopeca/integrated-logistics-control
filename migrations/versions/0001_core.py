@@ -11,8 +11,13 @@ depends_on = None
 
 
 def add_event_identity_constraint():
-    """Joao implements the source-scoped event identity before execution."""
-    raise NotImplementedError("Joao: implement uq_events_source_event here")
+    """Garante identidade unica do evento dentro de cada origem."""
+    op.create_unique_constraint(
+        "uq_events_source_event",
+        "events",
+        ["source_system", "event_id"],
+        schema="ilc",
+    )
 
 
 def upgrade():
@@ -23,8 +28,14 @@ def upgrade():
 
 def downgrade():
     for table in (
-        "events", "deliveries", "orders", "attempts", "runs", "receipts",
-        "inputs", "sources",
+        "events",
+        "deliveries",
+        "orders",
+        "attempts",
+        "runs",
+        "receipts",
+        "inputs",
+        "sources",
     ):
         op.drop_table(table, schema="ilc")
     op.execute("DROP FUNCTION ilc.reject_history_change()")
