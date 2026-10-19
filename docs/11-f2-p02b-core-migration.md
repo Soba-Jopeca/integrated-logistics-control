@@ -5,7 +5,8 @@ Base: 2c0ab8bf9cca9e6221cabf60c1ff1b8735db2742.
 Entrada: contratos 06 e modelo 07 nessa base; F2-P02A encerrado com limitacoes
 conforme cartao central recebido neste chat.
 
-Estado: estrutura PREPARADA pelo assistente, nao validada no PostgreSQL.
+Estado: primeira revisao executada e testada localmente; validacao central pendente.
+As alteracoes locais da restricao e dos testes aguardam commit final de publicacao.
 F2-P02B EM EXECUCAO; F2 aberta; R03 parcial. Sem gerador, API ou ETL.
 
 ## 1. Escopo desta divisao
@@ -33,7 +34,6 @@ Reinicio concluido, listener 127.0.0.1:55432, PID 14584.
 Verificador Python apos reinicio: PASS, ilc_app/ilc, servidor 18.6,
 UTC, cinco privilegios administrativos false, limite de cinco conexoes.
 Nenhuma outra instancia foi alvo dos comandos fornecidos.
-Esforco ativo ainda nao consolidado; nao inferir pelo intervalo de mensagens.
 
 ## 3. Decisoes fisicas e fronteira banco/aplicacao
 
@@ -64,7 +64,7 @@ Tentativa em andamento: outcome/ended_at nulos; final: ACCEPTED, REJECTED,
 DUPLICATE, CONFLICT ou FAILED com ended_at. Esses nomes operacionalizam
 os estados logicos; nao comprovam uma rotina de ingestao.
 
-## 4. Pratica central de Joao
+## 4. Orientacao inicial da pratica central de Joao
 
 Editar migrations/versions/0001_core.py, funcao add_event_identity_constraint.
 Substituir NotImplementedError por op.create_unique_constraint:
@@ -81,7 +81,7 @@ Perguntas para interpretacao apos execucao:
 - Qual vinculo protege contra associar uma tentativa de outra entrada?
 - O que foi removido pelo downgrade e qual banco ficou preservado?
 
-## 5. Configuracao e comandos previstos (ainda nao executados)
+## 5. Configuracao e comandos de reproducao (resultados na secao 8)
 
 Dependencias mantidas no lock de F2-P01; nenhum pacote novo.
 Segredos somente em .env, lido com interpolate=False.
@@ -142,7 +142,7 @@ fixtures nao sao persistidas entre os comandos.
 Resultado nesta preparacao: sintaxe Python compilada no ambiente do assistente.
 Sem PostgreSQL, Alembic ou Ruff disponiveis nesse ambiente: testes de banco
 e lint ainda NAO executados. DDL ainda nao comprovado. Resultados reais,
-hash do commit final, aprendizagem e esforco deverao constar na devolucao.
+hash do commit final e participacao deverao constar na devolucao.
 
 ## 7. Fontes oficiais consultadas
 
@@ -153,3 +153,59 @@ hash do commit final, aprendizagem e esforco deverao constar na devolucao.
 - https://docs.sqlalchemy.org/en/20/core/engines.html
 
 Nenhuma fase ou cartao seguinte liberado por este documento.
+
+## 8. Evidencias locais observadas - atualizacao de 19/10/2026
+
+Esta secao atualiza o estado historico da preparacao acima.
+Resultados obtidos no Windows de Joao com PostgreSQL 18.6:
+- Joao editou add_event_identity_constraint, seguindo o trecho orientado
+  pelo assistente, para criar uq_events_source_event em ilc.events.
+- Sintaxe Python: PASS. Ruff final: All checks passed!
+- Banco descartavel ilc_f2p02b_test criado com proprietario ilc_app.
+- Inspecao inicial: base, sem tabelas de dominio, PASS.
+- Primeiro upgrade: 0001_core e oito tabelas, PASS.
+- Primeira tentativa de testes: 29 passed / 1 failed, em 2.03s.
+  A exclusao de pedido referenciado retornou 23001 (restrict_violation);
+  o teste esperava 23503. DDL de RESTRICT funcionou.
+- Ajustado somente o SQLSTATE desse caso para 23001; mantida a verificacao
+  da constraint deliveries_order_key_fkey. Outros casos FK mantiveram 23503.
+- Suite corrigida antes do downgrade: 30 passed in 2.60s.
+- Downgrade: base, sem schema/tabelas de dominio, PASS.
+- Segundo upgrade: 0001_core e oito tabelas, PASS.
+- Mesma suite apos reconstrucao: 30 passed in 2.55s.
+- Verificador do banco ilc: PASS, ilc_app/ilc, 18.6, 127.0.0.1:55432,
+  UTC, cinco privilegios administrativos false, limite de cinco conexoes.
+
+Os tempos acima sao duracoes reportadas pelo pytest, nao tempo de trabalho.
+Sao 30 casos da mesma suite executados duas vezes, nao 60 casos distintos.
+O ciclo upgrade -> downgrade -> upgrade foi observado nesta divisao.
+Nao foi apagado banco nem cluster como mecanismo de rollback.
+A conexao com ilc foi reconferida; a revisao so foi aplicada no descartavel.
+
+Tambem foram corrigidos I001, SIM117 e C408 antes da criacao do banco.
+Formatacao e correcoes de estilo nao equivalem a validacao de dominio.
+
+Referencia oficial do SQLSTATE:
+https://www.postgresql.org/docs/18/errcodes-appendix.html
+23001=restrict_violation; 23503=foreign_key_violation.
+
+### Participacao e explicacoes de referencia
+
+Execucao e edicao local de Joao comprovadas pelas saidas fornecidas.
+O assistente preparou a estrutura, testes, correcao do SQLSTATE e documentacao.
+As explicacoes abaixo sao do assistente; resposta autoral independente
+de Joao ainda nao verificada:
+- A identidade e composta por origem e event_id. Repetir o ID na mesma
+  origem viola unicidade; em origens diferentes nao repete a chave composta.
+- Downgrade removeu as oito tabelas, os triggers e a funcao desta revisao,
+  alem do schema ilc no banco descartavel. O banco e o cluster permaneceram.
+  O segundo upgrade recriou a estrutura vazia; nao restaurou dados apagados.
+
+### Passagem
+
+Estado: execucao local comprovada desta primeira divisao; aceite central pendente.
+Commit final com restricao e testes corrigidos ainda deve ser publicado
+e reconferido; a preparacao inicial remota continha NotImplementedError.
+Sem declaracao de modelo inteiro implementado ou de F2 fechada.
+Entidades documentais, vigencias, avaliacoes e conflitos continuam pendentes.
+O gerente deve decidir sobre o escopo parcial e liberar o proximo cartao.
