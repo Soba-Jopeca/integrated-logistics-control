@@ -4,7 +4,8 @@ Data: 19/10/2026. Branch: feat/f2-p02c-documents.
 Base autorizada: a6348f5c186546e5ef9e7316e84de8dbd35151b5.
 Codigo anterior aceito: dc1cc8e361dfc6cba3809407f92b4a55d77b6d7c.
 Referencias: contratos 06 e modelo 07 nessa base.
-Estado: PREPARACAO, sem execucao de 0002_documents comprovada.
+Estado: execucao local de 0002_documents e ciclo reversivel comprovados;
+validacao central pendente. Commit final sera identificado na passagem.
 F2 permanece aberta; R03 parcial. Sem parser, conferencia funcional,
 gerador, API ou ETL. Decisoes de conclusao e conflitos ficam pendentes.
 
@@ -42,7 +43,7 @@ Extensao trusted permite instalacao pelo proprietario do banco sem SUPERUSER.
 
 ## 3. Garantias estruturais no banco
 
-| Regra | Implementacao prevista |
+| Regra | Implementacao estrutural |
 |---|---|
 | Familia por origem | UNIQUE(source_system,document_family_id) |
 | Versao por origem e familia | UNIQUE(source_system,document_id), UNIQUE(family_key,version) |
@@ -116,7 +117,8 @@ chamada op.create_foreign_key, com os argumentos:
 Nao alterar a definicao da funcao nem sua chamada no upgrade.
 O teste de catalogo verifica as duas colunas, e um teste negativo usa
 extracao de outro documento para exigir rejeicao por essa FK.
-Preparacao bloqueada intencionalmente ate a edicao local de Joao.
+A preparacao inicial ficou bloqueada ate a edicao local de Joao.
+A edicao orientada foi executada e o vinculo composto passou nos testes.
 Edicao e execucao devem ser registradas pelas saidas, sem inferir
 compreensao autoral independente. Explicacoes fornecidas pelo assistente
 devem manter essa atribuicao.
@@ -176,8 +178,8 @@ estrutura documental vazia.
 
 Nesta preparacao: sintaxe Python conferida pelo assistente.
 Ambiente do assistente sem PostgreSQL, Alembic ou Ruff: nao foram
-executados DDL, testes de banco ou lint aqui. Nenhum resultado PASS
-da nova revisao e presumido. A execucao sera comprovada no Windows.
+executados DDL, testes de banco ou lint aqui. Os resultados observados no
+Windows de Joao estao registrados na secao 8; nao decorrem da preparacao.
 Registrar resultados, incidentes corrigidos, catalogo esperado/observado,
 Ruff e commits na devolucao. Sem declaracao de fase fechada.
 
@@ -190,3 +192,72 @@ Fontes oficiais consultadas antes da preparacao:
 
 Proximo passo somente conforme cartao central vigente; retornar ao gerente
 antes de iniciar a divisao de decisoes de conclusao e conflitos.
+
+## 8. Execucao observada no Windows - 19/10/2026
+
+### Catalogo esperado versus observado
+
+| Etapa | Esperado | Observado |
+|---|---|---|
+| Inicio | 0001_core, oito tabelas, sem extensao instalada | PASS |
+| Primeira subida | 0002_documents, quinze tabelas, btree_gist 1.8 | PASS |
+| Descida somente de 0002 | 0001_core, oito tabelas; extensao e schema auxiliar removidos | PASS |
+| Nova subida | 0002_documents, quinze tabelas; btree_gist 1.8 reinstalada | PASS |
+| Preservacao do nucleo | Sentinela inicial presente apos subida, descida e nova subida | PASS |
+| Conexao anterior | ilc_app/ilc acessivel em 127.0.0.1:55432 | PASS |
+
+Arquivo e SQL de 0001_core: git diff --exit-code sem alteracoes,
+com mensagem local 0001_core preservada: PASS antes da execucao.
+
+### Qualidade e resultados
+
+- Joao substituiu a funcao de bloqueio pela FK composta orientada:
+  fk_evaluations_extraction_document, extraction_key/document_key,
+  de evaluations para extractions, ambas no schema ilc, ON DELETE RESTRICT.
+- Sintaxe Python: PASS. Ruff, apos organizacao e formatacao: All checks passed!
+- Antes da suite, o assistente corrigiu somente a expectativa do caso de
+  APPROVED com extraction_key nulo: o trigger BEFORE ja rejeita essa entrada
+  por ck_evaluation_successful_extraction, antes do CHECK da tabela.
+  Nenhuma restricao foi removida e nenhum DDL foi alterado nesse ajuste.
+- Primeira suite completa: 91 passed in 7.65s.
+- Apos downgrade para 0001_core: regressao dos 30 anteriores,
+  30 passed in 1.62s.
+- Apos segundo upgrade: mesma suite completa, 91 passed in 5.22s.
+- Sao 91 casos distintos: 30 do nucleo e 61 documentais. Reexecucoes nao
+  aumentam o numero de casos distintos.
+- As duracoes acima foram reportadas pelo pytest.
+- A sentinela persistiu em todas as verificacoes do ciclo.
+- Verificador final de ilc: PASS, servidor 18.6, UTC, ilc_app/ilc,
+  cinco privilegios administrativos false, limite de cinco conexoes.
+- Alvo das migracoes e fixtures: apenas ilc_f2p02b_test.
+  O banco ilc nao recebeu esta migracao.
+
+### Participacao e explicacoes de referencia
+
+Joao editou a FK composta com orientacao do assistente e executou
+sintaxe, Ruff, inspecoes, suites e ciclo de migracao.
+O assistente preparou estrutura, testes, ajustes e documentacao.
+Compreensao autoral independente nao e inferida da execucao.
+
+Explicacoes do assistente:
+- A FK composta exige que a extracao exista e pertenca ao mesmo document_key
+  da avaliacao. Uma FK apenas por extraction_key nao garantiria isso.
+- Vigencias [a,b) e [b,c) podem ser adjacentes; intervalos que compartilham
+  qualquer ponto para a mesma familia/documento sao rejeitados por EXCLUDE.
+- O downgrade para 0001_core removeu a parte documental, seus objetos
+  auxiliares e extensao. Preservou o nucleo, sua sentinela, banco e cluster.
+  O novo upgrade recriou estrutura documental vazia.
+
+### Passagem e limites mantidos
+
+F2-P02C: execucao e verificacao local comprovadas; aguarda validacao central.
+Codigo editado e formatado localmente deve integrar o commit de fechamento
+identificado na devolucao; o commit inicial era preparacao bloqueada.
+Mantidas as limitacoes da secao 4, incluindo adicao de motivos a agregados
+historicos ainda dependente da aplicacao e ausencia de ensaio concorrente
+com duas sessoes. Nao foi implementada conferencia funcional.
+Decisoes de conclusao, conflitos, gerador, API e ETL nao iniciados.
+F2 aberta e R03 parcial. Aguardar decisao central antes do proximo cartao.
+
+Fonte complementar consultada na revisao dos testes:
+https://www.postgresql.org/docs/18/trigger-definition.html
