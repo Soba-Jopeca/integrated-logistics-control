@@ -32,7 +32,9 @@ def connection():
                     connection, "SELECT version_num FROM public.alembic_version"
                 ).scalar_one()
                 if revision not in {"0001_core", "0002_documents"}:
-                    pytest.fail("Upgrade to a supported case revision before running these probes")
+                    pytest.fail(
+                        "Upgrade to a supported case revision before running these probes"
+                    )
                 seed(connection)
                 yield connection
             finally:
@@ -312,4 +314,3 @@ def test_input_checksums_and_normalization_pair(
         state,
         constraint,
     )
-

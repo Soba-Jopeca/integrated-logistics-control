@@ -11,8 +11,17 @@ depends_on = None
 
 
 def add_evaluation_extraction_link():
-    """Joao implements the same-document composite foreign key."""
-    raise NotImplementedError("Joao: implement fk_evaluations_extraction_document")
+    """Exige extracao e avaliacao da mesma versao documental."""
+    op.create_foreign_key(
+        "fk_evaluations_extraction_document",
+        "evaluations",
+        "extractions",
+        ["extraction_key", "document_key"],
+        ["extraction_key", "document_key"],
+        source_schema="ilc",
+        referent_schema="ilc",
+        ondelete="RESTRICT",
+    )
 
 
 def upgrade():
@@ -23,8 +32,13 @@ def upgrade():
 
 def downgrade():
     for table in (
-        "evaluation_validities", "document_validities", "evaluation_reasons",
-        "evaluations", "extractions", "document_versions", "document_families",
+        "evaluation_validities",
+        "document_validities",
+        "evaluation_reasons",
+        "evaluations",
+        "extractions",
+        "document_versions",
+        "document_families",
     ):
         op.drop_table(table, schema="ilc")
     op.execute("""
@@ -34,6 +48,8 @@ def downgrade():
         DROP FUNCTION ilc.check_evaluation_validity();
         DROP FUNCTION ilc.close_validity_once();
     """)
-    op.drop_constraint("uq_events_key_delivery_type", "events", schema="ilc", type_="unique")
+    op.drop_constraint(
+        "uq_events_key_delivery_type", "events", schema="ilc", type_="unique"
+    )
     op.execute("DROP EXTENSION btree_gist")
     op.execute("DROP SCHEMA ilc_gist")

@@ -20,18 +20,26 @@ def main():
     engine = test_engine(args.database)
     try:
         with engine.begin() as connection:
-            revision = connection.execute(text("SELECT version_num FROM public.alembic_version")).scalar_one()
+            revision = connection.execute(
+                text("SELECT version_num FROM public.alembic_version")
+            ).scalar_one()
             if revision not in {"0001_core", "0002_documents"}:
                 raise RuntimeError("Unexpected revision")
             if args.initialize and revision != "0001_core":
-                raise RuntimeError("Initialize the sentinel before the documentary upgrade")
+                raise RuntimeError(
+                    "Initialize the sentinel before the documentary upgrade"
+                )
             description = connection.execute(
-                text("SELECT description FROM ilc.sources WHERE source_system = :source"),
+                text(
+                    "SELECT description FROM ilc.sources WHERE source_system = :source"
+                ),
                 {"source": SOURCE},
             ).scalar_one_or_none()
             if description is None and args.initialize:
                 connection.execute(
-                    text("INSERT INTO ilc.sources (source_system, description) VALUES (:source, :description)"),
+                    text(
+                        "INSERT INTO ilc.sources (source_system, description) VALUES (:source, :description)"
+                    ),
                     {"source": SOURCE, "description": DESCRIPTION},
                 )
                 description = DESCRIPTION

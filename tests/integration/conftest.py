@@ -18,7 +18,9 @@ def document_connection():
         with engine.connect() as connection:
             transaction = connection.begin()
             try:
-                revision = execute(connection, "SELECT version_num FROM public.alembic_version").scalar_one()
+                revision = execute(
+                    connection, "SELECT version_num FROM public.alembic_version"
+                ).scalar_one()
                 if revision != "0002_documents":
                     pytest.fail("Upgrade to 0002_documents before documentary probes")
                 seed_documents(connection)
