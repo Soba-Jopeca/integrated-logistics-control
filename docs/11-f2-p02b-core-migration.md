@@ -6,7 +6,8 @@ Entrada: contratos 06 e modelo 07 nessa base; F2-P02A encerrado com limitacoes
 conforme cartao central recebido neste chat.
 
 Estado: primeira revisao executada e testada localmente; validacao central pendente.
-As alteracoes locais da restricao e dos testes aguardam commit final de publicacao.
+Restricao e testes corrigidos publicados e conferidos no commit
+ dc1cc8e361dfc6cba3809407f92b4a55d77b6d7c.
 F2-P02B EM EXECUCAO; F2 aberta; R03 parcial. Sem gerador, API ou ETL.
 
 ## 1. Escopo desta divisao
@@ -204,8 +205,13 @@ de Joao ainda nao verificada:
 ### Passagem
 
 Estado: execucao local comprovada desta primeira divisao; aceite central pendente.
-Commit final com restricao e testes corrigidos ainda deve ser publicado
-e reconferido; a preparacao inicial remota continha NotImplementedError.
+Codigo final com restricao e testes corrigidos publicado e conferido em
+ dc1cc8e361dfc6cba3809407f92b4a55d77b6d7c.
+A preparacao inicial remota continha NotImplementedError; o codigo final nao.
+Diff consolidado desde 2c0ab8b: dez arquivos novos, 886 insercoes,
+sem exclusoes; tres commits ate a publicacao do codigo final.
+Estado local informado apos push: sincronizado; somente .vscode nao rastreada.
+Este ajuste documental posterior nao altera codigo, DDL ou testes.
 Sem declaracao de modelo inteiro implementado ou de F2 fechada.
 Entidades documentais, vigencias, avaliacoes e conflitos continuam pendentes.
 O gerente deve decidir sobre o escopo parcial e liberar o proximo cartao.
