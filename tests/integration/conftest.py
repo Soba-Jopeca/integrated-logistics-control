@@ -21,7 +21,7 @@ def document_connection():
                 revision = execute(
                     connection, "SELECT version_num FROM public.alembic_version"
                 ).scalar_one()
-                if revision != "0002_documents":
+                if revision not in {"0002_documents", "0003_decisions_conflicts"}:
                     pytest.fail("Upgrade to 0002_documents before documentary probes")
                 seed_documents(connection)
                 yield connection

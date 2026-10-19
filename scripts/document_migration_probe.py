@@ -23,7 +23,7 @@ def main():
             revision = connection.execute(
                 text("SELECT version_num FROM public.alembic_version")
             ).scalar_one()
-            if revision not in {"0001_core", "0002_documents"}:
+            if revision not in {"0001_core", "0002_documents", "0003_decisions_conflicts"}:
                 raise RuntimeError("Unexpected revision")
             if args.initialize and revision != "0001_core":
                 raise RuntimeError(

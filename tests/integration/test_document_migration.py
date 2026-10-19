@@ -47,7 +47,7 @@ def replace_document(connection):
 
 def test_catalog_and_author_composite_link(document_connection):
     catalog = inspect(document_connection)
-    assert set(catalog.get_table_names(schema="ilc")) == {
+    expected = {
         "sources",
         "inputs",
         "receipts",
@@ -64,6 +64,10 @@ def test_catalog_and_author_composite_link(document_connection):
         "document_validities",
         "evaluation_validities",
     }
+    revision = execute(document_connection, "SELECT version_num FROM public.alembic_version").scalar_one()
+    if revision == "0003_decisions_conflicts":
+        expected |= {"completion_decisions", "conflicts", "conflict_evidence", "conflict_resolutions"}
+    assert set(catalog.get_table_names(schema="ilc")) == expected
     links = {
         fk["name"]: fk for fk in catalog.get_foreign_keys("evaluations", schema="ilc")
     }
@@ -96,7 +100,7 @@ def test_same_ids_in_other_source_and_distinct_families(document_connection):
     assert (
         execute(
             document_connection,
-            "SELECT count(*) FROM ilc.document_validities WHERE valid_to IS NULL",
+            "SELECT count(*) FROM ilc.document_validities v JOIN ilc.document_families f USING (family_key) WHERE valid_to IS NULL AND f.source_system IN ('mock_a', 'mock_b')",
         ).scalar_one()
         == 3
     )
@@ -543,7 +547,7 @@ def test_adjacent_evaluation_intervals_are_valid(document_connection):
     flush(document_connection)
     assert (
         execute(
-            document_connection, "SELECT count(*) FROM ilc.evaluation_validities"
+            document_connection, "SELECT count(*) FROM ilc.evaluation_validities WHERE document_key IN (SELECT document_key FROM ilc.document_versions WHERE source_system IN ('mock_a', 'mock_b'))"
         ).scalar_one()
         == 2
     )

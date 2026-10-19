@@ -32,7 +32,7 @@ DOCUMENT_TABLES = {
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--database", required=True, choices=[TEST_DATABASE])
-    parser.add_argument("--expect", required=True, choices=["base", "core", "head"])
+    parser.add_argument("--expect", required=True, choices=["base", "core", "documents", "head"])
     args = parser.parse_args()
     engine = test_engine(args.database)
     try:
@@ -55,9 +55,14 @@ def main():
                 text("SELECT extversion FROM pg_extension WHERE extname = 'btree_gist'")
             ).scalar_one_or_none()
             extra_unique = False
+            evidence_unique = False
             if "events" in tables:
                 extra_unique = any(
                     c["name"] == "uq_events_key_delivery_type"
+                    for c in catalog.get_unique_constraints("events", schema="ilc")
+                )
+                evidence_unique = any(
+                    c["name"] == "uq_events_key_input"
                     for c in catalog.get_unique_constraints("events", schema="ilc")
                 )
             if args.expect == "base":
@@ -76,9 +81,15 @@ def main():
                     and "ilc_gist" not in schemas
                 )
             else:
+                expected_tables = CORE_TABLES | DOCUMENT_TABLES
+                expected_revision = "0002_documents"
+                if args.expect == "head":
+                    expected_tables |= {"completion_decisions", "conflicts", "conflict_evidence", "conflict_resolutions"}
+                    expected_revision = "0003_decisions_conflicts"
                 valid = (
-                    tables == CORE_TABLES | DOCUMENT_TABLES
-                    and revisions == ["0002_documents"]
+                    tables == expected_tables
+                    and revisions == [expected_revision]
+                    and evidence_unique == (args.expect == "head")
                     and extension is not None
                     and extra_unique
                     and "ilc_gist" in schemas
