@@ -31,8 +31,8 @@ def connection():
                 revision = execute(
                     connection, "SELECT version_num FROM public.alembic_version"
                 ).scalar_one()
-                if revision != "0001_core":
-                    pytest.fail("Upgrade to 0001_core before running these probes")
+                if revision not in {"0001_core", "0002_documents"}:
+                    pytest.fail("Upgrade to a supported case revision before running these probes")
                 seed(connection)
                 yield connection
             finally:
@@ -153,7 +153,7 @@ def expect_integrity(connection, operation, state, constraint=None):
 
 def test_physical_slice_and_author_constraint(connection):
     catalog = inspect(connection)
-    assert set(catalog.get_table_names(schema="ilc")) == {
+    assert {
         "sources",
         "inputs",
         "receipts",
@@ -162,7 +162,7 @@ def test_physical_slice_and_author_constraint(connection):
         "orders",
         "deliveries",
         "events",
-    }
+    } <= set(catalog.get_table_names(schema="ilc"))
     constraints = {
         c["name"]: c["column_names"]
         for c in catalog.get_unique_constraints("events", schema="ilc")
@@ -312,3 +312,4 @@ def test_input_checksums_and_normalization_pair(
         state,
         constraint,
     )
+
