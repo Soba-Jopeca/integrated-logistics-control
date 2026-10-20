@@ -6,9 +6,9 @@ Projeto de João Pedro Caneca, desenvolvido com orientação técnica, para
 transformar necessidades de logística em uma solução verificável com Python
 e SQL. Entrega física e regularidade documental são estados independentes.
 
-**Estado em 19/10/2026:** F1 fechada no escopo documental. Passos técnicos
-P01, P02A–D e P03 da F2 aceitos com limitações. F2-P04 em consolidação,
-F2 ainda aberta e F3–F6 bloqueadas. Este PR não autoriza merge nem início da F3.
+**Estado em 20/10/2026:** F1 fechada no escopo documental. Passos técnicos
+P01, P02A–D e P03 da F2 aceitos com limitações. Verificação final da P04
+aprovada localmente; decisão central pendente. F2 aberta e F3–F6 bloqueadas. Este PR não autoriza merge nem início da F3.
 
 ## O que está implementado
 
@@ -129,9 +129,11 @@ e [fixtures](tests/fixtures/synthetic/README.md).
 .\.venv\Scripts\python.exe -m ruff format --check scripts migrations tests
 ```
 
-O conjunto exige também os 24 testes do gerador, 147 testes de integração
-em 0003 e verificação da fixture. Resultados anteriores estão documentados;
-a revalidação P04 é registrada separadamente quando observada.
+Verificação final observada no Windows em 20/10/2026: Ruff aprovado,
+21 arquivos já formatados, 24 testes do gerador e 11 subtestes em 0,84 s,
+147 testes de integração em 8,44 s, fixture, sentinelas e conexão aprovadas.
+A instância existente estava parada; foi iniciada e reconferida sem recriar
+banco nem repetir downgrade. Não houve alteração de código nessa verificação.
 [Passagem consolidada F2 e pendências](docs/15-f2-p04-consolidation.md).
 
 ## Limites e responsabilidades futuras
