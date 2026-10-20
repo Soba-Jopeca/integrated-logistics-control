@@ -1,0 +1,2 @@
+# Keep versioned fixture bytes identical on Windows and Linux.
+tests/fixtures/synthetic/** text eol=lf

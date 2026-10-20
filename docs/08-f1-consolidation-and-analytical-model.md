@@ -2,7 +2,9 @@
 
 Data: 16/10/2026.
 Passo: F1-P04.
-Estado: em revisão; F1 aberta.
+Estado atual: F1 FECHADA no escopo documental — VAL-F1-P04-001.
+F2 pronta para receber o primeiro cartão do gerente, ainda não iniciada.
+As seções anteriores ao registro final preservam o histórico de elaboração.
 Implementação analítica: somente na F5.
 
 ## 1. Precedência e estado
@@ -123,7 +125,7 @@ Definição documental não significa implementação comprovada.
 | ID | Definição/artefato na F1 | Evidência futura exigida |
 |---|---|---|
 | R01 | Negócio, personas e decisões em 01; aceite P01 com aprendizagem autodeclarada | Sem alegação de explicação autoral independente |
-| R02 | Contratos 06, relações/dicionário 07, proposta analítica 08 | Verificações visuais pendentes; integridade executável nas fases seguintes |
+| R02 | Contratos 06, relações/dicionário 07, proposta analítica 08 | Três diagramas conferidos visualmente em P04; integridade executável nas fases seguintes |
 | R03 | Ambiente reproduzível previsto em 02/03/04 | F2: versões oficiais, isolamento, lock, .env.example, migração e rollback |
 | R04 | Fixtures conceituais em 06/07 | F2: gerador com semente, pequenos casos esperados e volume configurável |
 | R05 | API local simulada no escopo | F3: OpenAPI, paginação/cursor, timeout, HTTP/JSON inválidos e indisponibilidade |
@@ -151,12 +153,16 @@ não substituem R01–R17.
 | Proteção inicial Git | 54fc765 publicado; regras verificadas |
 | Modelo conceitual/lógico | 8339239 publicado |
 | Fixtures A/B/C | Inspeção documental; sem execução |
-| Três diagramas Mermaid | Conferência visual ainda pendente |
-| Consolidação P04 | Aguardando aplicação, diff, commit e publicação |
+| Três diagramas Mermaid | Capturas fornecidas por João e inspecionadas pelo assistente em 16/10/2026; renderização completa, sem erro aparente |
+| Consolidação P04 | Aplicada e publicada em b327043; quatro ajustes publicados até 7ed35cb; atualização local fast-forward e diretório limpo informados por João |
 | Software/banco/ETL | Não implementados na F1 |
 
-O commit de P04 será registrado na passagem após sua criação.
-Não inserir antecipadamente hash ou resultado de comando.
+Evidência visual: image.png (conflitos), image(1).png (relações principais)
+e image(2).png (origem, recebimentos e tentativas), anexadas neste chat.
+Não foram identificados cortes ou sobreposições impeditivas.
+O diagrama principal possui texto pequeno no zoom geral; ampliar para leitura.
+Capturas não substituem testes de integridade ou execução das fixtures.
+O commit deste registro será informado na passagem após sua criação.
 
 ## 6. Participação, aprendizagem e tempo
 
@@ -177,15 +183,51 @@ Não converter intervalo entre mensagens em esforço trabalhado.
 
 ## 7. Pendências e passagem
 
-Antes de solicitar fechamento:
-- Conferir visualmente os três diagramas.
-- Revisar a consolidação e suas relações analíticas.
-- Verificar diff e registrar commit/push.
-- Registrar resultados observados e limitações.
-- Levar artefatos e passagem ao gerente.
+Verificações documentais e visuais realizadas; consolidação publicada.
+Próximas ações:
+- Sincronizar localmente este último registro de evidências.
+- Levar artefatos e passagem ao gerente para avaliação de fechamento.
 - Atualizar a fonte compartilhada na transição, após decisão central,
   sem presumir sincronização automática.
 
 F1 continua aberta.
 F2–F6 bloqueadas.
 Nenhuma instalação, .env, ambiente virtual, banco ou ETL iniciado.
+
+## Registro final autorizado — VAL-F1-P04-001
+
+F1 FECHADA no escopo documental em 16/10/2026, por VAL-F1-P04-001.
+F2 pronta para receber o primeiro cartão do gerente, ainda não iniciada.
+F3–F6 bloqueadas pelas dependências anteriores.
+
+Autoridade: decisão do gerente do chat 00, encaminhada por João neste chat.
+P01: VAL-F1-P01-003, aceito com aprendizagem autodeclarada.
+P02, H01 e P03: aceitos conforme cartões humanos de liberação posteriores;
+identificadores de validação não fornecidos não foram inventados.
+P04 e fechamento documental: VAL-F1-P04-001.
+
+Artefatos: README, docs/01–08, CONTRIBUTING.md e .gitignore.
+Contratos: 92202af e 58a1ec3; proteção Git: 54fc765;
+modelo: 8339239; consolidação: b327043; ajustes até 7ed35cb;
+evidência visual: b836c199dd0ee6bcf90fc962b1debae6b8d49764.
+
+Verificações observadas: diffs revisados, checagens Git sem erros de
+whitespace reportados, leitura remota UTF-8 dos documentos corrigidos,
+e três capturas Mermaid inspecionadas sem erro aparente de renderização.
+Último estado local comprovado: 7ed35cb, diretório limpo e sincronizado.
+Sincronização local posterior não foi presumida.
+
+João aplicou alterações, executou Git e forneceu capturas.
+O assistente elaborou propostas e justificativas; aprendizagem de P01
+autodeclarada, sem explicação autoral independente adicional registrada.
+Tempo dedicado: não medido.
+
+Limitações preservadas: fixtures não executadas; integridade, SQL/DAX,
+instalação limpa e comportamento operacional ainda não comprovados.
+O aceite documental não constitui entrega executável nem validação
+integral de implementação de R01–R17. Matriz de evidências futuras na seção 4.
+Nenhuma dependência instalada, .env, ambiente virtual, banco ou ETL criado.
+
+Próximo passo: incluir esta passagem nas fontes compartilhadas e aguardar
+o primeiro cartão do gerente para F2. Não iniciar F2 por este registro.
+Registros de fase aberta acima são históricos, anteriores a esta decisão.
