@@ -1,12 +1,13 @@
 # F2-P04 - Consolidacao verificavel da F2
 
-Data: 19/10/2026. Branch de consolidacao: docs/f2-p04-consolidation.
+Preparacao: 19/10/2026. Verificacao final: 20/10/2026.
+Branch de consolidacao: docs/f2-p04-consolidation.
 Entrada aceita: 33ba8d02931883cc31d0312049587abae444e9ef.
 Autoridade: cartao F2-P04 encaminhado por Joao, com P01, P02A-D e P03
 aceitos centralmente com limitacoes. Nao foram fornecidos IDs adicionais
 de validacao; nenhum foi inventado.
 
-**Estado: P04 em consolidacao, verificacao final pendente, F2 aberta.**
+**Estado: verificacao final P04 aprovada no ambiente local; aguarda decisao central. F2 aberta.**
 F3-F6 bloqueadas. PR para revisao, sem autorizacao de merge neste cartao.
 
 ## 1. Escopo consolidado e proveniencia
@@ -38,7 +39,9 @@ Fechamento F1 permanece em [08](08-f1-consolidation-and-analytical-model.md).
 
 Ultima saida local recebida, ao terminar P03: HEAD 33ba8d0, branch
 feat/f2-p03-synthetic-generator sincronizada com origin; apenas .vscode
-nao rastreada. Estado P04 local ainda deve ser reconferido por Joao.
+nao rastreada. Em P04, Joao confirmou a branch de consolidacao e o HEAD
+f2d1d11cbbe35a6d2773ae15257896a2270517bf sincronizado com origin; apenas
+.vscode nao rastreada. Resultado 0/2 em relacao a origin/main naquele momento.
 Nenhum acesso ao Windows do usuario e presumido pelo assistente.
 
 Remoto conferido na preparacao:
@@ -108,7 +111,7 @@ ilc_app pode alterar DDL e contornar triggers como proprietario.
 | R11 | Aplicacao de consulta/upload: F5, nao implementado |
 | R12 | Metricas SQL/DAX e Power BI: F5, nao implementado |
 | R13 | Scheduler e recuperacao operacional: F6, nao implementado |
-| R14 | Testes e Ruff observados por passo; revalidacao conjunta P04 pendente; CI/PostgreSQL isolado/E2E permanecem para F6 |
+| R14 | Testes e Ruff observados por passo; revalidacao conjunta P04 aprovada em 20/10/2026; CI/PostgreSQL isolado/E2E permanecem para F6 |
 | R15 | Parcial: configuracao externa, sinteticidade, loopback, SQL parametrizado e logs sanitizados; protecoes de upload/XML e papeis de producao futuros |
 | R16 | Instalacao limpa, backup/restauracao e rollback de release: F6, nao demonstrados |
 | R17 | Evidencias e arquitetura disponiveis; demo completa, capturas de produto e release: F6, nao concluidos |
@@ -163,31 +166,75 @@ diretorios existentes recusados. Resultado nao prova vazao de pipeline.
 As duracoes acima sao saidas do pytest nos passos anteriores, nao medicao
 da consolidacao atual. Nao somar reexecucoes como casos novos.
 
-## 7. Verificacao final P04 - ainda pendente
+## 7. Verificacao final P04 - observada em 20/10/2026
 
-| Item | Esperado | Observado nesta preparacao |
+Commit local verificado: f2d1d11cbbe35a6d2773ae15257896a2270517bf.
+Codigo identico a entrada aceita 33ba8d0; atualizacoes posteriores desta
+passagem, README e plano sao somente documentais.
+
+| Item | Esperado | Observado |
 |---|---|---|
-| Git local | Branch P04, base/documentacao corretas; .vscode preservada | Aguardando saida de Joao |
-| Ambiente | Venv aceita, pip check sem conflitos; versoes/lock reconferidos | Aguardando |
-| Ruff check e format --check | Sem erros no conjunto scripts/migrations/tests | Aguardando |
-| Testes do gerador | 24 testes; subtestes reportados separadamente | Aguardando |
-| Catalogo descartavel | 0003_decisions_conflicts, 19 tabelas, btree_gist 1.8 | Aguardando |
-| Integracao | 147 testes aprovados, sem downgrade | Aguardando |
-| Fixture pequena | Inventario, contagens e hashes aprovados | Aguardando |
-| Conexao anterior/sentinelas | PASS, sem segredos e sem alterar dados anteriores | Aguardando |
-| PR | Rascunho revisavel para main, sem merge | PR #2 aberto em draft; verificacao inicial clean, conforme secao 9 |
+| Git local | Branch P04 sincronizada, .vscode preservada | PASS; HEAD f2d1d11, apenas .vscode nao rastreada |
+| Ambiente | Python da venv e versoes aceitas; pip check | Python 3.13.14, versoes conferidas, No broken requirements found |
+| Ruff check | Sem erros em scripts/migrations/tests | All checks passed! |
+| Ruff format --check | Arquivos ja formatados | 21 files already formatted |
+| Gerador | 24 testes, subtestes separados | 24 passed, 11 subtests passed in 0.84s |
+| Catalogo descartavel | 0003, 19 tabelas, btree_gist 1.8 | PASS apos iniciar a instancia existente |
+| Integracao | 147 testes aprovados, sem downgrade | 147 passed in 8.44s |
+| Fixture pequena | Inventario, contagens e hashes coerentes | PASS |
+| Sentinela anterior | Preservada em 0003 | Core sentinel preserved: PASS |
+| Quinze tabelas anteriores | Mesmo SHA256 esperado | PASS; hash igual ao ciclo P02D |
+| Conexao final | ilc_app/ilc, localhost:55432, UTC, sem privilegios administrativos | PASS; servidor 18.6, cinco flags false, limite 5 |
+| PR | Revisavel para main, sem merge | PR #2 aberto em draft; estado remoto reconferido na passagem |
 
-Comandos de ambiente, conexao, migracoes e geracao no README foram
-executados nos passos anteriores. Sua reuniao no README nao comprova
-uma instalacao limpa nova. Em P04 usar venv e instancia existentes.
-Nao instalar ou atualizar dependencias, iniciar banco novo ou repetir
-downgrade para preencher esta tabela.
+Versoes novamente impressas por Joao: pip 26.1.2, pip-tools 7.6.2,
+SQLAlchemy 2.0.55, psycopg 3.3.6, Alembic 1.20.0, python-dotenv 1.2.4,
+pytest 9.1.1 e Ruff 0.17.1. O SHA256 do lock registrado na secao 3 vem de
+P01; a saida reenviada de P04 nao trouxe um novo valor Get-FileHash.
+A equivalencia de blob do lock com a entrada aceita foi conferida remotamente.
+
+Fixture final: oito pedidos/entregas, 13 eventos validos, seis envelopes
+validos, um reenvio de cada tipo, uma alternativa de cada tipo, tres eventos
+invalidos, dois envelopes invalidos, 28 chegadas e oito referencias documentais.
+SHA256 de SHA256SUMS aprovado:
+
+    5e2d363aabb33506cbae02252037b32f742c08ebc3d43718f31b4ce8e27d7e50
+
+SHA256 das quinze tabelas anteriores novamente aprovado:
+
+    1a730d96e2d525c4159990e2429c74c4c65bce7e3f4ada9c50a1ed575249c615
+
+Nao houve downgrade, nova migracao ou geracao adicional para repetir
+evidencias ja aceitas. O verificador da fixture nao executa conferencia
+funcional; EXPECTED continua expectativa. Testes do gerador e integracao
+sao conjuntos diferentes: 24 e 147 casos principais, sem somar subtestes
+ou reexecucoes como novos casos.
+
+### Ocorrencia de disponibilidade e recuperacao
+
+A primeira tentativa de inspect_migration terminou com OperationalError.
+Isso interrompeu o bloco antes da integracao, fixture e sentinelas.
+A mensagem PowerShell "Banco descartavel fora de 0003" foi imprecisa:
+OperationalError nao comprova revisao incorreta nem alteracao de credenciais.
+
+Diagnostico posterior: pg_ctl status informou que nenhum servidor estava
+executando. A instancia existente foi iniciada pelo pg_ctl no diretorio
+dedicado C:\\ILC-PostgreSQL\\ilc-data-18. A partida emitiu aviso de possivel
+outro servidor, aguardou e informou servidor iniciado. A conexao seguinte
+retornou ilc_app/ilc, 18.6 e 127.0.0.1:55432; o catalogo permaneceu em 0003.
+Nao foi executado initdb, instalacao, troca de usuario ou recriacao do banco.
+A causa do processo parado e a origem do aviso nao foram isoladas.
+
+Ambiente, Ruff e gerador ja aprovados nao foram repetidos sem necessidade.
+Depois da recuperacao, Joao executou apenas as verificacoes pendentes,
+todas aprovadas. Sem alteracao de codigo para resolver a indisponibilidade.
 
 ## 8. Pendencias classificadas e passagem
 
-**Para decisao de fechamento P04:** receber verificacao final local;
-conferir estado/URL do PR e diff; publicar registro observado e devolver ao
-gerente. Falha de verificacao e bloqueadora ate revisao e correcao.
+**Para decisao de fechamento P04:** verificacao local aprovada e registrada;
+reconferir estado/URL do PR, publicar esta passagem e devolver ao gerente.
+A indisponibilidade inicial foi recuperada e nao ha falha tecnica residual
+observada no conjunto exigido. Aceite e fechamento continuam decisao central.
 Nao fazer merge neste cartao mesmo com todos os checks locais aprovados.
 
 **Limitacoes aceitas a preservar:** execucao local/cache, dono do banco,
@@ -226,5 +273,22 @@ entrada aceita ausente; codigo, testes, migracoes, lock e fixtures com os
 mesmos blobs. Nenhum .env, .venv, .vscode ou data/generated rastreado.
 Links internos dos tres documentos conferidos sem destino ausente.
 
-Esta atualizacao registra apenas a preparacao do PR. Verificacao final
-no Windows ainda pendente; resultado anterior nao foi reciclado como P04.
+O registro inicial desta secao descreve a preparacao do PR. A verificacao
+posterior no Windows foi executada em 20/10/2026 e consta na secao 7;
+resultados anteriores nao foram reciclados como verificacao P04.
+
+
+## 10. Passagem apos verificacao
+
+P04 tecnicamente verificado; submeter ao gerente para aceite/ajustes e
+decisao de fechamento da F2. Nenhum merge autorizado ou executado.
+A cabeca remota e a URL do PR serao identificadas na devolucao apos
+publicar estes registros. O ultimo HEAD local observado e f2d1d11;
+a sincronizacao das atualizacoes documentais posteriores deve ser feita
+por fast-forward, sem presumir que ja ocorreu.
+
+Joao executou as verificacoes e a recuperacao da instancia; assistente
+preparou comandos, documentos e PR, e revisou as saidas recebidas.
+Interpretacao independente nao foi verificada. Limites de motivos
+historicos, concorrencia, papeis, portabilidade, documentos sinteticos
+e funcionalidades futuras permanecem classificados nas secoes 4, 5 e 8.
