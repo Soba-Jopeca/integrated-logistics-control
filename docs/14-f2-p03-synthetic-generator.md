@@ -3,7 +3,8 @@
 Data: 19/10/2026. Branch: feat/f2-p03-synthetic-generator.
 Entrada autorizada: 35dd157dcb44932eebf948cc85cd4c2ba98b064a.
 Contratos 06 e fixtures A/B/C de 06/07 nessa entrada.
-Estado: preparacao; pratica central e verificacoes no Windows pendentes.
+Estado: pratica orientada e reproducao local no Windows comprovadas;
+codigo final a publicar, validacao central pendente. Evidencias na secao 10.
 F2 aberta, R03 parcial, R04 nao validado e F3-F6 bloqueadas.
 Nao representa consolidacao da F2 nem integracao com main.
 
@@ -178,7 +179,7 @@ Na referencia, ambiente Linux/Python 3.12.14 do assistente:
 
 As evidencias acima nao provam execucao de Joao nem do scaffold bloqueado.
 Ruff/pytest nao disponiveis no ambiente do assistente: nao foram executados
-aqui. Validacao no Windows/Python 3.13.14 e Ruff continuam pendentes.
+aqui. A verificacao posterior no Windows/Python 3.13.14 esta na secao 10.
 Nao executada regressao de banco neste cartao: codigo de migracao nao mudou.
 
 ## 7. Comandos previstos, ainda nao observados no Windows
@@ -211,8 +212,79 @@ Nenhum pacote ou versao do lock foi alterado por causa deste cartao.
 
 ## 9. Pendencias e passagem
 
-Implementar a regra central; executar qualidade, duas geracoes e comparacao
-no Windows; registrar contagens/hashes e interpretacao com atribuicao correta;
-publicar commit final e retornar ao gerente. F2-P03 e R04 ainda nao validados.
+Publicar o codigo final editado/formatado e retornar ao gerente. Pratica
+orientada e execucao comprovadas; interpretacao independente nao verificada.
+F2-P03 e R04 dependem da validacao central.
 Sem ingestao, API, parser, conferencia funcional ou metricas implementadas.
 Integracao com main e consolidacao final da F2 permanecem pendentes.
+
+
+## 10. Execucao observada no Windows de Joao - 19/10/2026
+
+### Configuracao, qualidade e reproducao
+
+- Base 35dd157 e branch feat/f2-p03-synthetic-generator confirmadas.
+- Python 3.13.14 dentro da .venv: PASS.
+- Joao editou divergent_quantity conforme a regra orientada pelo assistente.
+- Ruff: All checks passed! apos organizacao/formatacao.
+- pytest: 24 passed, 11 subtests passed in 0.73s.
+  Sao 24 testes principais; subtestes nao sao contados como outros 11 testes principais.
+- Duas geracoes com seed=20261019 e volume adicional=25:
+  data/generated/f2p03-a e data/generated/f2p03-b, ambas PASS.
+- Comparacao independente de inventario, contagens, hashes e todos os bytes:
+  Same files, bytes and hashes: PASS.
+- Verificacao da fixture pequena tests/fixtures/synthetic/v1: PASS.
+- git check-ignore confirmou os manifestos dos dois conjuntos gerados:
+  ambos fora do rastreamento. .vscode permanece nao rastreada.
+
+| Item por conjunto | Esperado | Observado |
+|---|---|---|
+| Pedidos / entregas | 33 / 33 | 33 / 33 |
+| Eventos validos / envelopes validos | 38 / 31 | 38 / 31 |
+| Reenvios de evento / envelope | 1 / 1 | 1 / 1 |
+| Alternativas de evento / envelope | 1 / 1 | 1 / 1 |
+| Eventos / envelopes invalidos | 3 / 2 | 3 / 2 |
+| Chegadas planejadas | 78 | 78 |
+| Referencias documentais | 33 | 33 |
+| Arquivos totais | 46 | 46 |
+
+SHA256 de SHA256SUMS identico nas duas geracoes Windows:
+
+    0bfc266949ab9488a357ef67a03a3f12a4b6dc46cdd6caa1969bca27d67f9a2c
+
+SHA256 de SHA256SUMS da fixture pequena, verificado no Windows:
+
+    5e2d363aabb33506cbae02252037b32f742c08ebc3d43718f31b4ce8e27d7e50
+
+Os dois valores tambem coincidem com a referencia preparada pelo assistente
+no Linux/Python 3.12.14 para essas mesmas configuracoes. Isso e evidencia
+pontual entre os dois ambientes; nao garante todos os sistemas/versoes.
+
+### Explicacoes de referencia do assistente
+
+33 entregas significam oito referencias das fixtures e 25 adicionais.
+Contagens de entradas nao sao contagens de registros aceitos: reenvios,
+alternativas e invalidos permanecem separados e identificados.
+A igualdade verificada abrange caminhos e todos os bytes, alem dos hashes;
+indica reproducao para a configuracao e versao de codigo verificadas.
+Os resultados EXPECTED_NOT_EXECUTED no manifesto continuam expectativas
+para o pipeline futuro. Nao foram executadas aprovacao, deduplicacao,
+ingestao, resolucao de conflitos ou metricas.
+
+Joao executou edicao orientada, qualidade, duas geracoes e verificacoes.
+Assistente preparou codigo, fixtures, testes, comandos e explicacoes.
+Interpretacao independente de Joao nao foi recebida/verificada; nao atribuir
+as explicacoes acima ao usuario como resposta autoral.
+
+### Estado da publicacao e limites
+
+Alteracoes locais observadas: scripts/synthetic_generator.py e
+tests/unit/test_synthetic_generator.py; commit final sera identificado na passagem.
+O scaffold inicial dd257dd possuia bloqueio de pratica; a execucao Windows
+foi feita depois da edicao orientada, nao com o scaffold bloqueado.
+
+Sem conexao/escrita no banco, API, parser, conferencia funcional ou metricas.
+Documentos continuam referencias JSON sinteticas, sem PDF/XML real.
+Volume maximo de 10000 nao ensaiado; geracoes nao sobrescrevem diretorios.
+F2 aberta, R03 parcial, R04 aguardando validacao; F3-F6 bloqueadas.
+Integracao com main e consolidacao da F2 permanecem pendentes.
