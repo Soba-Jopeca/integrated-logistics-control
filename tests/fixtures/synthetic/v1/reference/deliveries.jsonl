@@ -1,0 +1,8 @@
+{"delivery_id":"ENT-001","expected_quantity":10,"order_id":"ORD-ENT-001","order_source_system":"synthetic_reference","promised_at":"2026-10-16T18:00:00Z","quantity_unit":"VOLUME"}
+{"delivery_id":"ENT-002","expected_quantity":10,"order_id":"ORD-ENT-002","order_source_system":"synthetic_reference","promised_at":"2026-10-16T18:00:00Z","quantity_unit":"VOLUME"}
+{"delivery_id":"ENT-003","expected_quantity":10,"order_id":"ORD-ENT-003","order_source_system":"synthetic_reference","promised_at":"2026-10-16T18:00:00Z","quantity_unit":"VOLUME"}
+{"delivery_id":"ENT-004","expected_quantity":10,"order_id":"ORD-ENT-004","order_source_system":"synthetic_reference","promised_at":"2026-10-16T18:00:00Z","quantity_unit":"VOLUME"}
+{"delivery_id":"ENT-005","expected_quantity":10,"order_id":"ORD-ENT-005","order_source_system":"synthetic_reference","promised_at":"2026-10-16T18:00:00Z","quantity_unit":"VOLUME"}
+{"delivery_id":"ENT-006","expected_quantity":10,"order_id":"ORD-ENT-006","order_source_system":"synthetic_reference","promised_at":"2026-10-16T18:00:00Z","quantity_unit":"VOLUME"}
+{"delivery_id":"ENT-007","expected_quantity":10,"order_id":"ORD-ENT-007","order_source_system":"synthetic_reference","promised_at":"2026-10-16T18:00:00Z","quantity_unit":"VOLUME"}
+{"delivery_id":"ENT-008","expected_quantity":10,"order_id":"ORD-ENT-008","order_source_system":"synthetic_reference","promised_at":"2026-10-16T18:00:00Z","quantity_unit":"VOLUME"}

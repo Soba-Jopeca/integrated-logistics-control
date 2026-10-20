@@ -1,0 +1,2 @@
+{"delivery_id":"ENT-001","document_family_id":"POD-A","document_id":"INVALID-DOC-MISSING","schema_version":"1.0","source_system":"synthetic_documents","supersedes_document_id":null,"version":1}
+{"delivery_id":"ENT-001","document_family_id":"POD-A","document_id":"INVALID-DOC-CHAIN","media_type":"application/pdf","schema_version":"1.0","source_system":"synthetic_documents","supersedes_document_id":null,"version":2}
