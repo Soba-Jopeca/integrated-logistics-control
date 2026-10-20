@@ -185,8 +185,9 @@ orientada e os comandos locais. Sem atribuicao de explicacoes nao dadas.
 
 ## 9. Pendencias e passagem
 
-Pendentes: interpretacao de Joao de um caso valido e um rejeitado, commit
-final das alteracoes locais e passagem ao gerente. A execucao comprovada nao
+Pendentes: commit final das alteracoes locais e passagem ao gerente.
+Joao solicitou explicacoes de referencia do assistente; interpretacao
+independente de Joao nao foi verificada e permanece limitacao para avaliacao central. A execucao comprovada nao
 equivale a aceite central nem fechamento de F2-P02D ou F2.
 
 
@@ -235,8 +236,9 @@ distintos; nao somar as reexecucoes como cobertura adicional.
 
 Joao executou a edicao orientada, Ruff, sentinelas, migracoes, suites e
 verificacao final de conexao. Assistente preparou estrutura, testes,
-comandos e documentacao. Interpretacao independente de um caso valido e
-um rejeitado ainda nao recebida; nao a atribuir a Joao por inferencia.
+comandos e documentacao. Joao solicitou ao assistente as respostas explicativas para seguir a passagem.
+As explicacoes abaixo sao do assistente; compreensao independente de Joao
+nao foi verificada e nao e inferida da execucao.
 
 Mantidas todas as limitacoes da secao 4. Sem ensaio concorrente de duas
 sessoes, resolucao operacional automatica, metricas, parser, gerador, API
@@ -246,3 +248,21 @@ ou ETL. Banco descartavel mantido em 0003 ao final, com sentinelas anteriores.
 Codigo local a publicar na branch autorizada; commit final sera identificado
 na devolucao. F2 aberta, R03 parcial e F3-F6 bloqueadas; aguardar validacao
 central antes de avancar.
+
+
+### Explicacoes de referencia do assistente
+
+1. Uma decisao de conclusao so pode selecionar evento DELIVERED pertencente
+a mesma entrega. IN_TRANSIT nao confirma conclusao, e um evento de outra
+entrega nao pode comprovar a entrega selecionada. O CHECK fixa DELIVERED;
+a FK composta confere event_key, delivery_key e event_type em conjunto.
+Os testes negativos rejeitaram vinculos incoerentes sem substituir o historico.
+
+2. O SHA256 igual antes e depois do ciclo demonstra que a representacao
+ordenada das linhas das quinze tabelas anteriores permaneceu igual nas
+verificacoes realizadas. Corrobora preservacao dos dados anteriores durante
+a subida, descida apenas de 0003 e nova subida. Nao comprova restauracao
+dos dados removidos de 0003, backup, concorrencia ou execucao em outro ambiente.
+
+A solicitacao de continuidade nao substitui a validacao central. Finalizar
+publicacao e passagem de F2-P02D; nao iniciar o proximo cartao neste registro.
