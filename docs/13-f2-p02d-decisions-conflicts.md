@@ -3,8 +3,8 @@
 Data: 19/10/2026. Branch: feat/f2-p02d-decisions-conflicts.
 Entrada autorizada: 4959edfc5df5cf5c25381a3766e5f4cdbe167c1b.
 Referencias: contratos 06 e modelo 07 nessa entrada.
-Estado: preparacao publicada com restricao central bloqueada para edicao
-de Joao. Nenhuma execucao de 0003 ou teste novo comprovada nesta preparacao.
+Estado: ciclo reversivel e verificacoes locais comprovados; publicacao do
+codigo final e validacao central pendentes. Resultados observados na secao 10.
 F2 aberta, R03 parcial, F3-F6 bloqueadas. Validacao central ao final.
 
 ## 1. Entrada observada no Windows de Joao
@@ -104,14 +104,14 @@ explicara o que o banco aceitou/rejeitou; nao inferir aprendizagem da saida.
 
 ## 6. Testes e preservacao preparados
 
-56 casos novos preparados (contagem estatica, ainda nao executados):
+56 casos novos preparados e posteriormente executados (resultados na secao 10):
 catalogo/FK central; escolhas e resolucoes validas; entrega desconhecida;
 vinculo tardio; referencia de outra entrega/entrada; metadados vazios;
 antecessor inexistente/de outro conflito; saltos, ciclos e ramificacoes;
 cronologia; evidencias distintas; preservacao de alternativas e historico;
 bloqueio de evidencia posterior a resolucao.
 Esperado conjunto completo: 91 anteriores + 56 novos = 147 casos.
-A contagem efetiva e os resultados devem ser confirmados pelo pytest.
+A suite executada confirmou 147 casos distintos; reexecucoes nao ampliam essa contagem.
 
 As suites anteriores mantem seus 91 casos e expectativas de negocio.
 Mudancas necessarias: aceitar a nova revisao, conferir catalogo de dezenove
@@ -179,13 +179,70 @@ Fontes oficiais consultadas em 19/10/2026 antes de preparar a revisao:
 
 Sintaxe Python conferida via AST pelo assistente. Nenhum PostgreSQL, Ruff
 ou teste de integracao executado no ambiente do assistente nesta preparacao.
-Os resultados locais devem ser registrados separadamente apos recebidos.
-Assistente preparou estrutura, testes e documentacao; pratica central e
-execucao de Joao ainda pendentes. Sem atribuicao de explicacoes nao dadas.
+Os resultados locais recebidos estao registrados separadamente na secao 10.
+Assistente preparou estrutura, testes e documentacao; Joao executou a pratica
+orientada e os comandos locais. Sem atribuicao de explicacoes nao dadas.
 
 ## 9. Pendencias e passagem
 
-Implementar FK central; executar Ruff, inicializacao de sentinela e regressao;
-observar ciclo reversivel e comparar catalogo/conteudo; interpretar caso valido
-e rejeitado; registrar resultados e incidentes; publicar commit final e retornar
-ao gerente. Esta preparacao nao e aceite nem fechamento de F2-P02D ou F2.
+Pendentes: interpretacao de Joao de um caso valido e um rejeitado, commit
+final das alteracoes locais e passagem ao gerente. A execucao comprovada nao
+equivale a aceite central nem fechamento de F2-P02D ou F2.
+
+
+## 10. Execucao observada no Windows de Joao - 19/10/2026
+
+### Esperado versus observado
+
+| Etapa | Esperado | Observado |
+|---|---|---|
+| Antes da nova revisao | 0002_documents, quinze tabelas, btree_gist 1.8 | PASS |
+| Regressao inicial com sentinela documental | 91 casos anteriores aprovados | 91 passed in 7.13s |
+| Primeira subida | 0003_decisions_conflicts, dezenove tabelas | PASS |
+| Primeira suite completa | 91 anteriores + 56 novos | 147 passed in 9.71s |
+| Descida somente de 0003 | 0002_documents, quinze tabelas, extensao mantida | PASS |
+| Regressao apos descida | 91 casos anteriores aprovados | 91 passed in 5.40s |
+| Nova subida | 0003_decisions_conflicts, dezenove tabelas | PASS |
+| Suite final | Mesmos 147 casos distintos | 147 passed in 9.55s |
+| Dados anteriores | Mesmo SHA256 das quinze tabelas em todas as verificacoes | PASS |
+| Sentinela P02C | Preservada na subida, descida e nova subida | PASS |
+| Conexao final ao banco ilc | SQLAlchemy/psycopg, configuracao anterior | PASS |
+
+SHA256 observado antes da primeira subida e novamente apos cada etapa e
+suas suites:
+
+    1a730d96e2d525c4159990e2429c74c4c65bce7e3f4ada9c50a1ed575249c615
+
+A comparacao abrange as linhas das quinze tabelas anteriores, incluindo
+a fixture documental persistente __p02d_preservation__, com serializacao
+ordenada e fuso UTC. Nao e hash dos arquivos da migracao nem backup.
+
+Sintaxe: PASS. Ruff: All checks passed! apos formatacao de sete arquivos.
+Verificacao Git local: 0001 e 0002 preservadas: PASS.
+A implementacao central foi editada localmente conforme orientacao; a
+subida e o teste de catalogo/FK passaram. O diff final deve ser conferido
+apos publicar o codigo editado e formatado.
+
+Conexao final: ilc_app/ilc, PostgreSQL 18.6, 127.0.0.1:55432, UTC,
+rolsuper/rolcreatedb/rolcreaterole/rolreplication/rolbypassrls=false,
+rolconnlimit=5, proprietario ilc_app. Nenhuma credencial foi enviada nas saidas.
+Alvo do ciclo: apenas ilc_f2p02b_test; nao houve instrucao de migrar ilc.
+
+As duracoes registradas sao as reportadas pelo pytest. Os 147 casos sao
+distintos; nao somar as reexecucoes como cobertura adicional.
+
+### Participacao e limitacoes
+
+Joao executou a edicao orientada, Ruff, sentinelas, migracoes, suites e
+verificacao final de conexao. Assistente preparou estrutura, testes,
+comandos e documentacao. Interpretacao independente de um caso valido e
+um rejeitado ainda nao recebida; nao a atribuir a Joao por inferencia.
+
+Mantidas todas as limitacoes da secao 4. Sem ensaio concorrente de duas
+sessoes, resolucao operacional automatica, metricas, parser, gerador, API
+ou ETL. Banco descartavel mantido em 0003 ao final, com sentinelas anteriores.
+.vscode permanece nao rastreada e fora da publicacao.
+
+Codigo local a publicar na branch autorizada; commit final sera identificado
+na devolucao. F2 aberta, R03 parcial e F3-F6 bloqueadas; aguardar validacao
+central antes de avancar.
