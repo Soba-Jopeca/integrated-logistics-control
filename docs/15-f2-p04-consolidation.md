@@ -64,7 +64,7 @@ Nao foi executado merge, rebase, reset, force-push ou descarte de alteracoes.
 
 O PR deve apontar docs/f2-p04-consolidation para main e ficar em rascunho
 durante a verificacao. URL, estado de conflitos reportado pelo GitHub e
-commits de consolidacao serao identificados apos sua criacao e na devolucao.
+commit inicial estao registrados na secao 9; reconferir ao final.
 Se main avancar, reconferir o diff antes de qualquer integracao futura.
 Preparar PR nao significa integrar, fechar F2 ou liberar F3.
 
@@ -175,7 +175,7 @@ da consolidacao atual. Nao somar reexecucoes como casos novos.
 | Integracao | 147 testes aprovados, sem downgrade | Aguardando |
 | Fixture pequena | Inventario, contagens e hashes aprovados | Aguardando |
 | Conexao anterior/sentinelas | PASS, sem segredos e sem alterar dados anteriores | Aguardando |
-| PR | Rascunho revisavel para main, sem merge | A criar/conferir |
+| PR | Rascunho revisavel para main, sem merge | PR #2 aberto em draft; verificacao inicial clean, conforme secao 9 |
 
 Comandos de ambiente, conexao, migracoes e geracao no README foram
 executados nos passos anteriores. Sua reuniao no README nao comprova
@@ -208,3 +208,23 @@ mantem sua atribuicao, sem inventar aprendizagem ou execucao de Joao.
 
 Estado submetido: F2 aberta, R03 parcial, F3-F6 bloqueadas. O gerente decide
 aceite/ajustes e eventual fechamento; esta preparacao nao libera fase seguinte.
+
+
+## 9. PR preparado e equivalencia tecnica conferida
+
+PR: https://github.com/Soba-Jopeca/integrated-logistics-control/pull/2
+Estado observado: open, draft=true, merged=false.
+Commit inicial de consolidacao: 3fed963bd2792fd54b83391655e7fb7a6d2d6729.
+Base: main em 9f6720a60b29dbfd42fb6c509abff3fe583b7363.
+GitHub, apos calculo: mergeable=true, mergeable_state=clean.
+Esse estado e uma fotografia do PR, nao autorizacao de merge.
+
+PR inicial: um commit, 62 arquivos diferentes em relacao a main.
+Comparacao direta das arvores confirmou que somente README, plano 04 e
+novo documento 15 diferem da entrada aceita 33ba8d0. Nenhum arquivo da
+entrada aceita ausente; codigo, testes, migracoes, lock e fixtures com os
+mesmos blobs. Nenhum .env, .venv, .vscode ou data/generated rastreado.
+Links internos dos tres documentos conferidos sem destino ausente.
+
+Esta atualizacao registra apenas a preparacao do PR. Verificacao final
+no Windows ainda pendente; resultado anterior nao foi reciclado como P04.
