@@ -1,0 +1,6 @@
+{"delivery_id":"ENT-001","document_family_id":"POD-A","document_id":"DOC-A1","media_type":"application/pdf","schema_version":"1.0","source_system":"synthetic_documents","supersedes_document_id":null,"version":1}
+{"delivery_id":"ENT-001","document_family_id":"POD-B","document_id":"DOC-B1","media_type":"application/pdf","schema_version":"1.0","source_system":"synthetic_documents","supersedes_document_id":null,"version":1}
+{"delivery_id":"ENT-002","document_family_id":"POD-C","document_id":"DOC-C1","media_type":"application/pdf","schema_version":"1.0","source_system":"synthetic_documents","supersedes_document_id":null,"version":1}
+{"delivery_id":"ENT-002","document_family_id":"POD-C","document_id":"DOC-C2","media_type":"application/pdf","schema_version":"1.0","source_system":"synthetic_documents","supersedes_document_id":"DOC-C1","version":2}
+{"delivery_id":"ENT-005","document_family_id":"POD-CONSISTENT","document_id":"DOC-CONSISTENT","media_type":"application/pdf","schema_version":"1.0","source_system":"synthetic_documents","supersedes_document_id":null,"version":1}
+{"delivery_id":"ENT-007","document_family_id":"POD-IDENTITY","document_id":"DOC-IDENTITY","media_type":"application/pdf","schema_version":"1.0","source_system":"synthetic_documents","supersedes_document_id":null,"version":1}

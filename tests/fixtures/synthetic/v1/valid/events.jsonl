@@ -1,0 +1,13 @@
+{"delivery_id":"ENT-001","event_id":"EVT-001","event_type":"DISPATCHED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T12:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-001","event_id":"EVT-002","event_type":"IN_TRANSIT","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T14:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-001","event_id":"EVT-003","event_type":"DELIVERED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T17:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-002","event_id":"EVT-B-DELIVERED","event_type":"DELIVERED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T17:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-003","event_id":"EVT-C-AB-A","event_type":"DELIVERED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T17:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-003","event_id":"EVT-C-AB-B","event_type":"DELIVERED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T17:10:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-004","event_id":"EVT-C-BA-B","event_type":"DELIVERED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T17:10:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-004","event_id":"EVT-C-BA-A","event_type":"DELIVERED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T17:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-005","event_id":"EVT-CONSISTENT","event_type":"DELIVERED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T17:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-006","event_id":"EVT-NO-DOCUMENT","event_type":"DELIVERED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T17:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-007","event_id":"EVT-IDENTITY","event_type":"DELIVERED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T17:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-008","event_id":"EVT-LATE-DELIVERED","event_type":"DELIVERED","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T17:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}
+{"delivery_id":"ENT-008","event_id":"EVT-LATE-TRANSIT","event_type":"IN_TRANSIT","notes":"Synthetic only; seed=20261019","occurred_at":"2026-10-16T14:00:00Z","schema_version":"1.0","source_system":"synthetic_events"}

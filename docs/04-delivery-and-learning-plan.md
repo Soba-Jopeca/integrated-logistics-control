@@ -13,7 +13,7 @@ Chats executores produzem artefatos e evidências e retornam ao gerente.
 Preparação de chat não significa início da fase.
 Trivialidades são resolvidas sem aprovação ritual.
 
-## Sequência e dependências
+## Histórico — sequência e dependências no início de F1-P04
 
 | Fase | Ordem interna | Estado no início de F1-P04 |
 |---|---|---|
@@ -51,3 +51,34 @@ OCR, RAG e evolução para Docker/Linux não bloqueiam o núcleo.
 Demonstração futura: problema, arquitetura, caso correto,
 divergente, reexecução, painel, trade-off e limitações.
 Separar resultados sintéticos de impacto empresarial real.
+
+## Histórico — fechamento documental VAL-F1-P04-001
+
+F1 FECHADA no escopo documental em 16/10/2026, por VAL-F1-P04-001.
+F2 pronta para receber o primeiro cartão do gerente, ainda não iniciada.
+F3–F6 bloqueadas pelas dependências anteriores.
+
+Fechamento limitado aos artefatos documentais. Evidências e limitações
+na passagem final do documento 08; histórico anterior preservado.
+Aguardar cartão específico antes de executar qualquer atividade da F2.
+
+
+## Estado atual — F2-P04, 19/10/2026
+
+| Fase | Estado atual |
+|---|---|
+| F1 | Fechada no escopo documental, VAL-F1-P04-001 |
+| F2 | P01, P02A–D e P03 aceitos com limitações; P04 liberado, em consolidação; fase aberta |
+| F3–F6 | Bloqueadas; nenhum início autorizado por esta consolidação |
+
+Base técnica aceita: 33ba8d02931883cc31d0312049587abae444e9ef.
+P04 reúne README executável, evidências, fronteira banco/aplicação, PR
+revisável para main e verificação final. Não autoriza merge.
+A autorização humana dos passos é a referência; IDs não fornecidos não
+são inventados. Decisão de fechamento pertence à gestão central.
+
+Próximo passo do executor: verificar Ruff, os 24 testes do gerador,
+147 testes de integração no banco descartável em 0003 e a fixture pequena.
+Não repetir os ciclos de downgrade comprovados sem motivo novo.
+Depois registrar resultados e retornar ao gerente; sem implementação F3.
+Evidências e pendências: [consolidação F2](15-f2-p04-consolidation.md).
