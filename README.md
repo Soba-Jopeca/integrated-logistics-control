@@ -6,9 +6,10 @@ Projeto de João Pedro Caneca, desenvolvido com orientação técnica, para
 transformar necessidades de logística em uma solução verificável com Python
 e SQL. Entrega física e regularidade documental são estados independentes.
 
-**Estado em 20/10/2026:** F1 fechada no escopo documental. Passos técnicos
-P01, P02A–D e P03 da F2 aceitos com limitações. Verificação final da P04
-aprovada localmente; decisão central pendente. F2 aberta e F3–F6 bloqueadas. Este PR não autoriza merge nem início da F3.
+**Estado em 20/10/2026 — VAL-F2-P04-001:** F1 fechada documentalmente;
+**F2 FECHADA COM LIMITAÇÕES**. R03/R04 aceitos no escopo demonstrado.
+F3 pronta para receber o primeiro cartão, ainda não iniciada; F4–F6 bloqueadas.
+PR #2 permanece sem merge. O fechamento não autoriza implementação da F3.
 
 ## O que está implementado
 
@@ -159,4 +160,8 @@ empresarial foi medido. Não há SLA documental empresarial validado.
 F1 fechada documentalmente em 16/10/2026. Os registros 09–14 preservam as
 evidências de cada passo da F2; estados pendentes neles são históricos e
 devem ser lidos junto da consolidação 15 e das decisões centrais posteriores.
-F2 ainda depende de decisão central de fechamento. PR não significa merge.
+F2 fechada com limitações em 20/10/2026, por **VAL-F2-P04-001**.
+O histórico anterior de fase aberta permanece na passagem consolidada.
+F3 aguarda a passagem atualizada e o primeiro cartão do gerente.
+[Registro de fechamento e limites](docs/15-f2-p04-consolidation.md).
+PR #2 continua sem merge; nenhuma fase seguinte foi iniciada.

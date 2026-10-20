@@ -63,7 +63,7 @@ na passagem final do documento 08; histórico anterior preservado.
 Aguardar cartão específico antes de executar qualquer atividade da F2.
 
 
-## Estado atual — F2-P04, 19/10/2026
+## Histórico — consolidação F2-P04, anterior à decisão central
 
 | Fase | Estado atual |
 |---|---|
@@ -84,3 +84,23 @@ após diagnóstico de indisponibilidade; nenhum downgrade repetido.
 Próximo passo: retornar ao gerente para decisão de fechamento. PR #2 em
 rascunho, sem merge e sem implementação F3.
 Evidências e pendências: [consolidação F2](15-f2-p04-consolidation.md).
+
+
+## Estado atual — fechamento autorizado VAL-F2-P04-001
+
+Decisão central encaminhada por João em 20/10/2026:
+**F2 FECHADA COM LIMITAÇÕES**. R03 e R04 aceitos no escopo demonstrado,
+preservando os limites de ambiente, integridade e referências sintéticas.
+
+| Fase | Estado central |
+|---|---|
+| F1 | Fechada documentalmente |
+| F2 | Fechada com limitações — VAL-F2-P04-001 |
+| F3 | Pronta para receber cartão; aguarda passagem atualizada e primeiro cartão, ainda não iniciada |
+| F4–F6 | Bloqueadas |
+
+PR #2 permanece sem merge. Atualização exclusivamente documental:
+README, plano e passagem; nenhum código alterado ou teste repetido.
+Evidências anteriores, limitações e responsabilidades futuras da aplicação
+continuam válidas. Próximo passo: incluir a passagem nas fontes compartilhadas
+e aguardar cartão específico; este fechamento não inicia a F3.

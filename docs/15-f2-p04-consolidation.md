@@ -7,8 +7,10 @@ Autoridade: cartao F2-P04 encaminhado por Joao, com P01, P02A-D e P03
 aceitos centralmente com limitacoes. Nao foram fornecidos IDs adicionais
 de validacao; nenhum foi inventado.
 
-**Estado: verificacao final P04 aprovada no ambiente local; aguarda decisao central. F2 aberta.**
-F3-F6 bloqueadas. PR para revisao, sem autorizacao de merge neste cartao.
+**Estado central em 20/10/2026: F2 FECHADA COM LIMITACOES — VAL-F2-P04-001.**
+R03/R04 aceitos no escopo demonstrado. F3 pronta para receber cartao, ainda
+nao iniciada; F4-F6 bloqueadas. PR #2 permanece sem merge.
+Registros de fase aberta abaixo sao historicos, anteriores a esta decisao.
 
 ## 1. Escopo consolidado e proveniencia
 
@@ -100,8 +102,8 @@ ilc_app pode alterar DDL e contornar triggers como proprietario.
 |---|---|
 | R01 | Negocio documentado e aceito na F1; sem alegar explicacao independente nao registrada |
 | R02 | Contratos/modelos aceitos; integridade estrutural das revisoes exercitada na F2 |
-| R03 | Parcial no estado central atual; ambiente/lock/conexao/migracoes reversiveis comprovados no ambiente local, com limites de portabilidade |
-| R04 | Gerador e fixtures apresentados e P03 aceito com limitacoes; consolidacao do requisito depende da decisao central de P04 |
+| R03 | Aceito no escopo demonstrado por VAL-F2-P04-001: ambiente/lock/conexao/migracoes reversiveis no ambiente local; limites de portabilidade preservados |
+| R04 | Aceito no escopo demonstrado por VAL-F2-P04-001: gerador, fixtures e reproducao de entradas; nao comprova ingestao ou conferencia funcional |
 | R05 | API/OpenAPI/paginacao/falhas: F3, nao implementado |
 | R06 | Ingestao CSV/API e reconciliacao: F3, nao implementado |
 | R07 | Idempotencia, conflitos, retomada e quarentena operacionais: F3, nao implementado; existem estruturas e entradas de teste |
@@ -229,7 +231,7 @@ Ambiente, Ruff e gerador ja aprovados nao foram repetidos sem necessidade.
 Depois da recuperacao, Joao executou apenas as verificacoes pendentes,
 todas aprovadas. Sem alteracao de codigo para resolver a indisponibilidade.
 
-## 8. Pendencias classificadas e passagem
+## 8. Historico - pendencias classificadas antes do fechamento
 
 **Para decisao de fechamento P04:** verificacao local aprovada e registrada;
 reconferir estado/URL do PR, publicar esta passagem e devolver ao gerente.
@@ -278,7 +280,7 @@ posterior no Windows foi executada em 20/10/2026 e consta na secao 7;
 resultados anteriores nao foram reciclados como verificacao P04.
 
 
-## 10. Passagem apos verificacao
+## 10. Historico - passagem apos verificacao, anterior a decisao central
 
 P04 tecnicamente verificado; submeter ao gerente para aceite/ajustes e
 decisao de fechamento da F2. Nenhum merge autorizado ou executado.
@@ -292,3 +294,65 @@ preparou comandos, documentos e PR, e revisou as saidas recebidas.
 Interpretacao independente nao foi verificada. Limites de motivos
 historicos, concorrencia, papeis, portabilidade, documentos sinteticos
 e funcionalidades futuras permanecem classificados nas secoes 4, 5 e 8.
+
+
+## 11. Fechamento autorizado - VAL-F2-P04-001
+
+**F2 FECHADA COM LIMITACOES em 20/10/2026.**
+Autoridade: decisao central VAL-F2-P04-001, encaminhada expressamente por
+Joao neste chat. R03/R04 aceitos no escopo demonstrado. Esta decisao
+substitui os estados pendentes de fechamento nas secoes historicas acima.
+
+| Fase | Estado central |
+|---|---|
+| F1 | Fechada documentalmente |
+| F2 | Fechada com limitacoes |
+| F3 | Aguarda passagem atualizada e primeiro cartao; pronta para recebe-lo, ainda nao iniciada |
+| F4-F6 | Bloqueadas |
+
+### Base, artefatos e evidencias
+
+Base tecnica: 33ba8d02931883cc31d0312049587abae444e9ef.
+Consolidacao anterior ao fechamento:
+97a1637b46f099cf1c45112b3f2724d6aa87920e, sincronizada local/remoto por
+fast-forward conforme saida de Joao; somente .vscode nao rastreada.
+Atualizacao de fechamento: apenas README, plano 04 e este documento 15.
+O commit publicado sera identificado na devolucao e no historico Git.
+
+Evidencias aceitas ja registradas: ambiente/lock e reproducao local;
+PostgreSQL dedicado e conexao segura; tres revisoes e ciclos reversiveis
+no banco descartavel; 147 testes de integracao em 8.44s; 24 testes do
+gerador e 11 subtestes em 0.84s; Ruff e 21 arquivos formatados; fixture,
+sentinelas e hashes aprovados; duas geracoes reproduziveis de P03.
+Nao houve repeticao de testes ou alteracao de codigo para este registro.
+A decisao nao transforma expectativas de negocio em resultados executados.
+
+### Limitacoes preservadas e responsabilidades futuras
+
+- Reproducao de dependencias observada no mesmo Windows/Python/cache;
+  instalacao limpa de sistema e portabilidade integral nao demonstradas.
+- ilc_app e proprietario, sem equivaler a separacao de papeis de producao.
+- Bloqueio de novos motivos em avaliacoes historicas finalizadas ainda
+  depende da aplicacao; conferencia funcional nao implementada.
+- Concorrencia de duas sessoes nao ensaiada; coordenacao operacional,
+  locks/retry e regras de aceitacao ainda pertencem aos cartoes futuros.
+- Documentos do gerador sao referencias JSON sinteticas, nao PDF/XML real.
+  Volume maximo nao ensaiado; manifesto contem expectativas, nao aprovacoes.
+- Banco ilc nao recebeu estas migracoes; ensaios ficaram em ilc_f2p02b_test.
+- Backup/restauracao, CI/E2E, metricas, parser, API e ingestao nao entregues
+  por este fechamento. Sem ganhos empresariais reais alegados.
+- Participacao de Joao comprovada pelas edicoes/execucoes orientadas;
+  explicacoes do assistente nao sao atribuidas como interpretacao independente.
+- .vscode e configuracoes locais preservadas; limpezas historicas nao
+  executadas continuam classificadas, sem apagar recursos neste registro.
+
+### PR e proximo passo
+
+PR #2: https://github.com/Soba-Jopeca/integrated-logistics-control/pull/2
+Manter sem merge conforme autorizacao. O fechamento da fase e independente
+da integracao a main; nao houve autorizacao de merge por esta decisao.
+
+Fornecer esta passagem e o commit de fechamento para as fontes compartilhadas,
+sem presumir atualizacao automatica. F3 pronta para receber o primeiro
+cartao do gerente, ainda nao iniciada. F4-F6 bloqueadas. Nenhuma dependencia,
+banco, API, ingestao ou parser novo iniciado por esta atualizacao.
