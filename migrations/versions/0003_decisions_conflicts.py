@@ -11,19 +11,33 @@ depends_on = None
 
 
 def add_completion_event_link():
-    """Joao implements the selected DELIVERED event of the same delivery."""
-    raise NotImplementedError("Joao: implement fk_completion_event_delivery here")
+    """Exige evento DELIVERED pertencente a mesma entrega."""
+    op.create_foreign_key(
+        "fk_completion_event_delivery",
+        "completion_decisions",
+        "events",
+        ["event_key", "delivery_key", "event_type"],
+        ["event_key", "delivery_key", "event_type"],
+        source_schema="ilc",
+        referent_schema="ilc",
+        ondelete="RESTRICT",
+    )
 
 
 def upgrade():
-    sql_path = Path(__file__).resolve().parents[1] / "sql" / "0003_decisions_conflicts.sql"
+    sql_path = (
+        Path(__file__).resolve().parents[1] / "sql" / "0003_decisions_conflicts.sql"
+    )
     op.execute(sql_path.read_text(encoding="utf-8"))
     add_completion_event_link()
 
 
 def downgrade():
     for table in (
-        "conflict_resolutions", "conflict_evidence", "conflicts", "completion_decisions"
+        "conflict_resolutions",
+        "conflict_evidence",
+        "conflicts",
+        "completion_decisions",
     ):
         op.drop_table(table, schema="ilc")
     op.execute("DROP FUNCTION ilc.check_conflict_evidence_set()")

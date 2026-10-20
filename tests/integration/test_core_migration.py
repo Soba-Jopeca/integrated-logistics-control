@@ -31,7 +31,11 @@ def connection():
                 revision = execute(
                     connection, "SELECT version_num FROM public.alembic_version"
                 ).scalar_one()
-                if revision not in {"0001_core", "0002_documents", "0003_decisions_conflicts"}:
+                if revision not in {
+                    "0001_core",
+                    "0002_documents",
+                    "0003_decisions_conflicts",
+                }:
                     pytest.fail(
                         "Upgrade to a supported case revision before running these probes"
                     )
@@ -174,12 +178,24 @@ def test_physical_slice_and_author_constraint(connection):
 
 def test_valid_event_with_earlier_occurrence(connection):
     insert_event(connection, occurred="2026-10-19T10:30:00Z")
-    assert execute(connection, "SELECT count(*) FROM ilc.events WHERE source_system IN ('mock_a', 'mock_b')").scalar_one() == 2
+    assert (
+        execute(
+            connection,
+            "SELECT count(*) FROM ilc.events WHERE source_system IN ('mock_a', 'mock_b')",
+        ).scalar_one()
+        == 2
+    )
 
 
 def test_same_event_id_in_another_source_is_valid(connection):
     insert_event(connection, number=3, source="mock_b", event_id="EVT-001")
-    assert execute(connection, "SELECT count(*) FROM ilc.events WHERE source_system IN ('mock_a', 'mock_b')").scalar_one() == 2
+    assert (
+        execute(
+            connection,
+            "SELECT count(*) FROM ilc.events WHERE source_system IN ('mock_a', 'mock_b')",
+        ).scalar_one()
+        == 2
+    )
 
 
 @pytest.mark.parametrize(
@@ -204,7 +220,13 @@ def test_invalid_events_leave_original_unchanged(
     expect_integrity(
         connection, lambda: insert_event(connection, **overrides), state, constraint
     )
-    assert execute(connection, "SELECT count(*) FROM ilc.events WHERE source_system IN ('mock_a', 'mock_b')").scalar_one() == 1
+    assert (
+        execute(
+            connection,
+            "SELECT count(*) FROM ilc.events WHERE source_system IN ('mock_a', 'mock_b')",
+        ).scalar_one()
+        == 1
+    )
 
 
 @pytest.mark.parametrize(
@@ -265,7 +287,13 @@ def test_internal_retry_preserves_first_receipt(connection):
         attempt=key("retry"),
         input=key("input1"),
     )
-    assert execute(connection, "SELECT count(*) FROM ilc.receipts r JOIN ilc.inputs i USING (input_key) WHERE i.source_system IN ('mock_a', 'mock_b')").scalar_one() == 4
+    assert (
+        execute(
+            connection,
+            "SELECT count(*) FROM ilc.receipts r JOIN ilc.inputs i USING (input_key) WHERE i.source_system IN ('mock_a', 'mock_b')",
+        ).scalar_one()
+        == 4
+    )
     assert execute(
         connection,
         "SELECT receipt_key IS NULL FROM ilc.attempts WHERE attempt_id = :id",

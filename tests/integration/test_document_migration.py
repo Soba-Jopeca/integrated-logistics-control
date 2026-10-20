@@ -64,9 +64,16 @@ def test_catalog_and_author_composite_link(document_connection):
         "document_validities",
         "evaluation_validities",
     }
-    revision = execute(document_connection, "SELECT version_num FROM public.alembic_version").scalar_one()
+    revision = execute(
+        document_connection, "SELECT version_num FROM public.alembic_version"
+    ).scalar_one()
     if revision == "0003_decisions_conflicts":
-        expected |= {"completion_decisions", "conflicts", "conflict_evidence", "conflict_resolutions"}
+        expected |= {
+            "completion_decisions",
+            "conflicts",
+            "conflict_evidence",
+            "conflict_resolutions",
+        }
     assert set(catalog.get_table_names(schema="ilc")) == expected
     links = {
         fk["name"]: fk for fk in catalog.get_foreign_keys("evaluations", schema="ilc")
@@ -547,7 +554,8 @@ def test_adjacent_evaluation_intervals_are_valid(document_connection):
     flush(document_connection)
     assert (
         execute(
-            document_connection, "SELECT count(*) FROM ilc.evaluation_validities WHERE document_key IN (SELECT document_key FROM ilc.document_versions WHERE source_system IN ('mock_a', 'mock_b'))"
+            document_connection,
+            "SELECT count(*) FROM ilc.evaluation_validities WHERE document_key IN (SELECT document_key FROM ilc.document_versions WHERE source_system IN ('mock_a', 'mock_b'))",
         ).scalar_one()
         == 2
     )

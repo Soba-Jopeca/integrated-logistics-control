@@ -20,14 +20,33 @@ def sentinel_key(label):
 
 
 def initialize(connection):
-    existing = connection.execute(text("SELECT description FROM ilc.sources WHERE source_system=:source"), {"source": SOURCE}).scalar_one_or_none()
+    existing = connection.execute(
+        text("SELECT description FROM ilc.sources WHERE source_system=:source"),
+        {"source": SOURCE},
+    ).scalar_one_or_none()
     if existing is not None:
         raise RuntimeError("Sentinel already exists; inspect without --initialize")
-    params = {name: sentinel_key(name) for name in (
-        "order", "delivery", "input_event", "input_document", "receipt_event",
-        "receipt_document", "attempt_event", "attempt_document", "event", "family",
-        "document", "extraction", "evaluation", "reason", "doc_validity", "eval_validity",
-    )}
+    params = {
+        name: sentinel_key(name)
+        for name in (
+            "order",
+            "delivery",
+            "input_event",
+            "input_document",
+            "receipt_event",
+            "receipt_document",
+            "attempt_event",
+            "attempt_document",
+            "event",
+            "family",
+            "document",
+            "extraction",
+            "evaluation",
+            "reason",
+            "doc_validity",
+            "eval_validity",
+        )
+    }
     params["source"] = SOURCE
     statements = [
         "INSERT INTO ilc.sources VALUES (:source, 'Synthetic P02D preservation sentinel')",
@@ -66,20 +85,40 @@ def main():
     try:
         with engine.begin() as connection:
             connection.execute(text("SET LOCAL TIME ZONE 'UTC'"))
-            revision = connection.execute(text("SELECT version_num FROM public.alembic_version")).scalar_one()
+            revision = connection.execute(
+                text("SELECT version_num FROM public.alembic_version")
+            ).scalar_one()
             if revision not in {"0002_documents", "0003_decisions_conflicts"}:
                 raise RuntimeError("Unexpected revision")
             if args.initialize:
                 if revision != "0002_documents":
                     raise RuntimeError("Initialize before revision 0003")
                 initialize(connection)
-            if connection.execute(text("SELECT count(*) FROM ilc.document_versions WHERE source_system=:source"), {"source": SOURCE}).scalar_one() != 1:
+            if (
+                connection.execute(
+                    text(
+                        "SELECT count(*) FROM ilc.document_versions WHERE source_system=:source"
+                    ),
+                    {"source": SOURCE},
+                ).scalar_one()
+                != 1
+            ):
                 raise RuntimeError("Documentary sentinel missing")
             snapshot = {}
             for table in sorted(CORE_TABLES | DOCUMENT_TABLES):
-                rows = connection.execute(text(f"SELECT row_to_json(t)::text FROM ilc.{table} t ORDER BY row_to_json(t)::text")).scalars().all()
+                rows = (
+                    connection.execute(
+                        text(
+                            f"SELECT row_to_json(t)::text FROM ilc.{table} t ORDER BY row_to_json(t)::text"
+                        )
+                    )
+                    .scalars()
+                    .all()
+                )
                 snapshot[table] = rows
-            digest = hashlib.sha256(json.dumps(snapshot, ensure_ascii=True, sort_keys=True).encode("utf-8")).hexdigest()
+            digest = hashlib.sha256(
+                json.dumps(snapshot, ensure_ascii=True, sort_keys=True).encode("utf-8")
+            ).hexdigest()
             if args.expect_sha256 and digest != args.expect_sha256:
                 raise RuntimeError("Previous table contents changed")
             print("Previous tables fingerprint SHA256:", digest)

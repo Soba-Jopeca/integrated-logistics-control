@@ -32,7 +32,9 @@ DOCUMENT_TABLES = {
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--database", required=True, choices=[TEST_DATABASE])
-    parser.add_argument("--expect", required=True, choices=["base", "core", "documents", "head"])
+    parser.add_argument(
+        "--expect", required=True, choices=["base", "core", "documents", "head"]
+    )
     args = parser.parse_args()
     engine = test_engine(args.database)
     try:
@@ -84,7 +86,12 @@ def main():
                 expected_tables = CORE_TABLES | DOCUMENT_TABLES
                 expected_revision = "0002_documents"
                 if args.expect == "head":
-                    expected_tables |= {"completion_decisions", "conflicts", "conflict_evidence", "conflict_resolutions"}
+                    expected_tables |= {
+                        "completion_decisions",
+                        "conflicts",
+                        "conflict_evidence",
+                        "conflict_resolutions",
+                    }
                     expected_revision = "0003_decisions_conflicts"
                 valid = (
                     tables == expected_tables
