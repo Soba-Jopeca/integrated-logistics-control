@@ -68,7 +68,7 @@ Aguardar cartão específico antes de executar qualquer atividade da F2.
 | Fase | Estado atual |
 |---|---|
 | F1 | Fechada no escopo documental, VAL-F1-P04-001 |
-| F2 | P01, P02A–D e P03 aceitos com limitações; P04 liberado, em consolidação; fase aberta |
+| F2 | P01, P02A–D e P03 aceitos com limitações; P04 verificado localmente, aguarda decisão central; fase aberta |
 | F3–F6 | Bloqueadas; nenhum início autorizado por esta consolidação |
 
 Base técnica aceita: 33ba8d02931883cc31d0312049587abae444e9ef.
@@ -77,8 +77,10 @@ revisável para main e verificação final. Não autoriza merge.
 A autorização humana dos passos é a referência; IDs não fornecidos não
 são inventados. Decisão de fechamento pertence à gestão central.
 
-Próximo passo do executor: verificar Ruff, os 24 testes do gerador,
-147 testes de integração no banco descartável em 0003 e a fixture pequena.
-Não repetir os ciclos de downgrade comprovados sem motivo novo.
-Depois registrar resultados e retornar ao gerente; sem implementação F3.
+Verificação final executada por João em 20/10/2026: Ruff aprovado,
+24 testes e 11 subtestes do gerador, 147 testes de integração em 0003,
+fixture, sentinelas e conexão aprovadas. Instância existente reiniciada
+após diagnóstico de indisponibilidade; nenhum downgrade repetido.
+Próximo passo: retornar ao gerente para decisão de fechamento. PR #2 em
+rascunho, sem merge e sem implementação F3.
 Evidências e pendências: [consolidação F2](15-f2-p04-consolidation.md).
