@@ -256,10 +256,10 @@ def capture(
         revision = connection.execute(
             text("SELECT version_num FROM public.alembic_version")
         ).scalar_one()
-        if (
-            tuple(identity) != (TEST_DATABASE, "ilc_app")
-            or revision != "0004_api_capture"
-        ):
+        if tuple(identity) != (TEST_DATABASE, "ilc_app") or revision not in {
+            "0004_api_capture",
+            "0005_business_processing",
+        }:
             raise CaptureError("WRONG_DATABASE_OR_REVISION")
         connection.execute(
             text("""

@@ -1,0 +1,9 @@
+order_id,released_at,request_data,source_system
+ORD-ENT-001,2026-10-16T10:00:00Z,"{""synthetic"":true}",synthetic_reference
+ORD-ENT-002,2026-10-16T10:00:00Z,"{""synthetic"":true}",synthetic_reference
+ORD-ENT-003,2026-10-16T10:00:00Z,"{""synthetic"":true}",synthetic_reference
+ORD-ENT-004,2026-10-16T10:00:00Z,"{""synthetic"":true}",synthetic_reference
+ORD-ENT-005,2026-10-16T10:00:00Z,"{""synthetic"":true}",synthetic_reference
+ORD-ENT-006,2026-10-16T10:00:00Z,"{""synthetic"":true}",synthetic_reference
+ORD-ENT-007,2026-10-16T10:00:00Z,"{""synthetic"":true}",synthetic_reference
+ORD-ENT-008,2026-10-16T10:00:00Z,"{""synthetic"":true}",synthetic_reference

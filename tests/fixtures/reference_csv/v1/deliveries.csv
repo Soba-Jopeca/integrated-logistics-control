@@ -1,0 +1,9 @@
+delivery_id,expected_quantity,order_id,order_source_system,promised_at,quantity_unit
+ENT-001,10,ORD-ENT-001,synthetic_reference,2026-10-16T18:00:00Z,VOLUME
+ENT-002,10,ORD-ENT-002,synthetic_reference,2026-10-16T18:00:00Z,VOLUME
+ENT-003,10,ORD-ENT-003,synthetic_reference,2026-10-16T18:00:00Z,VOLUME
+ENT-004,10,ORD-ENT-004,synthetic_reference,2026-10-16T18:00:00Z,VOLUME
+ENT-005,10,ORD-ENT-005,synthetic_reference,2026-10-16T18:00:00Z,VOLUME
+ENT-006,10,ORD-ENT-006,synthetic_reference,2026-10-16T18:00:00Z,VOLUME
+ENT-007,10,ORD-ENT-007,synthetic_reference,2026-10-16T18:00:00Z,VOLUME
+ENT-008,10,ORD-ENT-008,synthetic_reference,2026-10-16T18:00:00Z,VOLUME
