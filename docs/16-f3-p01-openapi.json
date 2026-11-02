@@ -67,6 +67,85 @@
           }
         }
       }
+    },
+    "/scenarios/delay": {
+      "get": {
+        "tags": [
+          "Falhas controladas"
+        ],
+        "summary": "Resposta atrasada; timeout depende do cliente",
+        "operationId": "delay_scenarios_delay_get",
+        "parameters": [
+          {
+            "name": "seconds",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 2.0,
+              "minimum": 0.1,
+              "default": 1.0,
+              "title": "Seconds"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scenarios/http-503": {
+      "get": {
+        "tags": [
+          "Falhas controladas"
+        ],
+        "summary": "Http 503",
+        "operationId": "http_503_scenarios_http_503_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "503": {
+            "description": "Indisponibilidade HTTP simulada"
+          }
+        }
+      }
+    },
+    "/scenarios/invalid-json": {
+      "get": {
+        "tags": [
+          "Falhas controladas"
+        ],
+        "summary": "Invalid Json",
+        "operationId": "invalid_json_scenarios_invalid_json_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
     }
   },
   "components": {

@@ -11,6 +11,7 @@ from typing import Annotated, Literal
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import AwareDatetime, BaseModel, ConfigDict, StringConstraints
 
+from mock_api.failures import router as failures_router
 from mock_api.pagination import paginate
 
 FIXTURE = (
@@ -114,6 +115,7 @@ def create_app(fixture_path: Path = FIXTURE) -> FastAPI:
             has_more=next_offset is not None,
         )
 
+    api.include_router(failures_router)
     return api
 
 
