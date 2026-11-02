@@ -1,6 +1,6 @@
 # F3-P03 — Falhas, retomada e reprocessamento recuperável
 
-Estado: execução Windows/PostgreSQL demonstrada; cartão ABERTO para publicação da contribuição local de João e submissão ao gerente. A F3 não está fechada. O próximo cartão depende do gerente.
+Estado: implementação e evidências publicadas; F3-P03 SUBMETIDO PARA ACEITE, aguardando validação central. A F3 não está fechada. O próximo cartão depende do gerente.
 
 ## Base e preservação
 
@@ -155,12 +155,14 @@ Fonte: saídas fornecidas por João neste chat executor, após implementar a lig
 - Regressão final Windows, com os cinco env vars de opt-in acima e os testes unitários/capture/business/reliability: **98 passed, 1 warning in 14.05s**, nenhum skip, regression_exit=0. Ruff aprovado; git diff --check sem saída de erro. O aviso StarletteDeprecationWarning HTTPX/TestClient permanece manutenção, sem alteração de dependências.
 - Git ao fim da regressão: feat/f3-p03-reliability alinhada ao origin em f008c32; única alteração rastreada local em scripts/reliable_capture.py e .vscode/ não rastreado preservado.
 
-## Passagem ao gerente — pendente do commit local
+## Passagem ao gerente — entrega publicada em 02/11/2026
 
 Requisitos exercitados: R06/R07, regressão de R05 e controles locais de R15. Artefatos: migração 0006, scripts de captura confiável/reprocessamento/verificação, fixtures de referências legítimas e atraso, testes e este registro esperado × observado.
 
 Prática concluída de João: implementou a ligação transacional central, executou migração, iniciou/encerrou API, provocou interrupção, retomou e executou verificador e regressão com PostgreSQL. Explicação independente permanece adiada para a revisão final por decisão do cartão; não foi inferida a partir dos comandos.
 
-Pendência técnica de entrega: publicar a alteração local de João junto com este registro sincronizado e informar o SHA final ao gerente. O commit de preparação f008c32 contém o ponto de edição pendente e, sozinho, não reproduz a execução completa já demonstrada localmente. Sem merge, sem consolidação e sem fechamento da F3. Aguardar decisão central sobre P03 antes de qualquer próximo cartão.
+Entrega técnica publicada por João em `702ede1` — `feat: connect atomic page and checkpoint recovery`, após sincronizar as evidências de `48fe921`. O push foi observado; a saída Git confirmou HEAD e origin/feat/f3-p03-reliability em 702ede1, sem alterações rastreadas pendentes e com `.vscode/` não rastreado preservado. Este registro documental posterior somente atualiza a passagem; não altera o código testado. O commit de preparação f008c32 permanece histórico e contém o ponto de edição anterior.
+
+Decisão solicitada ao gerente: aceitar P03 ou indicar ajustes com base nas evidências e limitações acima. Sem merge, sem consolidação e sem fechamento da F3. Nenhum próximo cartão iniciado; explicação independente permanece para a revisão final. Não foi enviada mensagem automática a outro chat.
 
 Limitações mantidas: interrupção controlada, não desligamento abrupto do sistema; retomada exige snapshot igual; orçamento de retry fixo; recuperação explícita do caso de referência, sem automação de toda a quarentena; aviso HTTPX/TestClient pendente.
