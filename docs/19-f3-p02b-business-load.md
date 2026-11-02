@@ -157,3 +157,37 @@ P02A aceito; P02B em implementacao. Pendentes: transformacao de Joao, migracao
 0005 observada, carga inicial/reexecucao, conflito/rejeicoes/SQL e commit autoral,
 evidencias publicadas e aceite central. Explicacao independente para revisao final.
 Nenhuma fase posterior, aprovacao documental, metrica ou interface iniciada.
+
+## Evidencia Windows - 02/11/2026
+
+Joao implementou utc_text e executou a carga no banco ilc_f2p02b_test.
+Verificador: PASS, verification_exit=0.
+Escopo sintetico antes: 0 pedidos, 0 entregas, 0 eventos.
+Depois: 8 pedidos, 8 entregas, 13 eventos.
+
+Carga inicial: business-8478e561-292f-4bcf-917e-a79e3c0d7d12.
+18 entradas: ACCEPTED=13, DUPLICATE=1, CONFLICT=1, REJECTED=3.
+Pedidos e entregas: 8 inseridos de cada.
+
+Reexecucao: business-05d1ab21-1c42-4b6b-8c0d-979cfb541a87.
+18 entradas: DUPLICATE=14, CONFLICT=1, REJECTED=3.
+Pedidos e entregas: 8 duplicatas de cada; nenhuma nova entidade.
+
+Caso adicional: business-2ae56df8-d97f-4931-abdb-0dd8b1555960.
+19 entradas: DUPLICATE=14, CONFLICT=1, REJECTED=4.
+Motivos rejeitados: INVALID_EVENT_CONTRACT=2,
+MISSING_REQUIRED_FIELD=1 e INVALID_REFERENCE=1.
+
+Todos esses runs ficaram PARTIAL, conforme os problemas de dados previstos.
+Casos: EVENT_IDENTITY=1 e COMPLETION_AMBIGUITY=2.
+Evento original, inputs da captura e sentinela preservados.
+Assinatura conferida:
+153cbf78785fdefe83848db9426a195083bdde8eae8a13a51f957ca49bf7aad0
+
+Regressao conjunta: 79 passed, 1 warning in 6.86s; regression_exit=0.
+Nenhum teste pulado. Ruff check aprovado anteriormente;
+format --check: 6 files already formatted; diff check sem erros.
+Aviso HTTPX/TestClient mantido como manutencao nao bloqueante.
+
+Explicacao independente adiada para revisao final.
+P02B submetido para aceite central; nenhum proximo cartao liberado.

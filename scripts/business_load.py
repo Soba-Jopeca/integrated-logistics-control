@@ -42,8 +42,10 @@ def encoded(value):
 
 
 def utc_text(value):
-    """Joao implementa a normalizacao UTC usada no conteudo comparado."""
-    raise ValueError("JOAO_UTC_NORMALIZATION_PENDING")
+    """Normaliza o horario para comparacao de identidade."""
+    return (
+        value.astimezone(UTC).isoformat(timespec="microseconds").replace("+00:00", "Z")
+    )
 
 
 def normalize_event(payload):
