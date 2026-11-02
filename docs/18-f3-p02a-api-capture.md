@@ -1,5 +1,12 @@
 # F3-P02A - Captura API com entrada preservada no PostgreSQL
 
+> Estado consolidado em 02/11/2026: este cartão está aceito no escopo demonstrado,
+> conforme o mandato humano F3-P04. Estados de preparação/submissão e instruções
+> de edição provisória abaixo são históricos, não instruções para desfazer o código.
+> A F3 permanece ABERTA. Ver [consolidação 21](21-f3-p04-consolidation.md)
+> para comandos, dependências, pendências e limites atuais.
+
+
 Data: 02/11/2026. Base: 48276192d078d8f07503cfcf0135c871287e2535.
 Branch proposta: feat/f3-p02a-api-capture. P01 aceito como entrada pelo cartao
 humano P02A. Explicacao independente adiada para revisao final por Joao.

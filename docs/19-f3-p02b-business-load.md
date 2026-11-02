@@ -1,5 +1,12 @@
 # F3-P02B - Transformacao e entidades de negocio
 
+> Estado consolidado em 02/11/2026: este cartão está aceito no escopo demonstrado,
+> conforme o mandato humano F3-P04. Estados de preparação/submissão e instruções
+> de edição provisória abaixo são históricos, não instruções para desfazer o código.
+> A F3 permanece ABERTA. Ver [consolidação 21](21-f3-p04-consolidation.md)
+> para comandos, dependências, pendências e limites atuais.
+
+
 02/11/2026. Base tecnica 2b4b72a; aceite P02A registrado em 60cc75f.
 Branch: feat/f3-p02b-business-load. Preparacao, nao aceite ou carga comprovada.
 Captura selecionada por Joao no diagnostico: capture-e0e5e158-49f3-4b8f-ba05-3397db8c7e3c.

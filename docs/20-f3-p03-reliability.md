@@ -1,6 +1,6 @@
 # F3-P03 — Falhas, retomada e reprocessamento recuperável
 
-Estado: implementação e evidências publicadas; F3-P03 SUBMETIDO PARA ACEITE, aguardando validação central. A F3 não está fechada. O próximo cartão depende do gerente.
+Estado atual em 02/11/2026: F3-P03 ACEITO no escopo demonstrado — **VAL-F3-P03-001**, recebido no cartão humano F3-P04. F3 permanece ABERTA, em consolidação para avaliação central. A F3 não está fechada. O próximo cartão depende do gerente.
 
 ## Base e preservação
 
@@ -163,6 +163,16 @@ Prática concluída de João: implementou a ligação transacional central, exec
 
 Entrega técnica publicada por João em `702ede1` — `feat: connect atomic page and checkpoint recovery`, após sincronizar as evidências de `48fe921`. O push foi observado; a saída Git confirmou HEAD e origin/feat/f3-p03-reliability em 702ede1, sem alterações rastreadas pendentes e com `.vscode/` não rastreado preservado. Este registro documental posterior somente atualiza a passagem; não altera o código testado. O commit de preparação f008c32 permanece histórico e contém o ponto de edição anterior.
 
-Decisão solicitada ao gerente: aceitar P03 ou indicar ajustes com base nas evidências e limitações acima. Sem merge, sem consolidação e sem fechamento da F3. Nenhum próximo cartão iniciado; explicação independente permanece para a revisão final. Não foi enviada mensagem automática a outro chat.
+Decisão posterior recebida no cartão humano F3-P04: P03 aceito por VAL-F3-P03-001 no escopo demonstrado, preservando as limitações acima. Sem merge, sem consolidação e sem fechamento da F3. O cartão seguinte F3-P04 foi autorizado para consolidação documental; explicação independente permanece para a revisão final. Não foi enviada mensagem automática a outro chat.
 
 Limitações mantidas: interrupção controlada, não desligamento abrupto do sistema; retomada exige snapshot igual; orçamento de retry fixo; recuperação explícita do caso de referência, sem automação de toda a quarentena; aviso HTTPX/TestClient pendente.
+
+## Aceite VAL-F3-P03-001 e transição para P04
+
+Em 02/11/2026 João encaminhou F3-P04 com ordem explícita de registrar
+VAL-F3-P03-001, base técnica `702ede1` e evidências `d0cba49`. Esta é a autoridade
+para registrar o aceite P03; não foi inferido do sucesso dos testes. P04 reúne
+README, plano e [passagem final 21](21-f3-p04-consolidation.md), para decisão
+de fechamento da F3. Conferência read-only de João e explicação independente
+continuam identificadas nas respectivas pendências; nenhuma fase foi fechada
+ou iniciada por esta atualização. Registros anteriores são históricos.

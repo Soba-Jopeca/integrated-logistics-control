@@ -5,6 +5,51 @@ Data-base: 16/10/2026.
 A estimativa antiga de 20–25 horas não constitui esforço medido.
 Tempo dedicado: não medido.
 
+
+## Estado atual — 02/11/2026, F3-P04 autorizado
+
+| Fase/cartão | Estado |
+|---|---|
+| F1 | Fechada documentalmente — VAL-F1-P04-001 |
+| F2 | Fechada com limitações — VAL-F2-P04-001 |
+| F3-P01 | Aceito: API, paginação e falhas HTTP reais; código 8554901/evidência 4827619 |
+| F3-P02A | Aceito: captura preservada; código 2b4b72a/registro de aceite 60cc75f |
+| F3-P02B | Aceito: transformação/carga; código 44fcbff/registro de aceite 6e10e91 |
+| F3-P03 | Aceito no escopo demonstrado — VAL-F3-P03-001; código 702ede1/evidência d0cba49 |
+| F3-P04 | Consolidação autorizada; conferência read-only de João pendente; aguarda decisão do gerente |
+| F3 | ABERTA; esta documentação não fecha a fase |
+| F4–F6 | Bloqueadas; nenhuma autorização de início |
+
+Fonte de autoridade: cartões humanos recebidos neste chat executor; P04 determina
+registrar VAL-F3-P03-001 e consolidar os aceites anteriores. IDs separados não
+fornecidos não são inventados. Explicação independente de João permanece adiada
+para revisão final; não foi declarada concluída.
+
+Branch: feat/f3-p03-reliability. Banco ilc_f2p02b_test, ilc_app,
+127.0.0.1:55432, revisão observada 0006_reliability. PR #2 aberto/sem merge,
+consultado no início de P04. Código técnico final `702ede1`; evidências `d0cba49`;
+consolidação documental descendente, sem funcionalidades ou dependências novas.
+
+R05–R07 demonstrados com API/OpenAPI, CSV/captura, identidade, histórico,
+checkpoint/rollback/retomada, retry limitado, rejeição recuperada e evento
+atrasado. Fixture original 8/8/13; com sentinelas 9/9/14; após recuperação
+legítima 10/10/16, estável em reexecução. Não somar capturas/tentativas como entidades.
+
+Última regressão Windows: 98 testes, nenhum skip, 1 aviso, 14,05 s, saída 0;
+Ruff aprovado. P04 reutiliza evidências, sem repetir testes por mudança documental.
+Esforço humano total e por etapa **não medido**. Duração de suíte não é esforço.
+Apresentação pretendida em 03/11 às 14h; estimativa antiga 20–25 h não é medição.
+
+Prática concluída: João implementou paginação/ligação do endpoint, transação de
+captura, normalização UTC e ligação de checkpoint; executou cenários, consultas
+e regressões. Em P04 deve conferir comandos, consultar execução/checkpoint
+existentes e confirmar Git local/remoto, sem repetir cargas.
+
+[Passagem consolidada e comandos atuais](21-f3-p04-consolidation.md).
+Pendências: evidência da conferência P04 e decisão central de fechamento/ajustes,
+considerando a explicação independente pendente. Não fechar F3 nem iniciar F4.
+Os estados anteriores abaixo são histórico, superados pela seção atual.
+
 ## Governança
 
 Negócio → contratos → modelos.
@@ -86,7 +131,7 @@ rascunho, sem merge e sem implementação F3.
 Evidências e pendências: [consolidação F2](15-f2-p04-consolidation.md).
 
 
-## Estado atual — fechamento autorizado VAL-F2-P04-001
+## Histórico — fechamento autorizado VAL-F2-P04-001
 
 Decisão central encaminhada por João em 20/10/2026:
 **F2 FECHADA COM LIMITAÇÕES**. R03 e R04 aceitos no escopo demonstrado,

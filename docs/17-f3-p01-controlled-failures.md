@@ -1,5 +1,12 @@
 # F3-P01 - Falhas controladas por HTTP real
 
+> Estado consolidado em 02/11/2026: este cartão está aceito no escopo demonstrado,
+> conforme o mandato humano F3-P04. Estados de preparação/submissão e instruções
+> de edição provisória abaixo são históricos, não instruções para desfazer o código.
+> A F3 permanece ABERTA. Ver [consolidação 21](21-f3-p04-consolidation.md)
+> para comandos, dependências, pendências e limites atuais.
+
+
 02/11/2026. Base: f177262ec78e68adedd26ffb729eddc679f5c8c3.
 Branch: feat/f3-p01-events-api. Mandato humano: cenarios de falha liberados.
 Estado: implementado e exercitado pelo assistente; execucao Windows de Joao

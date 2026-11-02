@@ -1,167 +1,174 @@
 # Integrated Logistics Control
 
-**Conferência documental e acompanhamento de entregas — case educacional.**
+**Conferência documental e acompanhamento de entregas — case educacional de João Pedro Caneca.**
 
-Projeto de João Pedro Caneca, desenvolvido com orientação técnica, para
-transformar necessidades de logística em uma solução verificável com Python
-e SQL. Entrega física e regularidade documental são estados independentes.
+Python/SQL e dados sintéticos para acompanhar entregas, preservar entradas e
+investigar divergências com histórico. Entrega física e aprovação documental
+são estados independentes. O case não representa a operação de uma empresa.
 
-**Estado em 20/10/2026 — VAL-F2-P04-001:** F1 fechada documentalmente;
-**F2 FECHADA COM LIMITAÇÕES**. R03/R04 aceitos no escopo demonstrado.
-F3 pronta para receber o primeiro cartão, ainda não iniciada; F4–F6 bloqueadas.
-PR #2 permanece sem merge. O fechamento não autoriza implementação da F3.
+## Estado em 02/11/2026
 
-## O que está implementado
+F1 fechada documentalmente; F2 fechada com limitações (VAL-F2-P04-001).
+F3-P01, P02A, P02B e P03 aceitos no escopo demonstrado; P03 registrado por
+**VAL-F3-P03-001**. **F3-P04 em consolidação para avaliação; F3 ABERTA**,
+aguardando conferência documental/SQL de João e decisão central de fechamento.
+A explicação independente de João permanece pendente para revisão final.
+F4–F6 bloqueadas. PR #2 aberto e sem merge; nenhuma autorização de merge.
 
-- Ambiente Python isolado, dependências fixadas com hashes e configuração externa.
-- PostgreSQL dedicado e local; conexão SQLAlchemy/psycopg sem imprimir segredos.
-- Três revisões Alembic e dezenove tabelas com vínculos, histórico e restrições.
-- Ciclos reversíveis observados exclusivamente no banco descartável do case.
-- Gerador de entradas sintéticas com semente e volume adicional configurável.
-- Fixtures pequenas, manifesto de expectativas, verificação de hashes e testes.
+Branch de trabalho: `feat/f3-p03-reliability`. Código demonstrado: `702ede1`;
+evidências anteriores à consolidação: `d0cba49`. Não partir de main desatualizada.
+A revisão observada no banco de teste é `0006_reliability`.
 
-Ainda são futuras: API/ingestão, parsing de PDF/XML, conferência funcional,
-aplicação web, SQL/DAX/Power BI, agendamento, CI/E2E e recuperação de release.
-Documentos gerados na F2 são referências JSON sintéticas, não PDFs/XML reais.
-Resultados de negócio no manifesto são **esperados, não executados**.
+## O que foi demonstrado
 
-## Ambiente aceito
+- Ambiente Python isolado, configuração externa, lock com hashes e PostgreSQL local.
+- Migrações, histórico, vínculos e restrições; gerador sintético reproduzível.
+- FastAPI com OpenAPI, paginação estável, cursor validado e término explícito.
+- Falhas HTTP, timeout, JSON inválido e indisponibilidade por HTTP real.
+- Captura preservada e rastreável, importação CSV, pedidos, entregas e eventos.
+- Idempotência, conflitos explícitos, rejeições recuperáveis, checkpoint atômico,
+  rollback, retry limitado, retomada com validação de snapshot e evento atrasado.
+
+Última regressão F3 executada por João no Windows/PostgreSQL: **98 testes
+aprovados, nenhum skip, 1 aviso conhecido, 14,05 s**, saída 0; Ruff aprovado.
+A consolidação P04 altera somente documentação e reutiliza essa evidência.
+
+Ainda futuros: parsing PDF/XML, conferência/aprovação documental, IA, interface,
+métricas/Power BI, Scheduler, CI/E2E e recuperação de release. Referências
+JSON de documentos da F2 não equivalem a documentos processados/aprovados.
+
+## Ambiente e configuração
 
 Windows 11 x64; Python 3.13.14; Git 2.55.0.windows.5; PostgreSQL 18.6.
 SQLAlchemy 2.0.55, psycopg 3.3.6, Alembic 1.20.0, python-dotenv 1.2.4,
-pytest 9.1.1 e Ruff 0.17.1. Dependências completas em requirements.lock.
-Versões e fontes oficiais consultadas constam nos registros 09–14.
+FastAPI 0.150.0, Uvicorn 0.54.0, HTTPX 0.28.1, Starlette 1.9.0,
+Pydantic 2.14.1, pytest 9.1.1, Ruff 0.17.1. Lock completo:
+[requirements.lock](requirements.lock); registros de versões nos documentos 09–17.
+Não atualizar dependências para eliminar o aviso HTTPX/TestClient neste recorte.
 
-O lock foi reproduzido em nova venv no mesmo Windows/Python, usando cache.
-Isso não comprova instalação limpa do sistema nem portabilidade integral.
-
-### Nova venv — PowerShell na raiz
-
-Este bloco documenta a reprodução anterior; na verificação P04 usa-se a
-venv existente, sem reinstalar ou atualizar dependências.
+Na raiz do projeto, PowerShell:
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install --index-url https://pypi.org/simple --require-hashes --only-binary=:all: -r requirements.lock
-.\.venv\Scripts\python.exe -m pip check
-```
-
-Use Python 3.13.14 x64 para reproduzir o ambiente aceito. Não regenere o lock
-como parte da reprodução. Preparação detalhada: [F2-P01](docs/09-f2-p01-environment.md).
-
-### Configuração e conexão
-
-```powershell
+.\.venv\Scripts\Activate.ps1
 if (-not (Test-Path .env)) { Copy-Item .env.example .env }
-.\.venv\Scripts\python.exe scripts/check_db_connection.py
 ```
 
-Antes da conexão, preencher DB_PASSWORD somente no .env local. As demais
-variáveis estão em .env.example: DB_HOST, DB_PORT, DB_NAME, DB_USER,
-DB_CONNECT_TIMEOUT e LOG_LEVEL. Não publicar .env nem URL com credenciais.
-O verificador imprime identidade, versão, endereço, porta, fuso e privilégios.
+Preencher DB_PASSWORD somente no `.env` local. Configuração esperada:
+DB_HOST=127.0.0.1, DB_PORT=55432, DB_NAME=ilc, DB_USER=ilc_app,
+DB_CONNECT_TIMEOUT=5 e LOG_LEVEL=INFO. Não imprimir ou publicar credenciais.
+Os comandos F3 exigem `--database ilc_f2p02b_test`: selecionam esse banco
+explicitamente, mantendo DB_NAME=ilc no arquivo. Não usar ilc para as cargas.
+A instância existente é local/UTC/SCRAM; ilc_app não é administrador, mas é
+proprietário dos objetos do case, sem separação de papéis de produção.
 
-Instância exclusiva: 127.0.0.1:55432, UTC, SCRAM, usuário ilc_app sem
-privilégios administrativos; banco ilc. Como proprietário, ilc_app pode
-alterar DDL: não representa separação de papéis de produção.
+Reprodução da venv e do lock foi observada no mesmo Windows usando cache;
+instalação limpa do sistema e portabilidade integral permanecem não comprovadas.
+Não reinstalar dependências para conferir P04. Ver [ambiente](docs/09-f2-p01-environment.md)
+e [PostgreSQL](docs/10-f2-p02a-postgresql.md) para preparação anterior.
 
-Operação da instância existente, se necessária:
+Verificação de revisão atual (somente leitura):
 
 ```powershell
-& 'C:\ILC-PostgreSQL\18.6\bin\pg_ctl.exe' status -D 'C:\ILC-PostgreSQL\ilc-data-18'
+python -m alembic -x database=ilc_f2p02b_test current
 ```
 
-Inicialização/parada controladas e configuração: [F2-P02A](docs/10-f2-p02a-postgresql.md).
-Não repetir initdb nem apagar o cluster como rollback.
+Esperado: `0006_reliability (head)`. As migrações 0001–0006 já foram aplicadas
+no banco do case; não repetir downgrade, recriar o cluster ou executar probes
+F2 com expectativa fixa em 0003. Backup/restauração pertencem à F6.
 
-## Migrações e testes de integração
+## Comandos da F3
 
-As migrações estão protegidas para atuar **somente** em ilc_f2p02b_test,
-preparado anteriormente para o case, com proprietário ilc_app. O banco ilc
-é usado pelo verificador de conexão; não recebeu estas migrações.
-O parâmetro explícito abaixo não altera DB_NAME no .env.
+Esta seção é referência operacional. **P04 pede somente consulta de evidências
+existentes**; captura/carga/verificadores escrevem novas execuções e não precisam
+ser repetidos para a consolidação. Comandos na raiz e venv ativa.
+
+Terminal 1, API limitada a loopback:
 
 ```powershell
-.\.venv\Scripts\python.exe -m alembic -x database=ilc_f2p02b_test upgrade 0003_decisions_conflicts
-.\.venv\Scripts\python.exe -m scripts.inspect_migration --database ilc_f2p02b_test --expect head
-$env:ILC_TEST_DATABASE = 'ilc_f2p02b_test'
-try {
-    .\.venv\Scripts\python.exe -m pytest -q tests/integration
-} finally {
-    Remove-Item Env:ILC_TEST_DATABASE -ErrorAction SilentlyContinue
-}
+python -m mock_api
 ```
 
-Preparação e evidências: [núcleo 0001](docs/11-f2-p02b-core-migration.md),
-[documentos 0002](docs/12-f2-p02c-document-migration.md) e
-[decisões/conflitos 0003](docs/13-f2-p02d-decisions-conflicts.md).
-Os ciclos de downgrade/upgrade já foram comprovados; P04 não os repete.
-Downgrade remove dados próprios da revisão; nova subida recria estrutura,
-não restaura dados apagados. Backup/restauração continuam para F6.
-
-## Entradas sintéticas reproduzíveis
-
-Sem banco, ingestão ou parser. Volume é o número de entregas consistentes
-adicionais às oito entregas básicas das fixtures. Usar destinos novos:
+Terminal 2, consultas HTTP sem banco:
 
 ```powershell
-.\.venv\Scripts\python.exe -m scripts.synthetic_generator --seed 20261019 --volume 25 --output data/generated/f2p03-a
-.\.venv\Scripts\python.exe -m scripts.synthetic_generator --seed 20261019 --volume 25 --output data/generated/f2p03-b
-.\.venv\Scripts\python.exe -m scripts.check_synthetic_dataset data/generated/f2p03-a --compare data/generated/f2p03-b
+Invoke-RestMethod 'http://127.0.0.1:8000/events?limit=5' | ConvertTo-Json -Depth 8
+Invoke-RestMethod 'http://127.0.0.1:8000/openapi.json' | ConvertTo-Json -Depth 20
+Get-NetTCPConnection -State Listen -LocalPort 8000 | Select-Object LocalAddress,LocalPort,OwningProcess
 ```
 
-Esses dois diretórios já foram usados na execução P03. Para outra execução,
-escolher nomes novos: o gerador recusa sobrescrita. data/generated/ fica fora
-do Git. Fixtures pequenas versionadas usam UTF-8/LF fixado por .gitattributes.
+`/events` serve os 13 registros da fixture em ordem estável, páginas 5/5/3.
+Seguir o next_cursor recebido até `null`, acompanhado de has_more=false.
+`/docs` oferece Swagger; seus assets padrão dependem de CDN. OpenAPI JSON é local.
+
+Captura simples e carga da captura aceita (escrevem execuções):
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest -q tests/unit/test_synthetic_generator.py
-.\.venv\Scripts\python.exe -m scripts.check_synthetic_dataset tests/fixtures/synthetic/v1
+python -m scripts.api_capture --database ilc_f2p02b_test --url http://127.0.0.1:8000/events --limit 5 --timeout 2
+python -m scripts.business_load --database ilc_f2p02b_test --capture-run capture-e0e5e158-49f3-4b8f-ba05-3397db8c7e3c
 ```
 
-Mesmo seed/configuração produziu arquivos, bytes e hashes idênticos.
-Detalhes, formatos e manifesto: [F2-P03](docs/14-f2-p03-synthetic-generator.md)
-e [fixtures](tests/fixtures/synthetic/README.md).
+A carga usa CSV sintéticos versionados e a captura identificada, mais cinco
+entradas de duplicata/conflito/inválidos. O total é 18 entradas processadas,
+com classificações explícitas; não são 18 novos eventos. Captura simples P02A
+não tem retomada; para esse fim usar a CLI P03 abaixo.
 
-## Verificação final da F2-P04
+Interrupção e retomada transacional (exemplo para execução futura, não repetir em P04):
 
 ```powershell
-.\.venv\Scripts\python.exe -m ruff check --select E4,E7,E9,F,I,B,UP,SIM,C4,BLE scripts migrations tests
-.\.venv\Scripts\python.exe -m ruff format --check scripts migrations tests
+$raw = python -m scripts.reliable_capture --database ilc_f2p02b_test --url http://127.0.0.1:8000/events --stop-after-pages 1
+$interruptExit = $LASTEXITCODE
+$stopped = $raw | ConvertFrom-Json
+if ($interruptExit -ne 1 -or $stopped.error_category -ne 'SIMULATED_INTERRUPT_AFTER_COMMIT') { throw 'Investigar interrupcao.' }
+$stopped | ConvertTo-Json -Depth 8
+python -m scripts.reliable_capture --database ilc_f2p02b_test --url http://127.0.0.1:8000/events --resume-run $stopped.capture_run_id
+Write-Output "resume_exit=$LASTEXITCODE"
 ```
 
-Verificação final observada no Windows em 20/10/2026: Ruff aprovado,
-21 arquivos já formatados, 24 testes do gerador e 11 subtestes em 0,84 s,
-147 testes de integração em 8,44 s, fixture, sentinelas e conexão aprovadas.
-A instância existente estava parada; foi iniciada e reconferida sem recriar
-banco nem repetir downgrade. Não houve alteração de código nessa verificação.
-[Passagem consolidada F2 e pendências](docs/15-f2-p04-consolidation.md).
+Pós-commit: PARTIAL/1 página/5 registros; retomada: SUCCEEDED/3 páginas/13.
+Checkpoint e página ficam visíveis na mesma transação; snapshot diferente
+interrompe explicitamente. Encerrar API com Ctrl+C ao terminar.
 
-## Limites e responsabilidades futuras
+| Comando | Códigos de saída |
+|---|---|
+| api_capture | 0 SUCCEEDED; 1 FAILED, podendo preservar páginas anteriores |
+| reliable_capture | 0 SUCCEEDED; 1 PARTIAL/FAILED ou falha de configuração |
+| business_load | 0 SUCCEEDED; 2 PARTIAL por problemas de dados; 1 FAILED |
+| check_api_failures / check_api_capture / check_business_load / check_reliability | 0 verificação PASS; 1 falha da verificação |
 
-O banco garante integridade estrutural, não executa as regras operacionais
-de conferência, deduplicação ou resolução automática de conflitos.
-Acrescentar motivos a avaliações históricas ainda depende de proteção na
-aplicação. Concorrência com duas sessões não foi ensaiada. CI, instalação
-limpa, backup/restauração e migração do banco ilc não foram comprovados.
+PARTIAL e rejeição são resultados observáveis, não sucesso integral. O verificador
+pode passar ao comprovar uma falha deliberada; o run de falha continua FAILED/PARTIAL.
+[Runbook, consultas SQL de rejeições/checkpoint e passagem final](docs/21-f3-p04-consolidation.md).
 
-Dados exclusivamente sintéticos. Não há integração ERP/WMS real nem
-representação oficial de empresa. Nenhum ganho financeiro ou operacional
-empresarial foi medido. Não há SLA documental empresarial validado.
+## Resultados e limites
+
+Fixture original: **8 pedidos, 8 entregas, 13 eventos**. As 18 entradas de negócio
+reconciliaram inicialmente em 13 aceitos, 1 duplicado, 1 conflito e 3 rejeitados;
+na reexecução, 14 duplicados, 1 conflito e 3 rejeitados. Há um caso de identidade
+e dois de ambiguidade de conclusão, sem sobrescrita do evento original.
+
+Uma sentinela de cada entidade já existia: total global inicial 9/9/14.
+A recuperação legítima adicionou 1 pedido, 1 entrega e 2 eventos: global
+10/10/16, estável na reexecução. Capturas e tentativas repetidas ampliam histórico,
+sem representar crescimento correspondente do domínio.
+
+Interrupções foram controladas, sem ensaio de desligamento abrupto; reconciliação
+administrativa de invocação abandonada não foi demonstrada. Retry é limitado a
+três tentativas transitórias e backoff 0,1/0,2 s; JSON/rejeições não têm retry.
+Recuperação de quarentena é explícita, não automática para todos os casos.
+Concorrência com duas sessões, CI, instalação limpa e backup/restauração não
+foram comprovados. Nenhum SLA documental ou ganho empresarial foi medido.
+Esforço humano total da F3 não medido; 14,05 s é tempo de teste, não de trabalho.
 
 ## Documentação e histórico
 
-- [Negócio](docs/01-business-understanding.md), [escopo](docs/02-scope-and-acceptance.md) e [arquitetura](docs/03-architecture.md).
-- [Plano e estado atual](docs/04-delivery-and-learning-plan.md).
-- [Métricas propostas](docs/05-metrics-and-rules.md), [contratos](docs/06-event-and-document-contracts.md) e [modelo](docs/07-conceptual-and-logical-model.md).
-- [Fechamento documental F1 — VAL-F1-P04-001](docs/08-f1-consolidation-and-analytical-model.md#registro-final-autorizado--val-f1-p04-001).
-- [Contribuição](CONTRIBUTING.md).
+- [Negócio](docs/01-business-understanding.md), [escopo](docs/02-scope-and-acceptance.md), [arquitetura](docs/03-architecture.md).
+- [Plano e estado atual](docs/04-delivery-and-learning-plan.md), [contratos](docs/06-event-and-document-contracts.md), [modelo](docs/07-conceptual-and-logical-model.md).
+- [F1 documental](docs/08-f1-consolidation-and-analytical-model.md), [F2 consolidada](docs/15-f2-p04-consolidation.md).
+- [P01 API](docs/16-f3-p01-events-api.md), [P01 falhas](docs/17-f3-p01-controlled-failures.md).
+- [P02A captura](docs/18-f3-p02a-api-capture.md), [P02B carga](docs/19-f3-p02b-business-load.md).
+- [P03 confiabilidade — VAL-F3-P03-001](docs/20-f3-p03-reliability.md).
+- [P04 consolidação para decisão de fechamento](docs/21-f3-p04-consolidation.md), [contribuição](CONTRIBUTING.md).
 
-F1 fechada documentalmente em 16/10/2026. Os registros 09–14 preservam as
-evidências de cada passo da F2; estados pendentes neles são históricos e
-devem ser lidos junto da consolidação 15 e das decisões centrais posteriores.
-F2 fechada com limitações em 20/10/2026, por **VAL-F2-P04-001**.
-O histórico anterior de fase aberta permanece na passagem consolidada.
-F3 aguarda a passagem atualizada e o primeiro cartão do gerente.
-[Registro de fechamento e limites](docs/15-f2-p04-consolidation.md).
-PR #2 continua sem merge; nenhuma fase seguinte foi iniciada.
+Registros antigos de preparação/submissão são históricos; decisões centrais
+posteriores e a consolidação 21 definem o estado atual. F3 não foi fechada por
+esta publicação. F4 requer passagem de fechamento e cartão central próprios.
