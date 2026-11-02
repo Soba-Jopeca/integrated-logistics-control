@@ -1,6 +1,6 @@
 # F3-P03 — Falhas, retomada e reprocessamento recuperável
 
-Estado: estrutura preparada; cartão ABERTO, dependente da ligação de João e das evidências Windows/PostgreSQL. A F3 não está fechada. O próximo cartão depende do gerente.
+Estado: execução Windows/PostgreSQL demonstrada; cartão ABERTO para publicação da contribuição local de João e submissão ao gerente. A F3 não está fechada. O próximo cartão depende do gerente.
 
 ## Base e preservação
 
@@ -89,19 +89,19 @@ O verificador cria e encerra somente seus servidores próprios, em portas efême
 
 | Caso | Esperado | Observado Windows |
 |---|---|---|
-| Interrupção depois de commit | checkpoint 1, registros 5, PARTIAL | Pendente |
-| Falha antes do commit da página 2 | mesma posição; sem página/entradas/recibos/tentativas extras | Pendente |
-| Retomada | três páginas, 13 registros, SUCCEEDED | Pendente |
-| Reexecutar captura completa | zero requisições | Pendente |
-| Snapshot alterado | SNAPSHOT_CHANGED; 1 página/5 registros preservados | Pendente |
-| Restaurar snapshot e retomar | 3 páginas/13 registros | Pendente |
-| HTTP 503 | três tentativas, corpos preservados, RETRY_EXHAUSTED | Pendente |
-| Delay com timeout 0,2 s | três ReadTimeout; erro observável | Pendente |
-| JSON inválido | uma requisição; INVALID_JSON | Pendente |
-| Recarga de domínio dos mesmos eventos | 14 duplicados, 1 conflito, 3 rejeitados; nenhuma entidade extra | Pendente |
-| Referência recuperada | nova tentativa aceita/duplicada, rejeição anterior intacta | Pendente |
-| Evento atrasado em ENT-008 | novo histórico; conclusão DELIVERED em 17h intacta | Pendente |
-| Reexecutar recuperação | ambos DUPLICATE, entidades sem crescimento | Pendente |
+| Interrupção depois de commit | checkpoint 1, registros 5, PARTIAL | PARTIAL; last_page=1, records=5; saída 1 na prática manual |
+| Falha antes do commit da página 2 | mesma posição; sem página/entradas/recibos/tentativas extras | SIMULATED_BEFORE_COMMIT; checkpoint 1/5 e contagens SQL intactas |
+| Retomada | três páginas, 13 registros, SUCCEEDED | SUCCEEDED; last_page=3, records=13 |
+| Reexecutar captura completa | zero requisições | SUCCEEDED; requests=0 |
+| Snapshot alterado | SNAPSHOT_CHANGED; 1 página/5 registros preservados | SNAPSHOT_CHANGED; PARTIAL com 1/5 preservados |
+| Restaurar snapshot e retomar | 3 páginas/13 registros | SUCCEEDED; 3/13 |
+| HTTP 503 | três tentativas, corpos preservados, RETRY_EXHAUSTED | FAILED; RETRY_EXHAUSTED:HTTP_503; requests=3; três corpos 503 preservados |
+| Delay com timeout 0,2 s | três ReadTimeout; erro observável | FAILED; RETRY_EXHAUSTED:ReadTimeout; requests=3 |
+| JSON inválido | uma requisição; INVALID_JSON | FAILED; INVALID_JSON; requests=1 |
+| Recarga de domínio dos mesmos eventos | 14 duplicados, 1 conflito, 3 rejeitados; nenhuma entidade extra | 18 entradas = 14 DUPLICATE + 1 CONFLICT + 3 REJECTED; entidades inalteradas |
+| Referência recuperada | nova tentativa aceita/duplicada, rejeição anterior intacta | ACCEPTED; nova tentativa ligada à rejeição anterior; mesmo input e received_at |
+| Evento atrasado em ENT-008 | novo histórico; conclusão DELIVERED em 17h intacta | ACCEPTED; DELIVERED antes/depois; conclusão 17h, ocorrido atrasado 14h |
+| Reexecutar recuperação | ambos DUPLICATE, entidades sem crescimento | DUPLICATE nos dois eventos; contagens 10/10/16 inalteradas |
 
 `scripts.reprocess_rejection.recover` usa a rejeição preservada UNRESOLVED-REFERENCE. Cadastra referências legítimas separadas em CSV/JSONL sintéticos versionados (ENT-UNKNOWN, pedido próprio), preserva bytes/hash/run e reprocessa o MESMO input. A tentativa nova tem receipt_key nulo, sem inventar novo recebimento, e `reprocessing_links` aponta para a rejeição original. Evento P03-LATE-TRANSIT, ocorrido às 14h, chega depois da conclusão de ENT-008 às 17h; a decisão vigente permanece idêntica. Na primeira recuperação, esperado acréscimo global de 1 pedido, 1 entrega e 2 eventos; na reexecução, nenhum acréscimo. Não é reparo automático de toda a quarentena.
 
@@ -126,8 +126,41 @@ git diff --check
 git status --short --branch
 ```
 
-## Evidências disponíveis e passagem
+## Registro histórico da preparação (anterior à execução Windows)
 
 Em 02/11/2026, assistente executou testes locais Linux/Python 3.12: 118 testes unitários aprovados, 11 subtestes, um aviso HTTPX/TestClient já conhecido; 18 casos novos de retry/snapshot incluídos. Esses testes não comprovam persistência, rollback ou retomada em PostgreSQL. A função central publicada fica deliberadamente pendente para João; o verificador SQL falhará enquanto ela não for implementada. Nenhum teste PostgreSQL deste cartão foi executado pelo assistente; nenhuma migração foi aplicada por ele no banco de João. Ruff aprovado em mock_api/scripts/migrações/testes do recorte; format aprovado (15 arquivos). Comando de regressão do recorte executado sem banco habilitado: 94 passed, 4 skipped (PostgreSQL), 1 warning. Os skips são pendências explícitas, não aceite de integração.
 
 Feito: estrutura, política limitada, auditoria, cenários, fixtures legítimas, testes e comandos. Prática/aprendizagem: ligação, interrupção e retomada pendentes; explicação independente reservada à revisão final. Pendências: resultados HTTP/SQL Windows, diferenças esperado × observado, regressão, commit da contribuição de João publicado e passagem ao gerente. Não consolidar nem fechar F3 antes da validação central.
+
+## Evidências Windows/PostgreSQL — execução de João em 02/11/2026
+
+Fonte: saídas fornecidas por João neste chat executor, após implementar a ligação central. Nenhuma execução PostgreSQL remota pelo assistente foi alegada.
+
+- Migração aplicada e consultada: `0006_reliability (head)`.
+- Contribuição local: `commit_page_and_checkpoint` usa `engine.begin()`, chama `advance_page` na conexão da transação e lança SIMULATED_BEFORE_COMMIT antes do commit quando solicitado. Ruff/format e 18 testes de política aprovados antes da prática.
+- Prática manual: captura `capture-p03-c2e882d8-5f83-4dd7-bbcb-bca8b926ed6d` interrompida em 1 página/5 registros/PARTIAL (interrupt_exit=1), retomada até 3 páginas/13 registros/SUCCEEDED. A linha numérica resume_exit não foi incluída na saída manual; o estado SUCCEEDED foi observado, sem inferir o valor omitido.
+- API manual iniciou em 127.0.0.1:8000, PID 18956; logs mostram partida, chamadas e encerramento completo.
+- Verificador HTTP/SQL: verification=PASS, verification_exit=0, http_children_stopped=true, último PID 19296. Capture_run principal `capture-p03-02e5146c-2341-4cd9-846a-49922afd3f2a`: interrupção pós-commit 1/5; rollback pré-commit 1/5; retomada 3/13; noop concluído com zero requisições.
+- Invocações auditáveis: interrupção `capture-invocation-fef70fef-082a-4c8b-8c3d-7f52c789240b`; rollback `capture-invocation-de1cddd4-47fa-4854-9d2b-47675ebdbb19`; retomada `capture-invocation-31cb3a93-8a98-4092-8bd9-77fcdb64a92b`.
+- Retry HTTP: captura `capture-p03-2276a7f4-299b-4776-8bfa-c0cba91b30e1`, FAILED/zero registros/três tentativas. Cada status 503 e corpo `{"scenario":"http_503","error":"SIMULATED_UNAVAILABLE"}` recuperado por SQL.
+- Timeout: `capture-p03-469a626c-eee3-4472-8a5a-239dca999536`, FAILED/RETRY_EXHAUSTED:ReadTimeout/três tentativas/zero registros.
+- JSON inválido: `capture-p03-02b459d0-f8b8-4dc2-8b46-6d56f118be4c`, FAILED/INVALID_JSON/uma requisição/zero registros.
+- Snapshot: `capture-p03-9c86513e-dcdf-4b61-a736-e0e01d23984d` bloqueado em 1/5; retomado com snapshot original até 3/13.
+- Recarga de negócio `business-355810fb-430e-4e59-9967-027701c8992f`: 8 pedidos e 8 entregas DUPLICATE; 18 entradas de evento reconciliadas em 14 DUPLICATE, 1 CONFLICT e 3 REJECTED, sem crescimento das entidades.
+- Recuperação `reprocess-p03-47614ec6-c595-458a-a36d-d3d27d70a849`: rejeição anterior `8e22fc1a-3e32-49c1-ada9-8cca7376185b`, nova tentativa aceita `e5ca25a8-8956-49e7-902f-9670b1855c26`, mesmo input `569d6b2d-1ba0-4a8e-a57a-037c5878bb50`. received_at original 2026-11-02T22:38:32.004797+00:00 preservado, rejeição mantida e nenhum novo recibo.
+- Evento atrasado aceito, ocorrido em 2026-10-16T14:00:00Z; conclusão em 2026-10-16T17:00:00.000000Z e estado DELIVERED mantidos.
+- Reexecução `reprocess-p03-e641c0ef-91ce-429c-b81c-77628b89e441`: ambos DUPLICATE; nova tentativa `0d6140a0-2835-472d-ab4d-5d1b879cd260` ligada à rejeição original.
+- Contagens globais (pedidos/entregas/eventos), incluindo sentinelas: 9/9/14 antes, 10/10/16 após recuperação e 10/10/16 após reexecução. Acréscimo legítimo de 1/1/2; não se confunde com o escopo original de 8/8/13.
+- Captura P02A e sentinelas preservadas; assinatura SQL/bytes original permanece `153cbf78785fdefe83848db9426a195083bdde8eae8a13a51f957ca49bf7aad0`.
+- Regressão final Windows, com os cinco env vars de opt-in acima e os testes unitários/capture/business/reliability: **98 passed, 1 warning in 14.05s**, nenhum skip, regression_exit=0. Ruff aprovado; git diff --check sem saída de erro. O aviso StarletteDeprecationWarning HTTPX/TestClient permanece manutenção, sem alteração de dependências.
+- Git ao fim da regressão: feat/f3-p03-reliability alinhada ao origin em f008c32; única alteração rastreada local em scripts/reliable_capture.py e .vscode/ não rastreado preservado.
+
+## Passagem ao gerente — pendente do commit local
+
+Requisitos exercitados: R06/R07, regressão de R05 e controles locais de R15. Artefatos: migração 0006, scripts de captura confiável/reprocessamento/verificação, fixtures de referências legítimas e atraso, testes e este registro esperado × observado.
+
+Prática concluída de João: implementou a ligação transacional central, executou migração, iniciou/encerrou API, provocou interrupção, retomou e executou verificador e regressão com PostgreSQL. Explicação independente permanece adiada para a revisão final por decisão do cartão; não foi inferida a partir dos comandos.
+
+Pendência técnica de entrega: publicar a alteração local de João junto com este registro sincronizado e informar o SHA final ao gerente. O commit de preparação f008c32 contém o ponto de edição pendente e, sozinho, não reproduz a execução completa já demonstrada localmente. Sem merge, sem consolidação e sem fechamento da F3. Aguardar decisão central sobre P03 antes de qualquer próximo cartão.
+
+Limitações mantidas: interrupção controlada, não desligamento abrupto do sistema; retomada exige snapshot igual; orçamento de retry fixo; recuperação explícita do caso de referência, sem automação de toda a quarentena; aviso HTTPX/TestClient pendente.
