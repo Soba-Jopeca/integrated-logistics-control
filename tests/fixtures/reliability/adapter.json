@@ -1,0 +1,17 @@
+{
+  "adapter_version": "jsonl-to-csv-v1",
+  "files": {
+    "orders": {
+      "source": "tests/fixtures/reliability/orders.jsonl",
+      "source_sha256": "06fc963382070bbd3177c32a3c3bdcb780990c74ba4161c976abea0d16125759",
+      "csv_sha256": "9551d997e6a38cba8044c0430433daa4d8c94aef65d331032019560f4b0ca62c",
+      "rows": 1
+    },
+    "deliveries": {
+      "source": "tests/fixtures/reliability/deliveries.jsonl",
+      "source_sha256": "330c6f6e8c02cdd0a89ed15551523f6288d3bfcc463ebde908731a4e76390db2",
+      "csv_sha256": "7296c90ba4e74dfe9007e306beb05efed4e4f0f0f70beabd2dfe5d94142257d4",
+      "rows": 1
+    }
+  }
+}

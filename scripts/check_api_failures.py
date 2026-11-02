@@ -1,6 +1,7 @@
 """Verificacao HTTP real em processo proprio, sem banco, retry ou servidor externo."""
 
 import json
+import os
 import socket
 import subprocess
 import sys
@@ -14,12 +15,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 @contextmanager
-def local_server():
+def local_server(fixture_path=None):
     """Porta efemera; apenas processo criado aqui pode ser encerrado."""
     with socket.socket() as listener:
         listener.bind(("127.0.0.1", 0))
         port = listener.getsockname()[1]
     # Janela bind-release: se outro processo ocupar, o filho falha e o ensaio para.
+    child_env = dict(os.environ)
+    child_env.pop("ILC_MOCK_FIXTURE", None)
+    if fixture_path is not None:
+        child_env["ILC_MOCK_FIXTURE"] = str(fixture_path)
     process = subprocess.Popen(
         [
             sys.executable,
@@ -33,6 +38,7 @@ def local_server():
             "--no-access-log",
         ],
         cwd=ROOT,
+        env=child_env,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )

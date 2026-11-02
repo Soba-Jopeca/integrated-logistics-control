@@ -3,3 +3,4 @@ tests/fixtures/synthetic/** text eol=lf
 
 tests/fixtures/reference_csv/** text eol=lf
 tests/fixtures/business_cases/** text eol=lf
+tests/fixtures/reliability/** text eol=lf

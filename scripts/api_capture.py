@@ -259,6 +259,7 @@ def capture(
         if tuple(identity) != (TEST_DATABASE, "ilc_app") or revision not in {
             "0004_api_capture",
             "0005_business_processing",
+            "0006_reliability",
         }:
             raise CaptureError("WRONG_DATABASE_OR_REVISION")
         connection.execute(

@@ -65,15 +65,15 @@ def timestamp(value):
     return utc_text(result.astimezone(UTC))
 
 
-def references(connection, run_id):
-    adapter = json.loads((CSV_ROOT / "adapter.json").read_text())
+def references(connection, run_id, csv_root=CSV_ROOT):
+    adapter = json.loads((csv_root / "adapter.json").read_text())
     totals = {"orders": Counter(), "deliveries": Counter()}
     sql(
         connection,
         "INSERT INTO ilc.sources VALUES ('synthetic_reference','Synthetic references') ON CONFLICT DO NOTHING",
     )
     for kind in ("orders", "deliveries"):
-        raw = (CSV_ROOT / (kind + ".csv")).read_bytes()
+        raw = (csv_root / (kind + ".csv")).read_bytes()
         meta = adapter["files"][kind]
         source_raw = (ROOT / meta["source"]).read_bytes()
         if (
@@ -570,12 +570,9 @@ def load(engine, capture_run, include_unresolved=False):
             "ilc_app",
         ):
             raise LoadError("WRONG_DATABASE")
-        if (
-            sql(
-                connection, "SELECT version_num FROM public.alembic_version"
-            ).scalar_one()
-            != "0005_business_processing"
-        ):
+        if sql(
+            connection, "SELECT version_num FROM public.alembic_version"
+        ).scalar_one() not in {"0005_business_processing", "0006_reliability"}:
             raise LoadError("WRONG_REVISION")
         sql(
             connection,

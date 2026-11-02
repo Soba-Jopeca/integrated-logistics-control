@@ -6,18 +6,27 @@ import json
 
 from sqlalchemy.exc import SQLAlchemyError
 
-from scripts.business_load import LoadError, encoded, load, sql, utc_text
+from scripts.business_load import FIXTURES, LoadError, encoded, load, sql, utc_text
 from scripts.migration_config import TEST_DATABASE, test_engine
 
 
 def inventory(connection):
+    # Stable original fixture scope; legitimate recovery entities are separate.
+    records = [
+        json.loads(line)
+        for line in (FIXTURES / "valid/events.jsonl").read_bytes().splitlines()
+    ]
+    deliveries = sorted({row["delivery_id"] for row in records})
     return tuple(
         sql(
             connection,
             """SELECT
-        (SELECT count(*) FROM ilc.orders WHERE source_system='synthetic_reference'),
-        (SELECT count(*) FROM ilc.deliveries d JOIN ilc.orders o USING(order_key) WHERE o.source_system='synthetic_reference'),
-        (SELECT count(*) FROM ilc.events WHERE source_system='synthetic_events')""",
+        (SELECT count(*) FROM ilc.orders WHERE source_system='synthetic_reference' AND order_id=ANY(CAST(:orders AS text[]))),
+        (SELECT count(*) FROM ilc.deliveries WHERE delivery_id=ANY(CAST(:deliveries AS text[]))),
+        (SELECT count(*) FROM ilc.events WHERE source_system='synthetic_events' AND event_id=ANY(CAST(:events AS text[])))""",
+            orders=["ORD-" + item for item in deliveries],
+            deliveries=deliveries,
+            events=[row["event_id"] for row in records],
         ).one()
     )
 
@@ -92,6 +101,12 @@ def run(engine, capture_run):
     with engine.connect() as connection:
         before = inventory(connection)
         signature = preserved(connection, capture_run)
+        reference_present = bool(
+            sql(
+                connection,
+                "SELECT EXISTS(SELECT 1 FROM ilc.deliveries WHERE delivery_id='ENT-UNKNOWN')",
+            ).scalar_one()
+        )
     if before not in ((0, 0, 0), (8, 8, 13)):
         raise AssertionError("Unexpected fixture state; preserve and investigate")
     first = load(engine, capture_run)
@@ -111,7 +126,11 @@ def run(engine, capture_run):
         )
         verify_run(connection, second, {"DUPLICATE": 14, "CONFLICT": 1, "REJECTED": 3})
         verify_run(
-            connection, unresolved, {"DUPLICATE": 14, "CONFLICT": 1, "REJECTED": 4}
+            connection,
+            unresolved,
+            {"DUPLICATE": 15, "CONFLICT": 1, "REJECTED": 3}
+            if reference_present
+            else {"DUPLICATE": 14, "CONFLICT": 1, "REJECTED": 4},
         )
         after = inventory(connection)
         if after != (8, 8, 13) or signature != preserved(connection, capture_run):
@@ -159,13 +178,15 @@ def run(engine, capture_run):
                 run=unresolved["run_id"],
             ).mappings()
         ]
-        if not any(
+        if not reference_present and not any(
             row["reason"] == "INVALID_REFERENCE" and row["count"] == 1
             for row in reasons
         ):
             raise AssertionError("Unresolved reference not distinguished")
     return {
         "verification": "PASS",
+        "inventory_scope": "ORIGINAL_FIXTURE_IDS",
+        "recovered_reference_present": reference_present,
         "before": before,
         "after": after,
         "first": first,

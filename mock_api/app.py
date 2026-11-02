@@ -4,6 +4,7 @@ import base64
 import binascii
 import hashlib
 import json
+import os
 import re
 from pathlib import Path
 from typing import Annotated, Literal
@@ -119,4 +120,8 @@ def create_app(fixture_path: Path = FIXTURE) -> FastAPI:
     return api
 
 
-app = create_app()
+app = create_app(
+    Path(os.environ["ILC_MOCK_FIXTURE"])
+    if os.environ.get("ILC_MOCK_FIXTURE")
+    else FIXTURE
+)
