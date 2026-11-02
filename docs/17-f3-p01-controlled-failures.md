@@ -128,3 +128,51 @@ um aviso de depreciacao; Ruff check/format aprovados. Verificador real PASS:
 ReadTimeout 0.201s; HTTP 503 e JSON invalido preservados; ConnectError 0.007s
 com connect_timeout_seconds=5.0. PID filho 91 encerrado, child_stopped=true.
 Windows ainda pendente; a aprovacao Linux nao substitui a evidencia local.
+
+
+## Evidencia final recebida de Joao - Windows - 02/11/2026
+
+Commit tecnico executado: 85549018189c4cd3af0e50f707c21f3d332560e5.
+Fast-forward observado de 2ad7db5 para 8554901; branch sincronizada com
+origin/feat/f3-p01-events-api, somente .vscode/ nao rastreada.
+
+Comandos observados: Ruff check, Ruff format --check, pytest dos dois
+arquivos de API e python -m scripts.check_api_failures.
+Ruff: All checks passed; 8 files already formatted.
+Pytest: 34 passed, 1 warning in 4.19s; tests_exit=0.
+Aviso HTTPX/TestClient mantido como manutencao autorizada nao bloqueante.
+
+Verificador: verification=PASS, verification_exit=0.
+URL 127.0.0.1:57066; PID filho 29872; child_stopped=true.
+O retorno confirma wait do processo filho; nao foi recebida uma listagem
+independente adicional dos processos no SO.
+
+| Cenario | Esperado | Observado Windows |
+|---|---|---|
+| Normal | HTTP 200, pagina 5 de total 13, preservada apos falhas | HTTP_200, status 200, items 5, total 13; verificacao de igualdade passou |
+| Delay 1s, timeout leitura 0.2s | ReadTimeout | READ_TIMEOUT, 0.201s, status/body null |
+| Erro HTTP | 503 e corpo identificado, HTTPStatusError | HTTP_STATUS_ERROR; 503; {"scenario":"http_503","error":"SIMULATED_UNAVAILABLE"} |
+| JSON invalido | HTTP 200 seguido de JSONDecodeError | JSON_DECODE_ERROR; 200; corpo {"scenario":"invalid_json", |
+| Servidor parado | ConnectError apos encerramento | CONNECT_ERROR, 2.207s, connect=5s, status/body null |
+
+O tempo observado de 2.207s excede o antigo limite de 0.5s e e coerente
+com a correcao do prazo. Nao prova causa interna do SO ou firewall.
+Falha anterior preservada: 31 passed/1 failed, ConnectTimeout, exit=1.
+Nenhuma falha foi reclassificada como sucesso de requisicao.
+
+### Passagem para decisao central
+
+Entrega tecnica de P01 submetida para aceite final: endpoint normal,
+OpenAPI, paginacao/cursor/termino, reconciliacao com fixture e quatro
+cenarios de falha real exercitados; dependencias fixadas e publicadas.
+Evidencias de paginacao, lock e pratica anteriores permanecem no documento 16.
+Joao implementou a ligacao central e executou verificacoes locais.
+Explicacao independente foi adiada por decisao humana para revisao final;
+nao esta demonstrada nem sera inventada. Nenhuma aprendizagem pendente
+foi declarada concluida.
+
+Commit tecnico: 8554901. Este registro posterior e exclusivamente documental;
+sem alteracao de codigo/dependencias e sem necessidade de repetir testes.
+Sincronizacao deste commit documental no Windows ainda deve ser confirmada.
+P01 aguarda decisao do gerente; F3 nao fechada. Ingestao bloqueada.
+Proximo passo: gerente decide aceite/ajustes e emite eventual proximo cartao.
