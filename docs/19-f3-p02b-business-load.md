@@ -191,3 +191,14 @@ Aviso HTTPX/TestClient mantido como manutencao nao bloqueante.
 
 Explicacao independente adiada para revisao final.
 P02B submetido para aceite central; nenhum proximo cartao liberado.
+
+
+## Aceite central recebido com F3-P03 - 02/11/2026
+
+P02B ACEITO no escopo demonstrado em 44fcbff. Autoridade: cartao humano
+F3-P03 encaminhado por Joao neste chat. Nenhum ID separado de validacao
+foi fornecido ou inventado. Estados anteriores de submissao sao historicos.
+P03 liberado exclusivamente para checkpoint transacional, retry limitado,
+retomada, recuperacao de referencia e evento atrasado no banco de teste.
+Aprendizagem independente para revisao final. F3 permanece aberta e depende
+de validacao central antes de consolidacao/fechamento; fases posteriores bloqueadas.
