@@ -11,7 +11,7 @@ from typing import Annotated, Literal
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import AwareDatetime, BaseModel, ConfigDict, StringConstraints
 
-from mock_api.pagination import paginate  # noqa: F401 - usado na ligacao de Joao
+from mock_api.pagination import paginate
 
 FIXTURE = (
     Path(__file__).resolve().parents[1]
@@ -42,9 +42,9 @@ class EventPage(BaseModel):
 
 
 def page_events(events: list[dict], offset: int, limit: int):
-    """Joao completa a ligacao com a paginacao."""
+    """Retorna a pagina de eventos e a proxima posicao."""
     # Use paginate com os tres argumentos recebidos e retorne o resultado.
-    raise NotImplementedError("Joao: ligar endpoint a paginate")
+    return paginate(events, offset, limit)
 
 
 def encode_cursor(dataset_id: str, offset: int) -> str:

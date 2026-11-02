@@ -92,3 +92,28 @@ Pendentes: ligacao autoral, suite e loopback observados no Windows, explicacao
 de termino, commit local incluindo paginacao/dependencias e publicacao.
 Timeout, erro HTTP, JSON invalido e indisponibilidade ainda obrigatorios para P01,
 fora deste recorte. Nenhum aceite de P01 ou liberacao de ingestao foi emitido.
+
+## Atualizacao observada no Windows - 02/11/2026
+
+Este registro atualiza o estado de preparacao descrito acima.
+Joao implementou page_events retornando paginate(events, offset, limit).
+Import provisório ajustado; paginacao local incluida nesta entrega.
+
+Evidencias recebidas:
+- Python 3.13.14; pip check aprovado.
+- FastAPI 0.150.0, Uvicorn 0.54.0, HTTPX 0.28.1,
+  Starlette 1.9.0, Pydantic 2.14.1, pytest 9.1.1, Ruff 0.17.1.
+- 24 testes aprovados em 2.37s, com aviso de depreciacao HTTPX/TestClient.
+- Ruff check e format aprovados apos remover noqa provisorio.
+- git diff --check sem erros.
+- Processo 21772 escutando em 127.0.0.1:8000.
+- Tres chamadas GET /events com HTTP 200; paginas 5/5/3, total 13.
+- Mesmo dataset_id nas paginas; termino next_cursor=null e has_more=false.
+- Servidor encerrado normalmente.
+- SHA256 do lock:
+  73B7A7308D0BC5536A450A558957E07E649A5AD39AA51959D59C02211477824F
+
+Joao editou e executou; explicacao independente do termino ainda pendente.
+OpenAPI exercitado pelos testes; chamada manual no Windows nao recebida.
+Timeout, erro HTTP, JSON invalido e indisponibilidade continuam pendentes.
+P01 sem aceite central. Ingestao bloqueada.
