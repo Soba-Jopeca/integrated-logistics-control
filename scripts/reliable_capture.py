@@ -132,8 +132,11 @@ def advance_page(
 
 
 def commit_page_and_checkpoint(engine, before_commit=False, **page):
-    """Joao conecta a gravacao e o checkpoint a uma unica transacao."""
-    raise CaptureError("JOAO_RECOVERY_LINK_PENDING")
+    """Grava pagina e checkpoint na mesma transacao."""
+    with engine.begin() as connection:
+        advance_page(connection, **page)
+        if before_commit:
+            raise CaptureError("SIMULATED_BEFORE_COMMIT")
 
 
 def start_job(engine):
