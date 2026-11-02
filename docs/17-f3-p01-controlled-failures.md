@@ -40,7 +40,7 @@ Nao depende de servidor manual na 8000. Nao termina processos preexistentes.
 HTTPX com trust_env=False evita proxy de ambiente nas chamadas locais.
 Sondagem de prontidao limitada a 10s; nao e retry dos cenarios.
 Cada cenario e chamado uma vez. Timeout=0.2s, servidor espera 1s;
-limite de observacao 3s. Conexao pos-parada tem timeout=0.5s.
+limite de observacao 3s. Conexao pos-parada: connect=5s; read/write/pool=0.5s (correcao abaixo).
 Nao ha comparacao exata com duracoes nominais, sujeitas ao SO.
 
 Processo encerrado em finally, wait limitado a 5s, kill do proprio filho
@@ -97,3 +97,34 @@ child_stopped=true e ausencia do PID filho na listagem do SO.
 Apos receber evidencias, registrar observado Windows e devolver ao gerente
 para aceite final de P01. Explicacao independente fica para revisao final.
 Sem aceite central, nenhuma ingestao ou fase seguinte e liberada.
+
+
+## Correcao apos evidencia Windows - 02/11/2026
+
+Entrada: 2ad7db5. Joao sincronizou a branch e executou a suite/verificador.
+Ruff check/format passaram. Resultado: 31 passed, 1 failed em 3.37s;
+verificador verification=FAIL, verification_exit=1, ConnectTimeout.
+Falha localizada na chamada apos encerramento do servidor; nao no delay.
+Nenhum timeout foi convertido em ConnectError nem registrado como sucesso.
+
+Diagnostico: timeout de conexao de 0.5s expirou no Windows. E plausivel que
+o prazo tenha sido curto para receber a recusa do SO, mas a causa completa
+nao foi isolada. Nao alegar problema de firewall, banco ou servidor ativo.
+Correcao limitada: httpx.Timeout(0.5, connect=5.0) somente em check_stopped.
+Nao ha retry. ReadTimeout deliberado permanece 0.2s com atraso de 1s.
+Se ocorrer ConnectTimeout mesmo com 5s, o ensaio continua falhando.
+Documentacao oficial: https://www.python-httpx.org/advanced/timeouts/
+
+Dois testes de classificacao adicionais provam que ConnectTimeout e
+ReadTimeout propagam sem serem renomeados como ConnectError. Esses dois
+casos usam substituto de cliente somente para classificacao; nao substituem
+o teste dos quatro cenarios por HTTP real.
+
+Revalidacao Linux apos correcao e execucao Windows corrigida serao registradas
+na devolucao. P01 permanece sem aceite; nenhuma ingestao liberada.
+
+Revalidacao do assistente Linux/Python 3.12.14: 34 passed em 1.91s,
+um aviso de depreciacao; Ruff check/format aprovados. Verificador real PASS:
+ReadTimeout 0.201s; HTTP 503 e JSON invalido preservados; ConnectError 0.007s
+com connect_timeout_seconds=5.0. PID filho 91 encerrado, child_stopped=true.
+Windows ainda pendente; a aprovacao Linux nao substitui a evidencia local.

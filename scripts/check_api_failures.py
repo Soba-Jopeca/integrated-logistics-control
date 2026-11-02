@@ -156,13 +156,16 @@ def check_running(url: str) -> list[dict]:
 
 def check_stopped(url: str) -> dict:
     started = time.monotonic()
-    with httpx.Client(trust_env=False, timeout=0.5) as client:
+    # Tempo para o SO reportar recusa, separado do timeout de leitura.
+    timeout = httpx.Timeout(0.5, connect=5.0)
+    with httpx.Client(trust_env=False, timeout=timeout) as client:
         try:
             client.get(url + "/events")
         except httpx.ConnectError:
             return {
                 "scenario": "server_stopped",
                 "outcome": "CONNECT_ERROR",
+                "connect_timeout_seconds": 5.0,
                 "status": None,
                 "body": None,
                 "elapsed_seconds": round(time.monotonic() - started, 3),
