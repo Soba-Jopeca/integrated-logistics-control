@@ -169,3 +169,16 @@ PID filho 18852 encerrado; child_stopped=true.
 
 Explicacao independente permanece adiada para revisao final.
 P02A submetido para aceite central; nenhum proximo cartao liberado.
+
+
+## Aceite central recebido com o cartao F3-P02B - 02/11/2026
+
+P02A ACEITO no escopo de captura e rastreabilidade demonstrado em 2b4b72a.
+Autoridade: cartao humano F3-P02B encaminhado neste chat, que determina
+atualizar este registro com o aceite. Nao foi fornecido ID separado de
+validacao; nenhum foi inventado. Registros anteriores de submissao sao historicos.
+
+F3-P02B liberado para transformacao/carga de pedidos, entregas e eventos,
+identidade, duplicatas, conflitos e rejeicoes com reconciliacao. Base tecnica
+2b4b72a; capturas existentes devem ser preservadas. Explicacao independente
+permanece adiada para revisao final. Sem liberacao de outros cartoes ou fases.
