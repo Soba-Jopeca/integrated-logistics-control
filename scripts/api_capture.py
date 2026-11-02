@@ -207,8 +207,9 @@ def write_page(
 
 
 def commit_page(engine, **page):
-    """Joao liga a pagina recebida a write_page dentro de engine.begin()."""
-    raise CaptureError("JOAO_LINK_NOT_IMPLEMENTED")
+    """Confirma a pagina recebida em uma unica transacao."""
+    with engine.begin() as connection:
+        return write_page(connection, **page)
 
 
 def counts(connection, run_id):

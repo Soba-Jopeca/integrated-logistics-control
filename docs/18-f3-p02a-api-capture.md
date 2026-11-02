@@ -146,3 +146,26 @@ upgrade observado no banco de teste, testes PostgreSQL, SQL/contagens/hashes,
 commit autoral e publicacao/evidencias ao gerente. Explicacao para revisao final.
 Sem CSV, retry, checkpoint, retomada completa ou entidades de negocio.
 P02A aguarda aceite central; nenhum proximo cartao liberado.
+
+## Evidencia Windows recebida - 02/11/2026
+
+Migracao observada: 0004_api_capture (head).
+Joao implementou commit_page com engine.begin() e write_page.
+Ruff aprovado; 65 testes passaram em 5.96s; tests_exit=0.
+Aviso HTTPX/TestClient mantido como manutencao nao bloqueante.
+
+Verificador HTTP real + consultas PostgreSQL: PASS, exit=0.
+Run normal: capture-e0e5e158-49f3-4b8f-ba05-3397db8c7e3c.
+SUCCEEDED; 3 respostas/paginas; 13 itens declarados e 13 persistidos.
+Todos os campos e ordem reconciliados com a fixture; hashes e vinculos conferidos.
+
+Run com falha: capture-893c9641-87a5-4254-9af1-f09de9f97d7d.
+FAILED, HTTP_ERROR; 2 respostas, 1 pagina capturada, 5 registros confirmados.
+Corpo HTTP503 preservado: {"scenario":"http_503","error":"SIMULATED_UNAVAILABLE"}.
+
+Testes PostgreSQL tambem passaram, incluindo rollback de pagina.
+Contagens de orders/deliveries/events: (1,1,1) antes e depois.
+PID filho 18852 encerrado; child_stopped=true.
+
+Explicacao independente permanece adiada para revisao final.
+P02A submetido para aceite central; nenhum proximo cartao liberado.
