@@ -164,3 +164,28 @@ Pendências: transformação central, testes verdes, instalação Windows e prov
 regressão pertinente, commit de evidências e devolução ao gerente.
 Sem merge, manipulação da configuração Windows ou avanço para P02.
 Esforço humano não medido. Esta é passagem intermediária; não submissão de aceite.
+
+
+## Evidência Windows e correção de checkout — 02/11/2026
+
+João criou a branch com tracking, instalou o lock com --require-hashes e
+executou os 23 testes: 20 passed, 3 failed in 0.59s. As duas fixtures XML
+com horário e a rejeição de data sem fuso passaram; a edição local da
+transformação é compatível com esses resultados, mas seu diff ainda não
+foi recebido nem publicado. Não sobrescrever src/documents/parser.py.
+
+Falharam valid.pdf, missing.pdf e blank.pdf. Os bytes impressos na saída
+Windows têm CRLF. O assistente reproduziu: os três PDFs originais abrem
+com strict=True (uma página cada); converter LF para CRLF faz os três
+falharem com PdfReadError: Broken xref table. .gitattributes não cobria
+fixtures documentais. Correção 4b4d079: documentos textuais LF e *.pdf binary.
+Parser estrito mantido; não mascarar corrupção nem regenerar comprovantes.
+
+Próxima execução: fetch/merge --ff-only da branch, preservando alteração
+local do parser; verificar git diff --name-only para os quatro PDFs e,
+somente se não houver edição intencional nesses arquivos, restaurar apenas
+esses quatro caminhos de HEAD para o worktree. Isso reaplica os atributos
+binários e recupera os bytes versionados. Não restaurar o parser ou diretório
+inteiro. Depois executar novamente os 23 testes e enviar saída/diff do parser.
+Instalação Windows comprovada; teste PDF corrigido, prova SQL e aceites
+continuam pendentes. Nenhuma escrita em banco feita nesta correção.
