@@ -3,15 +3,17 @@
 from datetime import UTC, datetime
 from uuid import uuid4
 
-from src.documents.parser import FIELDS, DocumentError
+from src.documents.parser import FIELDS
 from src.documents.service import sql
 
 RULES_VERSION = "document-rules-v1"
 
 
 def same_utc_minute(actual, expected):
-    """Joao implements this central comparison before database execution."""
-    raise DocumentError("AUTHOR_COMPARISON_PENDING")
+    """Compara o minuto UTC, descartando segundos e microssegundos."""
+    return actual.astimezone(UTC).replace(second=0, microsecond=0) == (
+        expected.astimezone(UTC).replace(second=0, microsecond=0)
+    )
 
 
 def reasons_for(
