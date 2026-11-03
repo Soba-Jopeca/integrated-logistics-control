@@ -267,3 +267,11 @@ Pendência única de governança: decisão central aceito/ajustes/bloqueado para
 Esta publicação não fecha F4 nem inicia IA. Não repetir provas já aprovadas
 apenas porque a passagem foi consolidada. Próximo passo: levar documento 23
 e SHA documental final ao gerente.
+
+
+## Aceite central recebido com F4-P03
+
+**VAL-F4-P02-001**, conforme cartão humano F4-P03 encaminhado por João no
+chat 04. Código aceito b88f88a, passagem f34ec23, limites anteriores preservados.
+F4-P03 autorizado em sequência, começando por diagnóstico de viabilidade local.
+F4 continua aberta; consolidação da fase aguarda validação central de P03.
