@@ -243,3 +243,15 @@ confirmados por João; smoke local executado. Harness, dois prompts e oito
 documentos rotulados preparados; comparação real e utilidade ainda pendentes.
 63 testes offline aprovados. F4 aberta; consolidação e F5–F6 não liberadas.
 [Passagem 24](24-f4-p03-local-ai-experiment.md).
+
+
+## F4-P03 — entregue para validação central
+
+Prompt autoral publicado em **4623f35**, evidências/relatório em b1e2121.
+63 testes offline aprovados; ensaio real com oito documentos e dois prompts
+concluído. Baseline 30/40 campos, V1/V2 39/40; ambos inventaram ADMIN no caso
+malicioso. Recomenda-se manter baseline como padrão, IA isolada, sem integração
+ou aprovação. Hashes/resumos auditados. Git observado em 4623f35: 0 0,
+somente .vscode/ não rastreado. Explicação independente adiada.
+[Passagem 24](24-f4-p03-local-ai-experiment.md).
+**F4-P03 aguarda aceite central; F4 aberta, sem consolidação e sem liberar F5–F6.**
