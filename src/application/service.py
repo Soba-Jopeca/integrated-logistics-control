@@ -27,7 +27,11 @@ def filter_deliveries(rows, identifier="", physical="Todos", documentary="Todos"
         r
         for r in rows
         if identifier.strip().casefold() in r["delivery_id"].casefold()
-        and (physical == "Todos" or r["physical_state"] == physical)
+        and (
+            physical == "Todos"
+            or (physical == "CONTESTED" and r["completion_contested"])
+            or r["physical_state"] == physical
+        )
         and (documentary == "Todos" or r["documentary_state"] == documentary)
     ]
 

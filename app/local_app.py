@@ -52,7 +52,7 @@ def main():
         st.caption("Consultado em " + consulted.astimezone(TZ).isoformat())
         identifier = st.text_input("Buscar identificador")
         physical = st.selectbox(
-            "Situação física", ["Todos", "DELIVERED", "NOT_CONFIRMED"]
+            "Situação física", ["Todos", "DELIVERED", "NOT_CONFIRMED", "CONTESTED"]
         )
         documentary = st.selectbox(
             "Regularidade documental", ["Todos", "SEM_DOCUMENTO", "PENDENTE", "REGULAR"]
