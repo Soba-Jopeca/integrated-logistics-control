@@ -6,7 +6,41 @@ A estimativa antiga de 20–25 horas não constitui esforço medido.
 Tempo dedicado: não medido.
 
 
-## Estado atual — 02/11/2026, F3-P04 autorizado
+
+## Estado atual — fechamento autorizado VAL-F3-P04-001
+
+Decisão humana recebida de João neste chat: registrar **F3 FECHADA COM
+LIMITAÇÕES**, preservando o histórico, as evidências e a explicação independente
+adiada. A decisão central, e não inferência baseada em testes ou memória,
+autoriza esta atualização exclusivamente documental.
+
+| Fase | Estado central |
+|---|---|
+| F1 | Fechada documentalmente — VAL-F1-P04-001 |
+| F2 | Fechada com limitações — VAL-F2-P04-001 |
+| F3 | **FECHADA COM LIMITAÇÕES — VAL-F3-P04-001** |
+| F4 | Pronta para receber o primeiro cartão do gerente, ainda não iniciada |
+| F5–F6 | Bloqueadas |
+
+Base técnica preservada: 702ede1. Consolidação submetida: 48e5205.
+Branch: feat/f3-p03-reliability; revisão observada 0006_reliability;
+banco ilc_f2p02b_test. R05–R07 aceitos no escopo demonstrado; última regressão
+aprovada: 98 testes, nenhum skip, Ruff aprovado; provas não repetidas no fechamento.
+
+Prática de João e conferência delegada ao assistente continuam discriminadas
+na [passagem final 21](21-f3-p04-consolidation.md). Explicação independente
+permanece **adiada, não demonstrada**; esforço humano permanece não medido.
+Limitações de interrupção controlada, retry/snapshot, recuperação explícita,
+concorrência não ensaiada, aviso HTTPX/TestClient e reprodução/operação futura
+não foram apagadas nem convertidas em conformidade completa.
+
+Feito: README/plano/documento 21 atualizados por VAL-F3-P04-001.
+Próximo passo: entregar passagem e commit final ao gerente para inclusão nas
+fontes compartilhadas; aguardar primeiro cartão específico de F4 no chat 04.
+Sem merge, novos testes, implementação ou início de F4.
+As seções seguintes preservam o histórico anterior e não substituem esta decisão.
+
+## Histórico — 02/11/2026, F3-P04 autorizado, anterior ao fechamento
 
 | Fase/cartão | Estado |
 |---|---|

@@ -1,10 +1,16 @@
-# 21 — F3-P04: consolidação para avaliação de fechamento
+# 21 — F3-P04: consolidação e fechamento com limitações
 
 Data: 02/11/2026. Projeto: Integrated Logistics Control — End to End.
 Repositório: [Soba-Jopeca/integrated-logistics-control](https://github.com/Soba-Jopeca/integrated-logistics-control).
 
-**Estado: F3 ABERTA. P04 entregue para avaliação central: SQL/Git demonstrados por João e comandos conferidos pelo assistente por delegação explícita de João.**
-Esta consolidação não emite fechamento, não autoriza merge e não inicia F4.
+**Estado atual: F3 FECHADA COM LIMITAÇÕES — VAL-F3-P04-001.**
+Decisão central encaminhada por João neste chat autoriza registrar o fechamento.
+**F4 pronta para receber o primeiro cartão do gerente, ainda não iniciada;
+F5–F6 bloqueadas.** Nenhuma autorização de merge ou implementação nova.
+Os registros de preparação, submissão e fase aberta nas seções abaixo são
+históricos, anteriores a esta decisão; evidências e limitações permanecem válidas.
+SQL/Git foram demonstrados por João e comandos conferidos pelo assistente
+por delegação explícita de João.
 A explicação independente permanece pendente para revisão final, como determinado
 nos cartões. Não foi inferida aprendizagem independente pelos resultados dos testes.
 
@@ -315,7 +321,7 @@ somente o das execuções informadas (4,19 s/5,96 s/6,86 s/14,05 s em seus escop
 A estimativa antiga de 20–25h e o alvo 21/10 não constituem esforço ou prazo comprovados.
 Apresentação solicitada para 03/11 às 14h não amplia escopo nem autoriza fechar F3.
 
-## Limitações e decisão pendente
+## Limitações preservadas e histórico da decisão então pendente
 
 - Case sintético/local; nenhum benefício ou integração empresarial real alegado.
 - Interrupção controlada antes/depois do commit, sem desligamento abrupto do SO.
@@ -363,7 +369,7 @@ código testado em 702ede1. A conferência dos demais comandos, que estava pende
 nesta rodada, foi posteriormente delegada por João e concluída pelo assistente,
 como registrado abaixo. F3 continua ABERTA; F4 não iniciada.
 
-## Checagem final delegada e submissão ao gerente
+## Histórico — checagem final delegada e submissão ao gerente
 
 João instruiu explicitamente neste chat: **“faça este check por mim”**, por
 restrição de tempo. Essa instrução substitui a solicitação de confirmação
@@ -395,3 +401,54 @@ documental; código técnico 702ede1 preservado, sem merge, F4 não iniciada.
 **Solicitação ao gerente:** avaliar P04 e decidir fechamento da F3 ou ajustes,
 tratando explicitamente a explicação independente adiada. O executor não
 declarou F3 FECHADA. Não foi enviada mensagem automática a outro chat.
+
+## Registro final autorizado — VAL-F3-P04-001
+
+**Decisão central recebida:** F3 **FECHADA COM LIMITAÇÕES**. Autoridade:
+mensagem humana de João neste chat, intitulada “Registro de fechamento
+autorizado — VAL-F3-P04-001”. Não foi inferido fechamento a partir da memória,
+sucesso de testes, delegação da checagem ou urgência de apresentação.
+
+Base técnica preservada: [702ede1](https://github.com/Soba-Jopeca/integrated-logistics-control/commit/702ede1).
+Consolidação avaliada: [48e5205](https://github.com/Soba-Jopeca/integrated-logistics-control/commit/48e5205).
+A presente publicação atualiza somente README, plano e este documento, na branch
+feat/f3-p03-reliability. Não houve merge, alteração de código/dependências/esquema,
+novos testes, repetição das provas aprovadas ou escrita no banco. Alterações
+locais e .vscode/ não foram manipuladas; sincronização do novo commit documental
+no Windows não é presumida.
+
+| Fase | Estado após a decisão central |
+|---|---|
+| F3 | **FECHADA COM LIMITAÇÕES — VAL-F3-P04-001** |
+| F4 | **Pronta para receber o primeiro cartão do gerente, ainda não iniciada** |
+| F5–F6 | **Bloqueadas** |
+
+R05–R07 consolidados no escopo demonstrado: API/OpenAPI e falhas reais;
+captura/carga rastreáveis; duplicata/conflito/rejeição explícitos; checkpoint
+transacional, rollback, retomada com snapshot consistente, retry limitado,
+recuperação de referência e evento atrasado sem regressão indevida.
+Última evidência reutilizada: 98 testes aprovados, nenhum skip, Ruff aprovado;
+query_exit=0, checkpoint 3 páginas/13 registros, SUCCEEDED e Git 0 0 na
+conferência de João. Revisão Alembic observada 0006_reliability no banco
+ilc_f2p02b_test, ilc_app, 127.0.0.1:55432.
+
+Contagens preservadas: fixture original 8/8/13; sentinelas 1/1/1; global anterior
+9/9/14; recuperação legítima +1/+1/+2; global 10/10/16 estável em reexecução.
+Histórico e assinatura da captura/sentinelas permanecem os registrados acima.
+
+Contribuição prática de João preservada, assim como a autoria da checagem
+documental delegada ao assistente. **Explicação independente continua adiada,
+não demonstrada**; o fechamento com limitações não a declara realizada.
+Esforço humano total não medido; duração dos testes não equivale a esforço.
+
+Mantidas todas as limitações desta passagem, incluindo interrupção controlada,
+retomada apenas com snapshot igual, orçamento fixo de retry, recuperação
+explícita da referência, aviso HTTPX/TestClient, concorrência real não ensaiada
+e instalação limpa/CI/E2E/backup/restauração não comprovados. Fases posteriores
+não foram implementadas nem aceitas por este fechamento.
+
+**Passagem:** F3 fechada com limitações por VAL-F3-P04-001; commit documental
+final deve acompanhar este documento ao gerente para inclusão nas fontes.
+Não presumir sincronização automática de fontes ou outros chats. Próximo passo
+somente por cartão específico do gerente ao chat 04; F4 permanece não iniciada.
+Nenhuma mensagem automática foi enviada a outro chat.

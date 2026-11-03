@@ -10,11 +10,13 @@ são estados independentes. O case não representa a operação de uma empresa.
 
 F1 fechada documentalmente; F2 fechada com limitações (VAL-F2-P04-001).
 F3-P01, P02A, P02B e P03 aceitos no escopo demonstrado; P03 registrado por
-**VAL-F3-P03-001**. **F3-P04 entregue para avaliação; F3 ABERTA**.
+**VAL-F3-P03-001**. **F3 FECHADA COM LIMITAÇÕES — VAL-F3-P04-001**,
+conforme decisão central encaminhada por João neste chat.
 Consulta SQL e Git demonstrados por João; conferência técnica dos comandos
-concluída pelo assistente por delegação explícita de João. Aguarda decisão central.
+concluída pelo assistente por delegação explícita de João. Histórico e evidências preservados.
 A explicação independente de João permanece pendente para revisão final.
-F4–F6 bloqueadas. PR #2 aberto e sem merge; nenhuma autorização de merge.
+**F4 pronta para receber o primeiro cartão do gerente, ainda não iniciada.**
+F5–F6 bloqueadas. PR #2 preservado sem merge; nenhuma autorização de merge.
 
 Branch de trabalho: `feat/f3-p03-reliability`. Código demonstrado: `702ede1`;
 evidências anteriores à consolidação: `d0cba49`. Não partir de main desatualizada.
@@ -170,8 +172,10 @@ Esforço humano total da F3 não medido; 14,05 s é tempo de teste, não de trab
 - [P01 API](docs/16-f3-p01-events-api.md), [P01 falhas](docs/17-f3-p01-controlled-failures.md).
 - [P02A captura](docs/18-f3-p02a-api-capture.md), [P02B carga](docs/19-f3-p02b-business-load.md).
 - [P03 confiabilidade — VAL-F3-P03-001](docs/20-f3-p03-reliability.md).
-- [P04 consolidação para decisão de fechamento](docs/21-f3-p04-consolidation.md), [contribuição](CONTRIBUTING.md).
+- [P04 fechamento com limitações — VAL-F3-P04-001](docs/21-f3-p04-consolidation.md), [contribuição](CONTRIBUTING.md).
 
 Registros antigos de preparação/submissão são históricos; decisões centrais
-posteriores e a consolidação 21 definem o estado atual. F3 não foi fechada por
-esta publicação. F4 requer passagem de fechamento e cartão central próprios.
+posteriores e a consolidação 21 definem o estado atual. O fechamento autorizado
+VAL-F3-P04-001 mantém todas as limitações registradas e a explicação independente
+adiada. F4 está pronta para receber cartão do gerente; este registro não a inicia.
+Atualização de fechamento somente documental, sem testes repetidos, merge ou implementação.
