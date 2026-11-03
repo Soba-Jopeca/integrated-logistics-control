@@ -1,3 +1,32 @@
+## Estado atual — F4 FECHADA COM LIMITAÇÕES
+
+**VAL-F4-P04-001 — decisão central encaminhada por João em 03/11/2026.**
+O fechamento foi autorizado por mensagem humana neste chat, sem inferência
+por memória, testes ou delegação. Aceites P01/P02/P03 e limitações preservados.
+
+| Fase | Estado após a decisão |
+|---|---|
+| F4 | **FECHADA COM LIMITAÇÕES — VAL-F4-P04-001** |
+| F5 | **Pronta para receber o primeiro cartão do gerente, ainda não iniciada** |
+| F6 | **Bloqueada** |
+
+**Baseline determinístico padrão; IA experimental isolada; nenhuma aprovação
+por IA.** Explicação independente de João continua adiada, não demonstrada.
+Prática anterior, autoria, evidências e limites permanecem registrados.
+Esforço humano **não medido**.
+
+Esta publicação altera somente README, plano e documento 25. Nenhum merge,
+teste novo, inferência, carga, integração ou início de F5. Alterações locais
+preservadas; sincronização do novo commit no Windows não é presumida.
+
+Consolidação avaliada: **770172d**; base técnica preservada: parser **787f327**, conferência **b88f88a**, harness **947cbbd**, prompt **4623f35**.
+
+As seções anteriores de fase aberta/submissão abaixo são **histórico anterior
+ao fechamento** e não substituem esta decisão. Resultados e limitações técnicas
+não foram alterados.
+
+---
+
 # 25 — F4-P04: consolidação para avaliação de fechamento
 
 03/11/2026. **F4 ABERTA — CONSOLIDAÇÃO ENTREGUE PARA DECISÃO CENTRAL.**
@@ -174,3 +203,39 @@ Pendência de governança: gerente decidir **fechamento da F4 ou ajustes**,
 considerando os limites e a explicação independente adiada. Executor não fecha.
 Próximo passo único: levar esta passagem e commit final ao chat 00. Sem envio
 automático de mensagem, merge, integração de IA ou início de F5.
+
+
+## Registro final autorizado — VAL-F4-P04-001
+
+Mensagem humana recebida: “Registro de fechamento autorizado — VAL-F4-P04-001”.
+Decisão: **F4 FECHADA COM LIMITAÇÕES**. Consolidação central avaliada 770172d.
+Aceites VAL-F4-P01-001, VAL-F4-P02-001 e VAL-F4-P03-001 mantidos no recorte
+demonstrado. Nenhum ID de validação foi criado pelo executor.
+
+R08–R10 consolidados: PDF textual/XML, ausências e falhas rastreáveis;
+conferência determinística, substituição, histórico e independência física;
+experimento local real, comparação V1/V2, métricas, falha de injeção e fallback.
+Provas reutilizadas: 63 testes acumulados, Ruff aprovado, verificadores
+PostgreSQL P01/P02 e consulta de histórico, oito textos/16 chamadas reais.
+Não somar suítes acumuladas nem tratar testes controlados como chamadas LLM.
+
+Decisão mantida: baseline padrão; IA experimental isolada; nenhuma aprovação
+por IA. Ambos os prompts inventaram ADMIN em E04; resultado bruto, hashes
+e relatório permanecem intactos. Nenhuma integração automática autorizada.
+
+Prática de João em P01–P03, conferência P04 delegada ao assistente, limites
+da reprodução/concorrência/formatos e escopo dos snapshots permanecem
+discriminados. **Explicação independente continua adiada**, não demonstrada.
+Fechamento com limitações não a declara concluída. Esforço humano não medido.
+
+F5: pronta para receber primeiro cartão do gerente, **ainda não iniciada**.
+F6: bloqueada. Esta atualização não libera atividades de F5 por si só.
+Branch de publicação: docs/f4-p04-consolidation. Somente três documentos
+alterados; nenhum código, fixture, prompt, resultado bruto ou configuração.
+Sem merge, novos testes, inferência, carga ou acesso de escrita ao banco.
+Alterações locais não manipuladas; conferência anterior permanece a registrada.
+
+Passagem final: F4 fechada com limitações por VAL-F4-P04-001; o SHA documental
+desta publicação acompanha a devolução ao gerente para atualização das fontes.
+Não presumir sincronização automática. Próximo passo somente mediante cartão
+específico do gerente ao chat 05. Nenhuma mensagem automática enviada a outro chat.

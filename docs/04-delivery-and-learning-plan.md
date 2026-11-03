@@ -1,3 +1,32 @@
+## Estado atual — F4 FECHADA COM LIMITAÇÕES
+
+**VAL-F4-P04-001 — decisão central encaminhada por João em 03/11/2026.**
+O fechamento foi autorizado por mensagem humana neste chat, sem inferência
+por memória, testes ou delegação. Aceites P01/P02/P03 e limitações preservados.
+
+| Fase | Estado após a decisão |
+|---|---|
+| F4 | **FECHADA COM LIMITAÇÕES — VAL-F4-P04-001** |
+| F5 | **Pronta para receber o primeiro cartão do gerente, ainda não iniciada** |
+| F6 | **Bloqueada** |
+
+**Baseline determinístico padrão; IA experimental isolada; nenhuma aprovação
+por IA.** Explicação independente de João continua adiada, não demonstrada.
+Prática anterior, autoria, evidências e limites permanecem registrados.
+Esforço humano **não medido**.
+
+Esta publicação altera somente README, plano e documento 25. Nenhum merge,
+teste novo, inferência, carga, integração ou início de F5. Alterações locais
+preservadas; sincronização do novo commit no Windows não é presumida.
+
+[Passagem final e evidências](25-f4-p04-consolidation.md).
+
+As seções anteriores de fase aberta/submissão abaixo são **histórico anterior
+ao fechamento** e não substituem esta decisão. Resultados e limitações técnicas
+não foram alterados.
+
+---
+
 <!-- Estado atual: seções históricas abaixo não substituem esta consolidação. -->
 
 ## Estado atual — F4-P04 entregue para decisão central (03/11/2026)
