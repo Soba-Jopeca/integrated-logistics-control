@@ -1,3 +1,13 @@
+## Estado atual — aceite recebido com F4-P04
+
+**VAL-F4-P03-001** registrado por cartão humano de João. Prompt publicado em
+4623f35; evidências/relatório b1e2121; passagem ce875cf. As pendências de
+publicação/aceite nas seções abaixo são histórico anterior a essas provas.
+F4 continua aberta. [Consolidação25](25-f4-p04-consolidation.md) submetida
+para decisão central, sem integrar IA ou iniciar F5. Resultados preservados.
+
+---
+
 # 24 — F4-P03: experimento local de IA
 
 Data de preparação: 03/11/2026. Estado: EM EXECUÇÃO, não validado.

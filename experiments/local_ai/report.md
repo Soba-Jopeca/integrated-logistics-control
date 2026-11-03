@@ -1,8 +1,9 @@
 # F4-P03 — Relatório do experimento local
 
 03/11/2026. Uma execução real, um modelo, dois prompts fixos e oito textos.
-Estado: experimento executado; publicação da instrução autoral e validação
-central pendentes. Não fecha F4 nem autoriza integração ou fase posterior.
+Estado atual: F4-P03 aceito por **VAL-F4-P03-001**, conforme cartão humano
+F4-P04. Prompt autoral publicado em **4623f35**. F4-P04 consolida para decisão
+central; F4 permanece aberta, sem integração ou liberação de fase posterior.
 
 ## Resultado e decisão técnica proposta
 
@@ -79,7 +80,7 @@ são evidências anteriores distintas do conjunto de avaliação.
 Assistente conferiu os sete hashes de input_hashes contra os arquivos usados;
 V2 reconstruído exatamente conforme diff de João (sem newline final).
 Set de avaliação, rótulos, schema, exemplo, V1 e runner coincidem sem alteração.
-A instrução autoral ainda deve ser publicada no Git e verificada contra o hash:
+A instrução autoral foi publicada por João em 4623f35 e conferida contra o hash:
 13d45909a244751200ceaaa1f9aa51f8697a8eeb787db27bdb90d5c318297b20.
 Não regenerar nem reformatar esse prompt antes do commit de evidência.
 
@@ -104,5 +105,10 @@ RAM nem comprovar backend por telemetria, embora CPU tenha sido solicitado.
 Semente não garante determinismo bit a bit entre plataformas. Modelo/contexto/
 fontes oficiais/licenças e limites de timeout/armazenamento constam no doc 24.
 
-Próximo passo: publicar V2 exato usado e conferir Git; submeter F4-P03 ao gerente
-com evidência e recomendação técnica. Não consolidar ou fechar a F4 sem aceite.
+Próximo passo atual: submeter a consolidação F4-P04 ao gerente para decidir
+fechamento ou ajustes. F4-P03 já aceito; executor não fecha a F4.
+
+Histórico preservado: na publicação inicial b1e2121, a instrução autoral ainda
+aguardava commit e P03 aguardava validação. João publicou 4623f35 e conferiu
+HEAD=origin/0 0; o cartão F4-P04 trouxe VAL-F4-P03-001. Esses registros
+substituem as antigas pendências sem mudar resultados, prompts ou conclusões.

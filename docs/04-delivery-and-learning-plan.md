@@ -1,3 +1,22 @@
+<!-- Estado atual: seções históricas abaixo não substituem esta consolidação. -->
+
+## Estado atual — F4-P04 entregue para decisão central (03/11/2026)
+
+**F4 permanece ABERTA. F5–F6 não liberadas.** P01/P02/P03 aceitos por
+VAL-F4-P01-001, VAL-F4-P02-001 e VAL-F4-P03-001. Consolidação P04 entregue
+para o gerente decidir fechamento ou ajustes; executor não declara fechamento.
+
+Extração PDF/XML, conferência determinística, substituição/histórico e experimento
+local consolidados. **Baseline padrão; IA experimental isolada; nenhuma aprovação
+por IA.** 63 testes acumulados e provas anteriores reutilizados; nenhuma inferência
+ou carga repetida em P04. Prompt autoral publicado em 4623f35, evidências em b1e2121,
+base documental ce875cf. Explicação independente adiada; esforço não medido.
+
+[Passagem final F4-P04](25-f4-p04-consolidation.md) reúne commits, esperado × observado,
+autoria, checagem Git/consulta delegadas e limitações. Histórico abaixo preservado.
+
+---
+
 # 04 — Plano de execução e aprendizagem
 
 Data-base: 16/10/2026.
