@@ -3,7 +3,7 @@
 Data: 02/11/2026. Projeto: Integrated Logistics Control — End to End.
 Repositório: [Soba-Jopeca/integrated-logistics-control](https://github.com/Soba-Jopeca/integrated-logistics-control).
 
-**Estado: F3 ABERTA. P04 em conferência de João, para submissão ao gerente.**
+**Estado: F3 ABERTA. P04 com SQL/Git demonstrados; confirmação dos demais comandos documentados pendente, para submissão ao gerente.**
 Esta consolidação não emite fechamento, não autoriza merge e não inicia F4.
 A explicação independente permanece pendente para revisão final, como determinado
 nos cartões. Não foi inferida aprendizagem independente pelos resultados dos testes.
@@ -29,7 +29,7 @@ não equivale a fechamento da fase. Não inventar IDs adicionais para os demais 
 | API | 127.0.0.1:8000 manual; verificadores usam portas efêmeras loopback |
 | PR #2 | Consultado no início de P04: aberto, merged=false; não alterado |
 | Alteração P04 | Somente documentação; nenhum código, fixture, lock ou esquema alterado |
-| Evidência Git P04 | Conferência local/remoto por João ainda pendente após publicação |
+| Evidência Git P04 | João sincronizou ee59574; HEAD/origin iguais, 0 0, sem alteração rastreada; .vscode/ preservado |
 
 O SHA de publicação documental deve acompanhar a passagem ao gerente; ele é
 descendente de d0cba49 e não modifica o código técnico testado em 702ede1.
@@ -214,7 +214,7 @@ Esperado: banco/usuário/porta ilc_f2p02b_test/ilc_app/55432; revisão 0006;
 SUCCEEDED; last_page=3, records=13, complete=true, next_cursor=null;
 stored_pages=3 e stored_items=13; histórico de três páginas com records 5/10/13.
 O histórico demonstra confirmação na mesma transação; não afirmar que gravar
-um log HTTP isolado confirma uma página. Saída de João em P04 ainda pendente.
+um log HTTP isolado confirma uma página. João executou em P04 a consulta reduzida de run/checkpoint: SUCCEEDED, 3/13, complete=True e next_cursor=None. As colunas stored_pages/stored_items e histórico não foram impressas nessa consulta adicional; sua reconciliação já foi comprovada no verificador P03 aprovado.
 
 ### Consulta das rejeições — SQL somente leitura
 
@@ -256,7 +256,8 @@ WHERE l.previous_attempt_id='8e22fc1a-3e32-49c1-ada9-8cca7376185b';
 Esperado: tentativa antiga REJECTED e novas ACCEPTED/DUPLICATE; regressão pode
 ter acrescentado novas tentativas legítimas, portanto não fixar duas linhas globais.
 Estas consultas foram conferidas contra o esquema/código; a consulta read-only
-P04 de João, sem repetir carga ou testes, é a evidência adicional solicitada.
+P04 de run/checkpoint foi executada por João, sem repetir carga ou testes. As
+consultas adicionais de rejeições acima não foram repetidas em P04.
 
 ### Conferência de Git e comandos por João
 
@@ -299,7 +300,7 @@ P04 não repete testes por não alterar comportamento técnico.
 | João / P02B | Implementou normalização UTC central e executou carga/reexecução/consultas |
 | João / P03 | Ligou página e checkpoint à mesma transação; provocou interrupção e executou retomada, verificador e regressão |
 | Assistente | Estrutura, clientes, testes, fixtures adicionais, comandos, revisão e registros de evidência |
-| João / P04 | Conferência de comandos, consulta read-only de execução/checkpoint e Git: pendente |
+| João / P04 | Consulta read-only de execução/checkpoint e Git concluídas; confirmação dos demais comandos do runbook pendente |
 
 Aprendizagem prática evidenciada pelas contribuições acima; explicação independente
 não demonstrada e explicitamente adiada. Esforço humano da F3/P04 **não medido**;
@@ -324,10 +325,34 @@ Apresentação solicitada para 03/11 às 14h não amplia escopo nem autoriza fec
 
 Feito: R05–R07 consolidados com commits, evidências e comandos; VAL-F3-P03-001
 registrado; README/plano atualizados; histórico e sentinelas preservados.
-Pendências: conferência P04 de João e decisão central, incluindo tratamento da
+Pendências: confirmação dos demais comandos documentados por João e decisão central, incluindo tratamento da
 explicação independente pendente antes de eventual fechamento. Sem bloquear ou
 liberar fechamento por conta própria: essa decisão cabe ao gerente.
 
-Próximo passo único: João envia consulta/Git/conferência; anexar resultados à passagem,
-publicar a atualização documental e devolver ao chat 00 para decidir fechamento/ajustes.
+Próximo passo único: João confirma a conferência dos comandos documentados; anexar
+a confirmação e devolver a passagem ao chat 00 para decidir fechamento/ajustes.
 Não realizar merge, consolidar fases posteriores nem iniciar F4.
+
+## Conferência P04 observada — 02/11/2026
+
+João sincronizou d0cba49 → ee59574 por fast-forward, somente oito arquivos
+Markdown. Branch feat/f3-p03-reliability com HEAD e origin em ee59574;
+`git rev-list --left-right --count HEAD...origin/feat/f3-p03-reliability`
+retornou **0 0**. `git diff --check` não imprimiu erro; única entrada de
+status foi .vscode/ não rastreado, preservado. Alembic: **0006_reliability (head)**.
+
+Na mesma venv, João consultou PostgreSQL com **SET TRANSACTION READ ONLY**.
+Conexão observada: **('ilc_f2p02b_test', 'ilc_app', 55432)**.
+Run consultado: **capture-p03-02e5146c-2341-4cd9-846a-49922afd3f2a**.
+Resultado: **status SUCCEEDED, error_category None, last_page 3, records 13,
+complete True, next_cursor None; query_exit=0**. Esperado e observado coincidiram.
+
+A consulta adicional não imprimiu dataset_id, api_total, contagens auxiliares ou
+histórico de checkpoints; não atribuir essas saídas a esta consulta. Sua prova
+permanece no verificador HTTP/SQL P03 aceito. Não houve nova captura, carga,
+migração ou repetição de testes no cartão P04; somente consulta da revisão atual.
+
+Registro final desta rodada é documental, posterior a ee59574; não modifica o
+código testado em 702ede1. Conferência explícita dos comandos de API/captura/carga/
+interrupção/retomada/consulta das rejeições ainda aguarda confirmação de João,
+sem exigir que os execute novamente. F3 continua ABERTA; F4 não iniciada.

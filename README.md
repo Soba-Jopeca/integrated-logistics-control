@@ -11,7 +11,8 @@ são estados independentes. O case não representa a operação de uma empresa.
 F1 fechada documentalmente; F2 fechada com limitações (VAL-F2-P04-001).
 F3-P01, P02A, P02B e P03 aceitos no escopo demonstrado; P03 registrado por
 **VAL-F3-P03-001**. **F3-P04 em consolidação para avaliação; F3 ABERTA**,
-aguardando conferência documental/SQL de João e decisão central de fechamento.
+com consulta SQL e Git de João demonstrados; aguardando confirmação da
+conferência dos demais comandos documentados e decisão central de fechamento.
 A explicação independente de João permanece pendente para revisão final.
 F4–F6 bloqueadas. PR #2 aberto e sem merge; nenhuma autorização de merge.
 

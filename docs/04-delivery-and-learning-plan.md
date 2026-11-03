@@ -16,7 +16,7 @@ Tempo dedicado: não medido.
 | F3-P02A | Aceito: captura preservada; código 2b4b72a/registro de aceite 60cc75f |
 | F3-P02B | Aceito: transformação/carga; código 44fcbff/registro de aceite 6e10e91 |
 | F3-P03 | Aceito no escopo demonstrado — VAL-F3-P03-001; código 702ede1/evidência d0cba49 |
-| F3-P04 | Consolidação autorizada; conferência read-only de João pendente; aguarda decisão do gerente |
+| F3-P04 | Consolidação publicada; SQL/Git conferidos por João; confirmação dos comandos do runbook pendente; aguarda decisão do gerente |
 | F3 | ABERTA; esta documentação não fecha a fase |
 | F4–F6 | Bloqueadas; nenhuma autorização de início |
 
@@ -42,11 +42,12 @@ Apresentação pretendida em 03/11 às 14h; estimativa antiga 20–25 h não é 
 
 Prática concluída: João implementou paginação/ligação do endpoint, transação de
 captura, normalização UTC e ligação de checkpoint; executou cenários, consultas
-e regressões. Em P04 deve conferir comandos, consultar execução/checkpoint
-existentes e confirmar Git local/remoto, sem repetir cargas.
+e regressões. Em P04 consultou execução/checkpoint existentes e confirmou Git local/remoto,
+sem repetir cargas. Confirmação explícita da conferência dos demais comandos do
+runbook ainda pendente.
 
 [Passagem consolidada e comandos atuais](21-f3-p04-consolidation.md).
-Pendências: evidência da conferência P04 e decisão central de fechamento/ajustes,
+Pendências: confirmação dos comandos do runbook por João e decisão central de fechamento/ajustes,
 considerando a explicação independente pendente. Não fechar F3 nem iniciar F4.
 Os estados anteriores abaixo são histórico, superados pela seção atual.
 
@@ -149,3 +150,13 @@ README, plano e passagem; nenhum código alterado ou teste repetido.
 Evidências anteriores, limitações e responsabilidades futuras da aplicação
 continuam válidas. Próximo passo: incluir a passagem nas fontes compartilhadas
 e aguardar cartão específico; este fechamento não inicia a F3.
+
+### Evidência P04 recebida em 02/11/2026
+
+Sincronização local/remoto observada em ee59574, rev-list 0 0, somente
+.vscode/ não rastreado; diff check sem saída de erro. Alembic 0006_reliability.
+Consulta READ ONLY ao banco ilc_f2p02b_test/ilc_app/55432: captura
+capture-p03-02e5146c-2341-4cd9-846a-49922afd3f2a SUCCEEDED, sem erro,
+checkpoint 3/13, complete=True, next_cursor=None, query_exit=0.
+Nenhum teste ou carga repetido. Conferência explícita dos demais comandos do
+runbook e decisão central continuam pendentes; explicação independente adiada.
