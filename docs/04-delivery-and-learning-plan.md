@@ -215,3 +215,10 @@ extração preparada; transformação central, prática e prova PostgreSQL pende
 18 testes offline aprovados e cinco falhas da transformação autoral pendente;
 Ruff aprovado. Sem conferência/aprovação/IA, merge ou início de F5–F6.
 Detalhes e próximo passo: [passagem 22](22-f4-p01-document-extraction.md).
+
+
+## F4-P02 — preparação autorizada
+
+F4-P01 aceito por **VAL-F4-P01-001** no cartão humano recebido. F4-P02
+em execução: comparação central e provas SQL pendentes; sem aceite inferido.
+F4 aberta; experimento IA e F5–F6 não liberados. [Passagem 23](23-f4-p02-document-validation.md).

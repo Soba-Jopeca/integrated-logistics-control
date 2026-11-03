@@ -53,7 +53,7 @@ def preserve(path, store=STORE):
 def extract_document(engine, path, envelope, store=STORE):
     """One run per call, stable version/input, fresh attempts/extractions on reexecution.
 
-    P01 accepts initial versions only. Substitution is reserved for the next card.
+    P02 accepts a linear immutable version chain; every version needs evaluation.
     A missing/rejected file has a FAILED run, not a fictitious document version.
     """
     now = datetime.now(UTC)
@@ -91,10 +91,20 @@ def extract_document(engine, path, envelope, store=STORE):
                 raise DocumentError("INVALID_ENVELOPE")
         if (
             type(envelope["version"]) is not int
-            or envelope["version"] != 1
-            or envelope["supersedes_document_id"] is not None
+            or envelope["version"] < 1
+            or (
+                envelope["version"] == 1
+                and envelope["supersedes_document_id"] is not None
+            )
+            or (
+                envelope["version"] > 1
+                and (
+                    not isinstance(envelope["supersedes_document_id"], str)
+                    or not envelope["supersedes_document_id"].strip()
+                )
+            )
         ):
-            raise DocumentError("INITIAL_VERSION_ONLY")
+            raise DocumentError("INVALID_VERSION_CHAIN")
         raw, sha, reference = preserve(path, store)
         report["file_sha256"] = sha
         report["size_bytes"] = len(raw)
@@ -106,6 +116,7 @@ def extract_document(engine, path, envelope, store=STORE):
         with engine.begin() as c:
             # Serialize this service, including identity lookup and family creation.
             sql(c, "SELECT pg_advisory_xact_lock(4040101)")
+            now = datetime.now(UTC)
             source = envelope["source_system"]
             sql(
                 c,
@@ -163,15 +174,44 @@ def extract_document(engine, path, envelope, store=STORE):
             ).scalar()
             if category is None and delivery is None:
                 category = "INVALID_REFERENCE"
+            predecessor = None
+            family_row = None
             if category is None and not duplicate:
-                occupied = sql(
-                    c,
-                    "SELECT family_key FROM ilc.document_families WHERE source_system=:source AND document_family_id=:id",
-                    source=source,
-                    id=envelope["document_family_id"],
-                ).scalar()
-                if occupied:
-                    category = "FAMILY_CONFLICT"
+                family_row = (
+                    sql(
+                        c,
+                        "SELECT * FROM ilc.document_families WHERE source_system=:source AND document_family_id=:id",
+                        source=source,
+                        id=envelope["document_family_id"],
+                    )
+                    .mappings()
+                    .first()
+                )
+                if envelope["version"] == 1:
+                    if family_row:
+                        category = "FAMILY_CONFLICT"
+                else:
+                    predecessor = (
+                        sql(
+                            c,
+                            """SELECT d.*,v.valid_to FROM ilc.document_versions d
+                        JOIN ilc.document_validities v USING(document_key)
+                        WHERE d.source_system=:source AND d.document_id=:id""",
+                            source=source,
+                            id=envelope["supersedes_document_id"],
+                        )
+                        .mappings()
+                        .first()
+                    )
+                    if (
+                        not family_row
+                        or not predecessor
+                        or predecessor["family_key"] != family_row["family_key"]
+                        or family_row["delivery_key"] != delivery
+                        or predecessor["version"] + 1 != envelope["version"]
+                        or predecessor["valid_to"] is not None
+                    ):
+                        category = "INVALID_VERSION_CHAIN"
             sql(
                 c,
                 """INSERT INTO ilc.attempts VALUES (:key,:input,:run,:receipt,:now,:now,:outcome,:error)""",
@@ -191,27 +231,39 @@ def extract_document(engine, path, envelope, store=STORE):
                 if duplicate:
                     document = existing["document_key"]
                 else:
-                    document, family = uuid4(), uuid4()
-                    sql(
-                        c,
-                        "INSERT INTO ilc.document_families VALUES (:key,:source,:id,:delivery)",
-                        key=family,
-                        source=source,
-                        id=envelope["document_family_id"],
-                        delivery=delivery,
-                    )
+                    document = uuid4()
+                    if predecessor:
+                        family = family_row["family_key"]
+                        sql(
+                            c,
+                            "UPDATE ilc.document_validities SET valid_to=:now WHERE document_key=:doc AND valid_to IS NULL",
+                            now=now,
+                            doc=predecessor["document_key"],
+                        )
+                    else:
+                        family = uuid4()
+                        sql(
+                            c,
+                            "INSERT INTO ilc.document_families VALUES (:key,:source,:id,:delivery)",
+                            key=family,
+                            source=source,
+                            id=envelope["document_family_id"],
+                            delivery=delivery,
+                        )
                     sql(
                         c,
                         """INSERT INTO ilc.document_versions
                         (document_key,family_key,source_system,delivery_key,document_id,version,
                          supersedes_document_key,schema_version,media_type,file_sha256,file_reference,
                          file_size_bytes,input_key,accepted_attempt_id,accepted_at)
-                        VALUES (:key,:family,:source,:delivery,:id,1,NULL,'1.0',:media,:sha,:ref,:size,:input,:attempt,:now)""",
+                        VALUES (:key,:family,:source,:delivery,:id,:version,:previous,'1.0',:media,:sha,:ref,:size,:input,:attempt,:now)""",
                         key=document,
                         family=family,
                         source=source,
                         delivery=delivery,
                         id=envelope["document_id"],
+                        version=envelope["version"],
+                        previous=predecessor["document_key"] if predecessor else None,
                         media=envelope["media_type"],
                         sha=sha,
                         ref=reference,

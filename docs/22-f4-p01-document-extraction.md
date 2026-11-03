@@ -319,3 +319,10 @@ empresarial ou economia alegada. Esforço humano não medido.
 **Solicitação ao gerente:** avaliar F4-P01 como aceito/ajustes/bloqueado com base
 nas evidências, commit e limites acima. Não iniciar passo seguinte antes da
 decisão central. Nenhuma mensagem automática enviada a outro chat.
+
+
+## Aceite central recebido com F4-P02
+
+**VAL-F4-P01-001**, por cartão humano de João no chat 04. P01 aceito no
+recorte e com as limitações documentadas; código 787f327, passagem 80dec06.
+F4-P02 autorizado; F4 permanece aberta e experimento IA não liberado.
