@@ -1,0 +1,3 @@
+# Additive UI environment: install requirements.lock first; keep its pins.
+-c requirements-app-constraints.txt
+streamlit==1.66.1

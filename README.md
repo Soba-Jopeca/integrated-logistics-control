@@ -1,3 +1,12 @@
+## Estado atual — F5-P01 em execução (03/11/2026)
+
+Cartão F5-P01 autorizado por João sobre 97348e2, após VAL-F4-P04-001.
+Aplicação e testes preparados; prática central, PostgreSQL e navegador de João
+pendentes. **Sem aceite central de F5-P01; camada analítica não liberada; F6 bloqueada.**
+[Passagem F5-P01](docs/26-f5-p01-local-app.md). Registros anteriores abaixo são históricos.
+
+---
+
 ## Estado atual — F4 FECHADA COM LIMITAÇÕES
 
 **VAL-F4-P04-001 — decisão central encaminhada por João em 03/11/2026.**
@@ -276,3 +285,11 @@ ou aprovação. Hashes/resumos auditados. Git observado em 4623f35: 0 0,
 somente .vscode/ não rastreado. Explicação independente adiada.
 [Passagem 24](docs/24-f4-p03-local-ai-experiment.md).
 **F4-P03 aguarda aceite central; F4 aberta, sem consolidação e sem liberar F5–F6.**
+
+### F5-P01 — aplicação local em preparação
+
+Branch `feat/f5-p01-local-app`: busca, filtros, detalhes e upload determinístico
+com banco de teste explícito. [Preparação, limites e evidências](docs/26-f5-p01-local-app.md).
+Execução: `python -m scripts.local_app --database ilc_f2p02b_test`, após instalar
+os locks base e app. Jornada de João e aceite central pendentes; camada analítica
+não liberada neste cartão.
