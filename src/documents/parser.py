@@ -25,10 +25,18 @@ class DocumentError(Exception):
 
 
 def normalize_delivered_at(value):
-    """Joao: implement timezone validation and UTC normalization here."""
+    """Preserva ausência, exige fuso e normaliza para UTC."""
+    from datetime import UTC, datetime
+
     if value is None:
-        return
-    raise DocumentError("AUTHOR_TRANSFORMATION_PENDING")
+        return None
+    try:
+        parsed = datetime.fromisoformat(value)
+        if parsed.tzinfo is None or parsed.utcoffset() is None:
+            raise ValueError("Timezone required")
+        return parsed.astimezone(UTC)
+    except (ValueError, TypeError, OverflowError):
+        raise DocumentError("INVALID_FIELD_TYPE") from None
 
 
 def parse(raw, media_type):
