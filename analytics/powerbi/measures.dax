@@ -1,0 +1,15 @@
+// Add each definition separately. Scenario filter must select exactly one.
+M2 = IF(HASONEVALUE(scenarios[scenario]), COALESCE(
+    COUNTROWS(FILTER(deliveries, NOT ISBLANK(deliveries[completed_at])
+        && NOT deliveries[has_received_document])), 0))
+
+M3 = IF(HASONEVALUE(scenarios[scenario]), COALESCE(
+    CALCULATE(DISTINCTCOUNT(documents[document_key]), documents[result] = "REVIEW_REQUIRED"), 0))
+
+M4 Horas = IF(HASONEVALUE(scenarios[scenario]),
+    MEDIANX(FILTER(deliveries, deliveries[in_cohort] && NOT deliveries[contested]
+        && NOT ISBLANK(deliveries[receipt_hours]) && deliveries[receipt_hours] >= 0),
+        deliveries[receipt_hours]))
+
+// M1: João cria a medida com DIVIDE(numerador, denominador), sem valor alternativo.
+// Formate como porcentagem; SQL rate_pct usa escala 0–100.
