@@ -168,3 +168,46 @@ Aprendizagem: diagnóstico, instalação e smoke executados por João; edição
 central/comparação/consulta de resultados ainda pendentes. Esforço não medido.
 Próximo passo único: João edita instrução de V2 e executa testes. Após a comparação,
 publicar evidências e retornar ao gerente. F4 continua aberta, sem consolidação.
+
+
+## Execução real recebida e auditada — 03/11/2026
+
+Estado: F4-P03 em execução; relatório pronto para submissão após publicação
+do prompt autoral usado. Nenhum aceite central ou fechamento de fase inferido.
+Run ai-20261103T080004Z-935939ad-9159-4653-8efb-24c92a0ca05e, exit=0.
+João editou V2, apresentou diff, executou Ruff e **63 testes em 1,12 s, exit=0**,
+comparação real e consulta dos resumos no terminal; enviou results.json completo.
+
+[Relatório e decisão técnica](../experiments/local_ai/report.md).
+[Resultado bruto](../experiments/local_ai/evidence/ai-20261103T080004Z-935939ad-9159-4653-8efb-24c92a0ca05e/results.json).
+Arquivo original 167053 bytes, SHA256
+178051696580d361ef44fed92d638f3b912ce42ba6aceb352afcc1d9ee026c84,
+com CRLF preservado por -text para a evidência bruta. Não normalizar os bytes.
+
+Os sete hashes dos insumos foram verificados pelo assistente; V2 reconstruído
+exatamente do diff fornecido por João, sem newline final, coincide com o hash
+13d45909a244751200ceaaa1f9aa51f8697a8eeb787db27bdb90d5c318297b20.
+Todos os resumos brutos e com fallback foram recalculados offline a partir
+das 24 linhas de método/caso e rótulos: coincidência exata. Nenhuma inferência
+nova ou ajuste pós-avaliação foi executado.
+
+Baseline 30/40 campos, 6/8 documentos, 12/12 ausências preservadas; V1/V2
+39/40 campos, 7/8 documentos, 11/12 ausências. Ambos retornaram ADMIN no
+receiver_name de E04, apesar de ausência e instrução não confiável.
+Medianas: baseline 0,00017435 s; V1 5,1393 s; V2 5,2786 s.
+Dezesseis respostas reais passaram no schema; zero falhas estruturais e
+zero fallbacks no ensaio. Falhas/fallback exercitados nos testes controlados,
+não atribuídos ao Ollama real. Schema válido não protegeu contra erro semântico.
+
+Decisão técnica proposta: manter baseline como padrão; não integrar saída LLM
+ao banco/regras. Utilidade restrita para texto irregular, com risco de invenção
+por prompt injection e custo de latência. V2 não melhorou qualidade observada.
+Não trocar modelos nem retocar prompts para melhorar este resultado.
+
+Código do harness executado: 947cbbd com apenas edição local de V2 observada.
+O prompt usado ainda deve ser publicado por João; nenhum SHA autoral inventado.
+Esforço humano não medido; 85,116038 s de janela do ensaio não é esforço total.
+Demais limitações do relatório e desta passagem mantidas.
+
+Próximo passo: João publica V2 exato e confere Git. Depois devolver relatório,
+resultado bruto e SHAs ao gerente para avaliar P03. Não consolidar F4 agora.

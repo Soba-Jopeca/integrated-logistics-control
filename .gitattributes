@@ -11,3 +11,6 @@ tests/fixtures/documents/** text eol=lf
 
 # Fixed experiment inputs/prompts must retain identical bytes across platforms.
 experiments/local_ai/** text eol=lf
+
+# Raw experiment evidence must retain original submitted bytes and hashes.
+experiments/local_ai/evidence/** -text
