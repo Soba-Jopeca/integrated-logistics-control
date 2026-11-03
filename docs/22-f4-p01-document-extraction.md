@@ -256,3 +256,66 @@ Limitações anteriores mantidas; não houve migração, avaliação/aprovação
 OCR, LLM, conferência de negócio, interface ou métricas. Regressão global
 anterior não repetida. Próximo passo: verificar PDFs, publicar transformação,
 consultar resultados existentes e devolver passagem com SHA ao gerente.
+
+
+## Passagem consolidada ao gerente — F4-P01 entregue para validação
+
+Autoridade: cartão F4-P01 encaminhado por João neste chat. Estado:
+**ENTREGUE PARA VALIDAÇÃO CENTRAL**, sem aceite inferido e sem fechamento F4.
+As seções de preparação acima são histórico; resultados executados constam
+na seção Windows e nesta consolidação. Conferência documental/P02 e IA
+não liberadas; F5–F6 bloqueadas.
+
+- Repositório: Soba-Jopeca/integrated-logistics-control.
+- Branch: feat/f4-p01-document-extraction, base 0186996c067e81602f8dc1289f40351912c6509b.
+- Código final observado/publicado: **787f327**, transformação central de João.
+- Evidências anteriores: c5dbc67; correção binária 4b4d079 e registro 6bbb4f5.
+- Git demonstrado por João após push: HEAD=origin em 787f327, comparação 0 0;
+  nenhuma alteração rastreada pendente, apenas .vscode/ não rastreado, preservado.
+- Esta consolidação posterior é exclusivamente documental; código testado
+  e fixtures permanecem os de 787f327. Sincronização deste novo documento
+  no Windows não é presumida nem exigida como nova prova do código.
+
+R08 demonstrado no recorte autorizado: PDF textual e XML educacional reais,
+cinco campos, UTC, ausência preservada, falhas distintas e rastreáveis,
+bytes/SHA256/origem/recebimento/run/parser e vínculos no modelo existente.
+R15 contribuições limitadas ao recorte: tamanho/caminho controlados, DTD e
+entidades bloqueados. Não declarar atendimento transversal completo.
+Sem migração adicional, mudança de esquema, merge ou serviço pago.
+
+| Critério F4-P01 | Evidência observada |
+|---|---|
+| PDF/XML válidos | campos esperados nos testes e nos reports do verificador |
+| Ausência permanece null | receiver_name=null em PDF/XML e missing_fields correspondente |
+| Malformado/PDF sem texto | PARSING_ERROR e NO_EXTRACTABLE_TEXT distintos |
+| XML externo bloqueado | XML_SECURITY_BLOCKED, mantido em histórico |
+| Hash/vínculo/histórico/idempotência | PASS SQL/arquivos; oito versões, oito pares de tentativas com 16 extrações reportadas; versão/input estáveis e nova extração |
+| Sem aprovação | evaluations_unchanged=true; nenhum fluxo de avaliação inserido |
+
+Comandos executados por João: instalação --require-hashes do lock;
+pytest -q tests/documents (**23 passed in 0.29s, exit=0**);
+check_document_extraction --database ilc_f2p02b_test (**PASS, exit=0**);
+Ruff (**All checks passed, exit=0**); diff --check sem erro;
+conferência byte a byte dos quatro PDFs contra HEAD; commit/push e rev-list 0 0.
+Não foi necessário repetir essas provas após a publicação da mesma transformação.
+
+Prática/autoria: João implementou normalize_delivered_at, executou instalação,
+recuperação binária, testes/verificador/Ruff e publicou o commit. Assistente
+preparou estrutura, formatos, fixtures, testes, persistência, comandos e revisão.
+Aprendizagem prática observada nessas ações; explicação independente continua
+adiada por autorização do cartão. Não atribuir a João explicação não apresentada.
+Consulta SQL avulsa do runbook não foi apresentada; consulta de resultados foi
+exercitada pelo verificador SQL executado por João, com reports retornados.
+Cabe ao gerente avaliar essa limitação no critério de prática, sem inventar prova.
+
+Limitações mantidas: formato sintético fechado; apenas versões iniciais;
+quota local sem garantia concorrente; parser sem sandbox de memória/tempo;
+verificação de stream após descompressão; arquivo órfão possível após rollback;
+infraestrutura indisponível pode impedir log inicial. Testes pertinentes do
+recorte executados, sem regressão global F3, CI/E2E ou ensaio concorrente novo.
+Sem OCR/LLM/conferência/aprovação/interface/métricas; nenhuma integração
+empresarial ou economia alegada. Esforço humano não medido.
+
+**Solicitação ao gerente:** avaliar F4-P01 como aceito/ajustes/bloqueado com base
+nas evidências, commit e limites acima. Não iniciar passo seguinte antes da
+decisão central. Nenhuma mensagem automática enviada a outro chat.
