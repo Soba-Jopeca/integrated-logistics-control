@@ -189,3 +189,70 @@ binários e recupera os bytes versionados. Não restaurar o parser ou diretório
 inteiro. Depois executar novamente os 23 testes e enviar saída/diff do parser.
 Instalação Windows comprovada; teste PDF corrigido, prova SQL e aceites
 continuam pendentes. Nenhuma escrita em banco feita nesta correção.
+
+
+## Execução Windows observada — evidências para submissão central
+
+Estado: F4-P01 executado no recorte demonstrado, aguardando commit da
+transformação de João e validação central. Não fecha F4 nem libera P02.
+
+João apresentou o diff de normalize_delivered_at: ausência preservada;
+datetime.fromisoformat, fuso obrigatório, conversão astimezone(UTC),
+INVALID_FIELD_TYPE para erro. A transformação foi editada e executada por João;
+explicação independente continua adiada, conforme cartão.
+
+Após fetch/fast-forward até 6bbb4f5, git restore não regravou os PDFs CRLF.
+A recuperação efetiva foi feita por João via subprocess.check_output de
+`git show HEAD:caminho` e Path.write_bytes, sem passagem binária pelo shell.
+Não foi relaxado strict=True nem regenerada fixture para contornar a falha.
+
+Hashes SHA256 observados dos bytes recuperados:
+- valid.pdf: fe49e47b0af8c7bb3b6f01fe921dba1599922b8ccd1cea8a7e54b1040e83a451
+- missing.pdf: fb58389b45c2193a388c914de4b36683e02b016dd9558c171f127d4caa488069
+- blank.pdf: 226bdbe274d3222c3ed276db4f6736d457282e01abf7982629360f7b4f1ad77b
+- malformed.pdf: b9e295f0c86730ee956a72a38716ba58f3ab765ee596bbd92d70ad7b7218ed97
+
+| Comando/prova | Esperado | Observado por João |
+|---|---|---|
+| pytest -q tests/documents | 23 aprovados | 23 passed in 0.29s; extraction_tests_exit=0 |
+| check_document_extraction --database ilc_f2p02b_test | PASS, versões estáveis e histórico novo | verification=PASS; document_versions=8; document_verification_exit=0 |
+| PDF/XML completos | cinco campos corretos; 14h -03 → 17h UTC | EXTRACTED; ENT-001, 17:00 UTC, 12, BOX, Pessoa Sintetica |
+| PDF/XML sem receiver_name | EXTRACTED com ausência preservada | receiver_name=null, missing_fields=[receiver_name] |
+| PDF branco | falha explícita | NO_EXTRACTABLE_TEXT / PARSING_FAILED |
+| XML/PDF malformados | falha explícita | PARSING_ERROR / PARSING_FAILED |
+| XML com entidade externa | bloqueio | XML_SECURITY_BLOCKED / PARSING_FAILED |
+| Arquivo ausente | sem versão fictícia | FILE_MISSING; run FAILED |
+| Formato não suportado | categoria própria | UNSUPPORTED_FORMAT; run FAILED |
+| Reexecução das oito fixtures | mesma versão/input; extração nova | oito pares, 16 extrações distintas reportadas; duplicate=true na segunda de cada par |
+| SHA256, bytes preservados e vínculos | iguais e coerentes no banco | asserts do verificador aprovados |
+| Avaliações | nenhuma nova avaliação | evaluations_unchanged=true |
+| Ruff nos módulos/CLIs/testes novos | aprovado | All checks passed; ruff_exit=0 |
+| git diff --check | sem erro | nenhuma saída de erro |
+
+Rastreabilidade de exemplo válido: document_key d8f497e6-8ca2-420a-81a1-2a9436467189;
+input_key 3494053b-9154-43b9-9e87-d8f51de7b554;
+runs document-1e6f4529-b0ed-4fac-9e21-2e7f2bbcd067 e
+document-ed8128e8-2dc4-4616-82b7-e438c374c7fd;
+extrações 0322cfb4-7cb2-463a-a729-a8d894f44fa9 e
+5d116252-fee3-4b2c-8a74-3d10610d3adc. Parser educational-v1.
+Run ausente: document-e2d3b3c8-31d0-4a6c-9878-8d1fb94b5486;
+formato: document-9d4be2a8-755a-4c2e-9369-9a146f8f6184.
+Os runs FAILED são casos negativos esperados; PASS do verificador não altera
+seu estado. As 16 extrações são as retornadas nesta execução, não contagem
+global certificada de toda a tabela. Recebimento original não nulo foi conferido
+pelo script, mas seu valor não foi impresso no JSON. A consulta SQL autoral
+separada do runbook ainda não foi apresentada; não alegar sua execução.
+
+Último status informado: parser.py e quatro PDFs modificados; .vscode/ não
+rastreado. O conteúdo dos PDFs será comparado com HEAD antes de atualizar o
+índice; nenhuma alteração binária deve ser aceita por suposição. Configuração
+local e .vscode/ preservadas. Commit da transformação e prova final Git ainda
+pendentes; não atribuir o código autoral a um SHA ainda não publicado.
+
+Feito/evidências: extração, falhas e idempotência exercitadas conforme tabela.
+Aprendizagem prática: João editou transformação UTC, recuperou bytes originais,
+executou instalação/testes/verificador/Ruff. Explicação independente adiada.
+Limitações anteriores mantidas; não houve migração, avaliação/aprovação,
+OCR, LLM, conferência de negócio, interface ou métricas. Regressão global
+anterior não repetida. Próximo passo: verificar PDFs, publicar transformação,
+consultar resultados existentes e devolver passagem com SHA ao gerente.
