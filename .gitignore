@@ -43,3 +43,6 @@ Thumbs.db
 
 # Controlled local document bytes (F4-P01)
 /data/documents/
+
+# Local AI experiment results (reviewed small evidence may be explicitly versioned)
+/data/experiments/

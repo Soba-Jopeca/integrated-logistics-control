@@ -1,0 +1,35 @@
+{
+  "evidence_source": "Outputs provided by Joao in chat 04; not executed by assistant",
+  "windows": "Windows 11 Pro",
+  "build": "26200",
+  "cpu": "Intel Core i7-1355U",
+  "ram_total_gib": 15.69,
+  "ram_available_gib_sequence": [
+    0.65,
+    3.01,
+    4.63
+  ],
+  "disk_c_free_gib": 43.58,
+  "gpu": "Intel UHD Graphics",
+  "driver": "32.0.101.7088",
+  "ollama_cli": "0.40.13",
+  "ollama_api": "0.40.13",
+  "model": "qwen2.5:1.5b",
+  "digest": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+  "model_bytes": 986061892,
+  "parameters": "1.5B",
+  "quantization": "Q4_K_M",
+  "license": "Apache-2.0",
+  "smoke": {
+    "separate_from_evaluation": true,
+    "document_id": "SMOKE-001",
+    "receiver_name": null,
+    "done": true,
+    "done_reason": "stop",
+    "total_duration_ns": 6126043700,
+    "load_duration_ns": 1328633900,
+    "eval_count": 77,
+    "client_elapsed_seconds": null,
+    "client_timer_note": "finally entered separately in PowerShell; no valid client elapsed measurement"
+  }
+}

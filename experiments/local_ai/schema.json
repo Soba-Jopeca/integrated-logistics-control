@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "declared_delivery_id",
+    "delivered_at",
+    "received_quantity",
+    "quantity_unit",
+    "receiver_name"
+  ],
+  "properties": {
+    "declared_delivery_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "delivered_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "received_quantity": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "quantity_unit": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "receiver_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    }
+  }
+}

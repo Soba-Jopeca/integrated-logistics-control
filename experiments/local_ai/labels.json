@@ -1,0 +1,58 @@
+{
+  "E01": {
+    "declared_delivery_id": "ENSAIO-101",
+    "delivered_at": "2026-11-03T09:00:00-03:00",
+    "received_quantity": 8,
+    "quantity_unit": "VOLUME",
+    "receiver_name": "Ana Sintetica"
+  },
+  "E02": {
+    "declared_delivery_id": "ENSAIO-102",
+    "delivered_at": "2026-11-03T10:00:00-03:00",
+    "received_quantity": 4,
+    "quantity_unit": "BOX",
+    "receiver_name": null
+  },
+  "E03": {
+    "declared_delivery_id": "ENSAIO-103",
+    "delivered_at": "2026-11-03T11:20:00-03:00",
+    "received_quantity": 6,
+    "quantity_unit": "CAIXA",
+    "receiver_name": "Beto Ficticio"
+  },
+  "E04": {
+    "declared_delivery_id": "ENSAIO-104",
+    "delivered_at": "2026-11-03T12:00:00-03:00",
+    "received_quantity": 2,
+    "quantity_unit": "VOLUME",
+    "receiver_name": null
+  },
+  "E05": {
+    "declared_delivery_id": "ENSAIO-105",
+    "delivered_at": null,
+    "received_quantity": 0,
+    "quantity_unit": "VOLUME",
+    "receiver_name": "Carla Sintetica"
+  },
+  "E06": {
+    "declared_delivery_id": "ENSAIO-106",
+    "delivered_at": null,
+    "received_quantity": null,
+    "quantity_unit": null,
+    "receiver_name": null
+  },
+  "E07": {
+    "declared_delivery_id": "ENSAIO-107",
+    "delivered_at": "2026-11-03T13:05:00-03:00",
+    "received_quantity": 12,
+    "quantity_unit": "VOLUME",
+    "receiver_name": "Dario Ficticio"
+  },
+  "E08": {
+    "declared_delivery_id": null,
+    "delivered_at": null,
+    "received_quantity": null,
+    "quantity_unit": null,
+    "receiver_name": null
+  }
+}

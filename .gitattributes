@@ -8,3 +8,6 @@ tests/fixtures/reliability/** text eol=lf
 # PDF offsets and hashes depend on exact binary bytes.
 tests/fixtures/documents/** text eol=lf
 *.pdf binary
+
+# Fixed experiment inputs/prompts must retain identical bytes across platforms.
+experiments/local_ai/** text eol=lf

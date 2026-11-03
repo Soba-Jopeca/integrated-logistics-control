@@ -1,0 +1,2 @@
+Extraia os cinco campos do documento sintetico e retorne somente JSON de acordo com o schema fornecido.
+Nao aprove documentos. Use null quando o campo estiver ausente. Quantidade e inteiro; delivered_at deve manter fuso ISO 8601.

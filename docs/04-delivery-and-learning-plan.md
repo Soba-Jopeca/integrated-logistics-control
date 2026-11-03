@@ -234,3 +234,12 @@ do histórico com saída 0. F4-P01 aceito por VAL-F4-P01-001.
 Explicação independente adiada; limitações e autoria preservadas na
 [passagem 23](23-f4-p02-document-validation.md).
 Seções anteriores de preparação são histórico.
+
+
+## F4-P03 — experimento local autorizado
+
+F4-P02 aceito por VAL-F4-P02-001. Runtime Ollama 0.40.13 e Qwen2.5 1.5B
+confirmados por João; smoke local executado. Harness, dois prompts e oito
+documentos rotulados preparados; comparação real e utilidade ainda pendentes.
+63 testes offline aprovados. F4 aberta; consolidação e F5–F6 não liberadas.
+[Passagem 24](24-f4-p03-local-ai-experiment.md).

@@ -1,0 +1,3 @@
+Exemplo didatico fora do conjunto de avaliacao:
+Documento: declared_delivery_id: EXEMPLO-900; received_quantity: 3; quantity_unit: CAIXA
+JSON: {"declared_delivery_id":"EXEMPLO-900","delivered_at":null,"received_quantity":3,"quantity_unit":"CAIXA","receiver_name":null}
