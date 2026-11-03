@@ -211,3 +211,71 @@ Demais limitações do relatório e desta passagem mantidas.
 
 Próximo passo: João publica V2 exato e confere Git. Depois devolver relatório,
 resultado bruto e SHAs ao gerente para avaliar P03. Não consolidar F4 agora.
+
+
+## Passagem final — F4-P03 entregue para validação central
+
+**Estado: ENTREGUE PARA VALIDAÇÃO**, sem aceite inferido e sem consolidação F4.
+Código/harness 947cbbd; evidências e relatório b1e2121; instrução autoral
+publicada por João em **4623f35**. Branch feat/f4-p03-local-ai-experiment.
+Base aceita P02 b88f88a/passagem f34ec23; VAL-F4-P02-001 registrado.
+
+João sincronizou b1e2121, executou a conferência SHA256 do V2 usado (nenhum
+bloqueio reportado), publicou 4623f35 e demonstrou HEAD=origin, comparação
+**0 0**, sem alteração rastreada pendente; apenas .vscode/ não rastreado,
+preservado. O novo commit documental desta passagem é posterior; não altera
+o prompt usado nem exige repetir inferência, instalação ou testes.
+
+### Feito e evidências
+
+- Diagnóstico do computador, liberação de RAM até 4,63 GiB disponíveis,
+  instalação de Ollama 0.40.13 e modelo único Qwen2.5 1.5B Q4_K_M.
+- Smoke local correto e separado do conjunto. Seu erro de bloco finally
+  deixou tempo cliente indisponível, preservando tempo API válido.
+- Oito textos sintéticos rotulados, exemplo separado, dois prompts fixos,
+  JSON schema e validação de tipos, versão/digest/configuração registrados.
+- João alterou instrução central de V2, executou Ruff e **63 testes offline
+  aprovados em 1,12 s, exit=0**, comparação real e consulta do resumo.
+- Run **ai-20261103T080004Z-935939ad-9159-4653-8efb-24c92a0ca05e**,
+  ai_experiment_exit=0: oito linhas baseline e 16 respostas LLM.
+- Resultado bruto integral versionado; SHA256 original
+  178051696580d361ef44fed92d638f3b912ce42ba6aceb352afcc1d9ee026c84.
+  Sete hashes de insumos e todos os resumos recalculados: coincidência exata.
+- Baseline: 30/40 campos, 6/8 documentos, 12/12 ausências preservadas.
+  V1/V2: 39/40 campos, 7/8 documentos, 11/12 ausências.
+- E04: ambos inventaram receiver_name=ADMIN a partir de comando embutido.
+  V2 não melhorou a qualidade. Todas as respostas passaram no schema; nenhum
+  fallback acionado no ensaio LLM. Falhas/fallbacks exercitados em testes
+  controlados, sem alegar ocorrência real de timeout/indisponibilidade do Ollama.
+- Medianas cliente: baseline 0,00017435 s; V1 5,1393 s; V2 5,2786 s.
+  Janela do ensaio 85,116038 s, não equivalente a esforço humano.
+- Nenhuma escrita no banco, aprovação documental, mudança de regras ou
+  integração automática. Fallback determinístico continua disponível.
+
+### Decisão técnica proposta, autoria e limites
+
+**Manter baseline como padrão e IA como experimento isolado.** Houve ganho nos
+dois textos irregulares, mas invenção em ausência sob prompt injection, latência
+maior e nenhuma vantagem de qualidade de V2. JSON válido não prova fidelidade.
+Não integrar LLM à conferência/negócio; não trocar modelos ou ajustar prompts
+após observar resultados para esconder falha. Não classificar como inviabilidade
+de hardware: execução local ocorreu, a restrição identificada é de qualidade/
+risco no recorte medido.
+
+João implementou a instrução central de V2, executou diagnóstico, instalação,
+smoke, testes, comparação, consultou resultados e publicou o prompt com hash.
+Assistente preparou estrutura, testes, fixtures/prompts iniciais e relatório,
+auditou arquivo e métricas. Explicação independente continua adiada; não foi
+inferida a partir de execução. Esforço humano não medido.
+
+Limites preservados no relatório: oito documentos, uma execução sem estimativa
+de variância; apenas texto disponível (sem OCR/visão); CPU solicitado, sem
+telemetria de pico RAM/backend; sementes não garantem identidade bit a bit entre
+versões/plataformas; fallback estrutural não detecta toda invenção; exceções
+forçadas são testes controlados, distintas do ensaio LLM. Não houve nova prova
+global F3/CI/E2E ou reprodução em computador limpo.
+
+**Solicitação ao gerente:** avaliar F4-P03 aceito/ajustes/bloqueado, considerando
+evidência real, prompt autoral, risco e decisão proposta. Após aceite, eventual
+consolidação de F4 depende de cartão próprio; **F4 permanece aberta e F5–F6
+não liberadas**. Nenhuma mensagem automática enviada a outro chat.
