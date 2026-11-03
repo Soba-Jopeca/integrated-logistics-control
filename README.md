@@ -10,9 +10,9 @@ são estados independentes. O case não representa a operação de uma empresa.
 
 F1 fechada documentalmente; F2 fechada com limitações (VAL-F2-P04-001).
 F3-P01, P02A, P02B e P03 aceitos no escopo demonstrado; P03 registrado por
-**VAL-F3-P03-001**. **F3-P04 em consolidação para avaliação; F3 ABERTA**,
-com consulta SQL e Git de João demonstrados; aguardando confirmação da
-conferência dos demais comandos documentados e decisão central de fechamento.
+**VAL-F3-P03-001**. **F3-P04 entregue para avaliação; F3 ABERTA**.
+Consulta SQL e Git demonstrados por João; conferência técnica dos comandos
+concluída pelo assistente por delegação explícita de João. Aguarda decisão central.
 A explicação independente de João permanece pendente para revisão final.
 F4–F6 bloqueadas. PR #2 aberto e sem merge; nenhuma autorização de merge.
 
@@ -136,6 +136,8 @@ interrompe explicitamente. Encerrar API com Ctrl+C ao terminar.
 | business_load | 0 SUCCEEDED; 2 PARTIAL por problemas de dados; 1 FAILED |
 | check_api_failures / check_api_capture / check_business_load / check_reliability | 0 verificação PASS; 1 falha da verificação |
 
+Erros de uso do argparse podem retornar 2 antes de executar a operação; distinguir
+esse caso pelo erro de uso/ausência de relatório, especialmente do PARTIAL da carga.
 PARTIAL e rejeição são resultados observáveis, não sucesso integral. O verificador
 pode passar ao comprovar uma falha deliberada; o run de falha continua FAILED/PARTIAL.
 [Runbook, consultas SQL de rejeições/checkpoint e passagem final](docs/21-f3-p04-consolidation.md).

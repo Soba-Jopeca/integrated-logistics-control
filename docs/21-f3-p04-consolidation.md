@@ -3,7 +3,7 @@
 Data: 02/11/2026. Projeto: Integrated Logistics Control — End to End.
 Repositório: [Soba-Jopeca/integrated-logistics-control](https://github.com/Soba-Jopeca/integrated-logistics-control).
 
-**Estado: F3 ABERTA. P04 com SQL/Git demonstrados; confirmação dos demais comandos documentados pendente, para submissão ao gerente.**
+**Estado: F3 ABERTA. P04 entregue para avaliação central: SQL/Git demonstrados por João e comandos conferidos pelo assistente por delegação explícita de João.**
 Esta consolidação não emite fechamento, não autoriza merge e não inicia F4.
 A explicação independente permanece pendente para revisão final, como determinado
 nos cartões. Não foi inferida aprendizagem independente pelos resultados dos testes.
@@ -159,6 +159,10 @@ python -m scripts.check_business_load --database ilc_f2p02b_test --capture-run c
 python -m scripts.check_reliability --database ilc_f2p02b_test --original-capture capture-e0e5e158-49f3-4b8f-ba05-3397db8c7e3c
 ```
 
+Erros de uso do argparse (argumento ausente/inválido) também podem sair com código 2,
+antes de executar a operação. Distinguir pela mensagem de uso e ausência de relatório,
+especialmente do código 2 com relatório PARTIAL na carga.
+
 PASS atesta o resultado esperado, inclusive erro deliberado; não converte
 runs FAILED/PARTIAL em SUCCEEDED. Política de retry: até três tentativas,
 backoff 0,1 e 0,2 s, apenas HTTP 408/429/500/502/503/504 e
@@ -275,8 +279,9 @@ git diff --check
 
 Esperado: branch feat/f3-p03-reliability, HEAD igual ao remoto (0 0), sem
 alterações rastreadas pendentes; `.vscode/` não rastreado permanece preservado.
-João confere que comandos documentados correspondem ao fluxo executado e informa
-eventual divergência. Não pede nova implementação nem explicação independente agora.
+João demonstrou Git/SQL e delegou expressamente ao assistente a checagem dos
+comandos restantes. A conferência técnica abaixo atende a essa instrução humana;
+não representa conferência autoral ou explicação independente de João.
 
 ## Evidência final reutilizada, autoria e esforço
 
@@ -300,7 +305,8 @@ P04 não repete testes por não alterar comportamento técnico.
 | João / P02B | Implementou normalização UTC central e executou carga/reexecução/consultas |
 | João / P03 | Ligou página e checkpoint à mesma transação; provocou interrupção e executou retomada, verificador e regressão |
 | Assistente | Estrutura, clientes, testes, fixtures adicionais, comandos, revisão e registros de evidência |
-| João / P04 | Consulta read-only de execução/checkpoint e Git concluídas; confirmação dos demais comandos do runbook pendente |
+| João / P04 | Consulta read-only de execução/checkpoint e Git concluídas; delegou a checagem documental restante ao assistente |
+| Assistente / P04 | Comandos, configuração, saídas e SQL conferidos contra o código/esquema, conforme delegação humana |
 
 Aprendizagem prática evidenciada pelas contribuições acima; explicação independente
 não demonstrada e explicitamente adiada. Esforço humano da F3/P04 **não medido**;
@@ -325,12 +331,12 @@ Apresentação solicitada para 03/11 às 14h não amplia escopo nem autoriza fec
 
 Feito: R05–R07 consolidados com commits, evidências e comandos; VAL-F3-P03-001
 registrado; README/plano atualizados; histórico e sentinelas preservados.
-Pendências: confirmação dos demais comandos documentados por João e decisão central, incluindo tratamento da
+Pendência: decisão central, incluindo tratamento da
 explicação independente pendente antes de eventual fechamento. Sem bloquear ou
 liberar fechamento por conta própria: essa decisão cabe ao gerente.
 
-Próximo passo único: João confirma a conferência dos comandos documentados; anexar
-a confirmação e devolver a passagem ao chat 00 para decidir fechamento/ajustes.
+Próximo passo único: levar esta passagem ao chat 00 para decidir fechamento/ajustes.
+Não há nova confirmação documental solicitada a João.
 Não realizar merge, consolidar fases posteriores nem iniciar F4.
 
 ## Conferência P04 observada — 02/11/2026
@@ -353,6 +359,39 @@ permanece no verificador HTTP/SQL P03 aceito. Não houve nova captura, carga,
 migração ou repetição de testes no cartão P04; somente consulta da revisão atual.
 
 Registro final desta rodada é documental, posterior a ee59574; não modifica o
-código testado em 702ede1. Conferência explícita dos comandos de API/captura/carga/
-interrupção/retomada/consulta das rejeições ainda aguarda confirmação de João,
-sem exigir que os execute novamente. F3 continua ABERTA; F4 não iniciada.
+código testado em 702ede1. A conferência dos demais comandos, que estava pendente
+nesta rodada, foi posteriormente delegada por João e concluída pelo assistente,
+como registrado abaixo. F3 continua ABERTA; F4 não iniciada.
+
+## Checagem final delegada e submissão ao gerente
+
+João instruiu explicitamente neste chat: **“faça este check por mim”**, por
+restrição de tempo. Essa instrução substitui a solicitação de confirmação
+documental autoral restante; não altera as evidências de prática já executadas
+nem a pendência de explicação independente. A conferência a seguir foi feita
+pelo assistente e não foi atribuída a João.
+
+| Item conferido | Fonte técnica e resultado |
+|---|---|
+| 13 linhas de comandos em sete CLIs, incluindo repetições entre README e passagem | Argumentos comparados com add_argument nas CLIs de captura, carga, recuperação e quatro verificadores; nenhum parâmetro inexistente |
+| API/OpenAPI/paginação | Launcher mock_api/__main__.py fixa 127.0.0.1:8000; app define /events, limite 1–100, cursor e término null/false; OpenAPI padrão /openapi.json |
+| Banco/configuração | scripts/migration_config.py exige banco explícito ilc_f2p02b_test, host 127.0.0.1, porta 55432, usuário ilc_app e DB_NAME=ilc no arquivo; conferido contra o runbook |
+| Interrupção e retomada | Argumentos --stop-after-pages, --fail-before-commit-page e --resume-run existem; CLI sai0 para SUCCEEDED e 1 para PARTIAL/FAILED |
+| Captura e carga | api_capture sai0/1; business_load sai0/2/1 por SUCCEEDED/PARTIAL/FAILED; o exemplo de carga identifica explicitamente a captura aceita, não a captura nova da linha anterior |
+| Consulta de execução/checkpoint e rejeições | Nomes, tipos e joins conferidos nas migrações 0001/0004/0005/0006; resultados históricos e campos recuperáveis coerentes com os registros aprovados |
+| Detalhe corrigido no runbook | Erro de uso argparse pode sair 2 antes da operação; código 2 não deve ser classificado como PARTIAL sem o relatório correspondente |
+| Evidências reutilizadas | Regressão 98 aprovada e consulta read-only/Git de João; nenhuma nova execução de testes, carga ou consulta PostgreSQL pelo assistente |
+
+Não foi identificado parâmetro de comando inexistente ou divergência de alvo
+de banco. A checagem SQL é estática contra esquema/código; não se apresenta como
+nova execução PostgreSQL. A evidência executada continua sendo a de João e
+dos verificadores aceitos, sem inventar a saída de consultas não repetidas.
+
+Entrega P04: README/plano/passagem e registro VAL-F3-P03-001 publicados;
+R05–R07 rastreáveis; contagens por fixture/sentinelas/recuperação separadas;
+prática, autoria, limitações e esforço não medido registrados. Escopo somente
+documental; código técnico 702ede1 preservado, sem merge, F4 não iniciada.
+
+**Solicitação ao gerente:** avaliar P04 e decidir fechamento da F3 ou ajustes,
+tratando explicitamente a explicação independente adiada. O executor não
+declarou F3 FECHADA. Não foi enviada mensagem automática a outro chat.
