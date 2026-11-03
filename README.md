@@ -195,3 +195,15 @@ Detalhes e próximo passo: [passagem 22](docs/22-f4-p01-document-extraction.md).
 F4-P01 aceito por **VAL-F4-P01-001** no cartão humano recebido. F4-P02
 em execução: comparação central e provas SQL pendentes; sem aceite inferido.
 F4 aberta; experimento IA e F5–F6 não liberados. [Passagem 23](docs/23-f4-p02-document-validation.md).
+
+
+## F4-P02 — entrega para validação central
+
+Código final **b88f88a** publicado por João: Git 0 0, somente .vscode/ não rastreado.
+40 testes de documentos aprovados, Ruff aprovado, verificador PostgreSQL PASS
+(10 versões, zero sobreposições, preservação física/P01) e consulta read-only
+do histórico com saída 0. F4-P01 aceito por VAL-F4-P01-001.
+**F4-P02 entregue para validação, sem aceite inferido; F4 aberta, IA e F5–F6 não liberados.**
+Explicação independente adiada; limitações e autoria preservadas na
+[passagem 23](docs/23-f4-p02-document-validation.md).
+Seções anteriores de preparação são histórico.
