@@ -60,6 +60,16 @@ def test_filters_independent():
         ("a.xml", b"x", dict(ENV, version=2)),
         ("a.xml", b"x", dict(ENV, source_system=" x")),
     ],
+    ids=[
+        "unsupported-format",
+        "empty-file",
+        "over-size-limit",
+        "media-mismatch",
+        "non-object-envelope",
+        "boolean-version",
+        "missing-predecessor",
+        "untrimmed-source",
+    ],
 )
 def test_reject_upload_before_writes(name, raw, env, monkeypatch):
     write = MagicMock()
