@@ -160,3 +160,110 @@ Limitações P01 mantidas (formatos sintéticos, quota/concorrência/sem sandbox
 Resolução manual de conflitos, OCR, IA, interface, métricas e evolução de
 esquema não implementadas. Próximo passo único: edição central e testes por João.
 Após evidências SQL/commit, retornar ao gerente. Esta passagem não concede aceite.
+
+
+## Passagem consolidada — F4-P02 entregue para validação central
+
+Estado: **ENTREGUE PARA VALIDAÇÃO**, sem aceite inferido. F4 permanece aberta.
+F4-P01 aceito por VAL-F4-P01-001 conforme cartão humano F4-P02.
+IA e F5–F6 não liberados. Nenhuma mensagem automática a outro chat.
+
+Código final publicado por João: **b88f88a**, branch feat/f4-p02-document-validation.
+Preparação: 5a7473d; base técnica P01 787f327 e passagem 80dec06.
+Após push, João demonstrou HEAD=origin em b88f88a, comparação **0 0**,
+sem alterações rastreadas pendentes; apenas .vscode/ não rastreado, preservado.
+Esta consolidação posterior é somente documental: não modifica o código
+testado nem presume sincronização automática do novo documento no Windows.
+
+### Esperado × observado no Windows de João
+
+| Prova | Esperado | Observado |
+|---|---|---|
+| pytest -q tests/documents | regras/extrator aprovados | **40 passed in 0.40s**, document_tests_exit=0 |
+| Ruff após edição central | sem import não usado | um F401 removido por --fix; All checks passed na conferência seguinte |
+| check_document_validation --database ilc_f2p02b_test | cenários e persistência corretos | **verification=PASS**, document_validation_exit=0, replay=false |
+| A1 coerente | aprovado, entrega regular | APPROVED, 1 vigente/1 aprovado/0 pendentes, regular=true |
+| B1 divergente ao lado de A1 | aprovação de A não encobre B | REVIEW_REQUIRED/VALUE_MISMATCH em received_quantity; 2 vigentes/1 aprovado/1 pendente, regular=false |
+| B2 corrige B1 | exige avaliação própria | APPROVED após conferência, 2 vigentes/2 aprovados, regular=true; assert intermediário de ausência de aprovação herdada passou |
+| A2 substitui A1 com parsing falho | não ressuscita aprovação A1 | PARSING_FAILED/PARSING_ERROR, avaliação REVIEW_REQUIRED; 2 vigentes/1 aprovado/1 pendente, regular=false |
+| Campo obrigatório ausente | motivo específico | MISSING_REQUIRED_FIELD/receiver_name/ABSENT_IN_DOCUMENT |
+| Referência extraída divergente | motivo distinto de referência não resolvida | REFERENCE_MISMATCH/declared_delivery_id/DECLARED_REFERENCE_DIFFERS |
+| Envelope com entrega desconhecida | rejeitar sem documento fictício | INVALID_REFERENCE em run/tentativa; sem avaliação vinculada a entrega inexistente |
+| Minuto UTC diferente | divergência temporal | VALUE_MISMATCH/delivered_at/UTC_MINUTE_DIFFERS |
+| Unidade diferente | divergência de unidade | VALUE_MISMATCH/quantity_unit/VALUE_DIFFERS |
+| Entrega sem conclusão | não aprovar | DELIVERY_NOT_CONFIRMED/NO_ELIGIBLE_COMPLETION; physical_state=NOT_CONFIRMED |
+| Conclusão contestada | bloquear aprovação dependente de horário | DELIVERY_NOT_CONFIRMED/COMPLETION_CONTESTED, REVIEW_REQUIRED; physical_state=DELIVERED, completion_contested=true |
+| Salto B2→B4 | rejeitar cadeia | INVALID_VERSION_CHAIN |
+| Versões e intervalos | sem duplicação/sobreposição | **versions=10, overlaps=0**; reenvio com document_key estável e nova extração |
+| Preservação | avaliações não alteram físico/P01 | **physical_and_p01_preserved=true**, escopo do snapshot descrito abaixo |
+| Consulta SQL do histórico | v1 anterior preservada, v2 vigente | **history_query_exit=0**, 20 linhas, avaliações 1 e 2 de dez versões |
+| git diff --check | sem erro | sem saída de erro antes do commit |
+
+40 é o total acumulado de testes de documentos (23 de extração e 17 de regras);
+não somar com os 23 anteriores como casos distintos adicionais. Após o Ruff,
+somente import não usado foi removido; não foi alegada nova execução de pytest.
+Não houve regressão global F3 nem novas provas CI/E2E/concorrência.
+
+O verificador retorna a segunda extração/avaliação de cada cenário; duplicate=true
+nesses reports significa reenvio interno da mesma execução, não repetição completa
+do verificador. A execução completa observada foi **replay=false**. A lógica
+de replay completo está preparada, mas uma segunda execução integral não foi
+apresentada; não alegar essa prova adicional. Os asserts verificaram versões
+estáveis nos reenvios, incremento de avaliação, pendência após nova extração
+e regularidade intermediária de A/B na primeira execução.
+
+### Consulta SQL autoral e rastreabilidade
+
+João executou a consulta em transação **SET TRANSACTION READ ONLY** pelo
+test_engine do banco ilc_f2p02b_test. Resultado:
+- F4-P02-A1: versão 1, vigente=false, avaliações 1/2 APPROVED.
+- F4-P02-A2: versão 2, vigente=true, avaliações 1/2 REVIEW_REQUIRED/PARSING_ERROR.
+- F4-P02-B1: versão 1, vigente=false, avaliações 1/2 REVIEW_REQUIRED/VALUE_MISMATCH.
+- F4-P02-B2: versão 2, vigente=true, avaliações 1/2 APPROVED.
+- CONTESTED/MISSING/REFERENCE/TIME/UNCONFIRMED/UNIT: versão 1 vigente,
+  avaliações 1/2 com os motivos distintos da tabela.
+
+Exemplos da prova PostgreSQL:
+- A1: documento 9a1e4951-8fff-4d85-ab5e-9d10f1cd27d0,
+  avaliação 2 9d77d88a-9bab-484c-b3b6-ea3dcf0a6412,
+  run evaluation-a460925f-31dd-403f-92bf-6e206aae73c2.
+- B2: documento f897f4ee-1aae-4087-8443-782d518ef472,
+  avaliação 2 e0418892-4541-4f76-b642-f8b87c3b67a5.
+- A2: documento 2fdbcf88-de94-4236-ab35-4eb3229e6550,
+  avaliação 2 0977533a-3088-4995-82c8-e808d84176c6.
+- Contestada: documento 23628a56-3d0e-437c-88e3-fde9b658fd02,
+  avaliação 2 e122f0f2-d92d-4b87-bbe4-76aa97ee8002.
+- Referência inválida: document-13f58beb-4376-4eae-87f5-6b034a266a24.
+- Cadeia inválida: document-01ff8996-65bf-401a-b576-dcb2c58c55e2.
+Versão de regras: document-rules-v1; parser educational-v1.
+
+### Prática, limites e devolução
+
+João implementou same_utc_minute, executou testes e correção de import,
+verificador PostgreSQL, consulta SQL somente leitura e commit/push.
+O assistente preparou estrutura, fixtures, persistência, testes/comandos
+e revisão. Prática de implementar/executar/consultar observada;
+explicação independente permanece adiada conforme cartão. Não atribuir
+a João explicações que não apresentou. Esforço humano não medido.
+
+Preservação demonstrada pelo script: snapshot das tabelas globais events,
+deliveries, completion_decisions, conflicts e conflict_resolutions após
+semente própria e antes das avaliações, comparado ao final; versões/extrações
+P01 também comparadas. Não alegar snapshot de todas as tabelas anteriores.
+A semente acrescenta sete entregas e eventos/conclusões sintéticos próprios,
+incluindo conflito controlado; não altera a entrega ENT-001 ou suas referências.
+Avaliações não alteram eventos ou estado físico. Resolução automática não existe.
+
+Limitações da preparação mantidas: sem migração, formatos sintéticos fechados,
+quota/arquivos sem garantia concorrente nem sandbox; apenas dados locais do case.
+Referência de envelope inválida é rejeição rastreável anterior à avaliação,
+por integridade referencial, enquanto divergência extraída é avaliação
+REFERENCE_MISMATCH. Essa distinção deve ser avaliada pelo gerente no aceite.
+Não houve nova prova dedicada de identidade documental conflitante, ensaio
+concorrente ou resolução manual; controles preparados não viram provas observadas.
+
+Feito: R09 exercitado no recorte, código b88f88a e evidências/consulta acima.
+Pendência única de governança: decisão central aceito/ajustes/bloqueado para P02.
+Esta publicação não fecha F4 nem inicia IA. Não repetir provas já aprovadas
+apenas porque a passagem foi consolidada. Próximo passo: levar documento 23
+e SHA documental final ao gerente.
