@@ -179,3 +179,12 @@ posteriores e a consolidação 21 definem o estado atual. O fechamento autorizad
 VAL-F3-P04-001 mantém todas as limitações registradas e a explicação independente
 adiada. F4 está pronta para receber cartão do gerente; este registro não a inicia.
 Atualização de fechamento somente documental, sem testes repetidos, merge ou implementação.
+
+
+## F4-P01 — preparação autorizada em 02/11/2026
+
+F4 em execução por cartão humano F4-P01, ainda não validado. Estrutura de
+extração preparada; transformação central, prática e prova PostgreSQL pendentes.
+18 testes offline aprovados e cinco falhas da transformação autoral pendente;
+Ruff aprovado. Sem conferência/aprovação/IA, merge ou início de F5–F6.
+Detalhes e próximo passo: [passagem 22](docs/22-f4-p01-document-extraction.md).

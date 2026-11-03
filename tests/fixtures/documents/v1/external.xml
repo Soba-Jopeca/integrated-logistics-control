@@ -1,0 +1,1 @@
+<!DOCTYPE delivery_receipt [<!ENTITY x SYSTEM "file:///ILC-NONEXISTENT-SYNTHETIC">]><delivery_receipt><receiver_name>&x;</receiver_name></delivery_receipt>

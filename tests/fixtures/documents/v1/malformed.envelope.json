@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "source_system": "synthetic_documents_p01",
+  "document_id": "F4-P01-MALFORMED",
+  "document_family_id": "F4-P01-FAMILY-MALFORMED",
+  "version": 1,
+  "supersedes_document_id": null,
+  "delivery_id": "ENT-001",
+  "media_type": "application/xml"
+}

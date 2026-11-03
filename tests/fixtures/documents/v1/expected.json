@@ -1,0 +1,34 @@
+{
+  "valid.pdf": {
+    "declared_delivery_id": "ENT-001",
+    "delivered_at": "2026-10-16T17:00:00Z",
+    "received_quantity": 12,
+    "quantity_unit": "BOX",
+    "receiver_name": "Pessoa Sintetica"
+  },
+  "valid.xml": {
+    "declared_delivery_id": "ENT-001",
+    "delivered_at": "2026-10-16T17:00:00Z",
+    "received_quantity": 12,
+    "quantity_unit": "BOX",
+    "receiver_name": "Pessoa Sintetica"
+  },
+  "missing.pdf": {
+    "declared_delivery_id": "ENT-001",
+    "delivered_at": "2026-10-16T17:00:00Z",
+    "received_quantity": 12,
+    "quantity_unit": "BOX",
+    "receiver_name": null
+  },
+  "missing.xml": {
+    "declared_delivery_id": "ENT-001",
+    "delivered_at": "2026-10-16T17:00:00Z",
+    "received_quantity": 12,
+    "quantity_unit": "BOX",
+    "receiver_name": null
+  },
+  "blank.pdf": "NO_EXTRACTABLE_TEXT",
+  "malformed.xml": "PARSING_ERROR",
+  "malformed.pdf": "PARSING_ERROR",
+  "external.xml": "XML_SECURITY_BLOCKED"
+}

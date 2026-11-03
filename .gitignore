@@ -40,3 +40,6 @@ Thumbs.db
 
 # Synthetic datasets generated locally (F2-P03)
 /data/generated/
+
+# Controlled local document bytes (F4-P01)
+/data/documents/

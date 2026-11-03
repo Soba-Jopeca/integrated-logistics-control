@@ -206,3 +206,12 @@ argparse também pode sair com código 2, distinto do PARTIAL informado pela car
 A checagem não foi atribuída a João nem convertida em explicação independente.
 P04 entregue para avaliação central; F3 ABERTA, F4 bloqueada. Sem merge,
 funcionalidade nova, repetição de testes ou escrita no banco.
+
+
+## F4-P01 — preparação autorizada em 02/11/2026
+
+F4 em execução por cartão humano F4-P01, ainda não validado. Estrutura de
+extração preparada; transformação central, prática e prova PostgreSQL pendentes.
+18 testes offline aprovados e cinco falhas da transformação autoral pendente;
+Ruff aprovado. Sem conferência/aprovação/IA, merge ou início de F5–F6.
+Detalhes e próximo passo: [passagem 22](22-f4-p01-document-extraction.md).
