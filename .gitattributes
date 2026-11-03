@@ -4,3 +4,7 @@ tests/fixtures/synthetic/** text eol=lf
 tests/fixtures/reference_csv/** text eol=lf
 tests/fixtures/business_cases/** text eol=lf
 tests/fixtures/reliability/** text eol=lf
+
+# PDF offsets and hashes depend on exact binary bytes.
+tests/fixtures/documents/** text eol=lf
+*.pdf binary
