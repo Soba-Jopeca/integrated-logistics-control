@@ -9,7 +9,7 @@ from scripts.check_sql_analytics import EXPECTED, check, load, report
 from scripts.migration_config import test_engine as make_engine
 
 
-def export(connection, out):
+def collect(connection, variant="base"):
     connection.exec_driver_sql("""
         CREATE TEMP TABLE reference AS SELECT
           'f5-p02-v1/2026-10-17T12:00:00+00:00/2026-10-16/2026-10-17'::text AS reference_key,
@@ -19,6 +19,14 @@ def export(connection, out):
           transaction_timestamp() AS queried_at
     """)
     load(connection, "01-fixture.sql")
+    if variant == "alternate":
+        connection.exec_driver_sql("ALTER VIEW src_delivery RENAME TO src_delivery_base")
+        connection.exec_driver_sql("""
+            CREATE TEMP VIEW src_delivery AS
+            SELECT delivery_key, delivery_id || '-ALT' AS delivery_id,
+                   order_key, order_id, released_at, promised_at
+            FROM src_delivery_base
+        """)
     load(connection, "02-facts.sql")
     ref = dict(connection.exec_driver_sql("SELECT * FROM reference").mappings().one())
     scenarios = {
@@ -61,6 +69,11 @@ def export(connection, out):
         result = connection.exec_driver_sql(f"SELECT * FROM {name} ORDER BY 1")
         output[name] = (list(result.keys()), result.fetchall())
     output["scenarios"] = (["scenario"], [(name,) for name in scenarios])
+    return ref, reference, output
+
+
+def export(connection, out):
+    ref, reference, output = collect(connection)
     out.mkdir(parents=True, exist_ok=True)
     for name, (columns, rows) in output.items():
         with (out / f"{name}.csv").open("w", encoding="utf-8-sig", newline="") as stream:
