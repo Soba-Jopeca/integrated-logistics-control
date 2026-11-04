@@ -19,11 +19,12 @@ def collect(connection, variant="base"):
           transaction_timestamp() AS queried_at
     """)
     load(connection, "01-fixture.sql")
-    if variant == "alternate":
+    if variant in {"alternate", "failure"}:
+        suffix = "-ALT" if variant == "alternate" else "-FAIL"
         connection.exec_driver_sql("ALTER VIEW src_delivery RENAME TO src_delivery_base")
-        connection.exec_driver_sql("""
+        connection.exec_driver_sql(f"""
             CREATE TEMP VIEW src_delivery AS
-            SELECT delivery_key, delivery_id || '-ALT' AS delivery_id,
+            SELECT delivery_key, delivery_id || '{suffix}' AS delivery_id,
                    order_key, order_id, released_at, promised_at
             FROM src_delivery_base
         """)
