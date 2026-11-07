@@ -1,58 +1,105 @@
 # Integrated Logistics Control
 
-**Conferência documental e acompanhamento de entregas.**
+**Dados, automação e analytics aplicados à conferência documental e ao acompanhamento de entregas.**
 
-Case educacional de dados e automação aplicado à logística, desenvolvido por João Pedro Caneca com orientação técnica. O objetivo é aprender a transformar necessidades operacionais em uma solução verificável com Python, SQL, integração REST, aplicação web e indicadores.
+Projeto autoral e educacional de **João Pedro Caneca**, desenvolvido com dados sintéticos para demonstrar como necessidades operacionais podem ser transformadas em ingestão rastreável, regras de negócio, aplicação local e indicadores analíticos.
 
-> **Estado: planejamento documentado; implementação ainda não iniciada.** As funcionalidades abaixo são planejadas, não entregas já disponíveis. Meta de demonstração: 21/10/2026.
+> **Estado atual: projeto em desenvolvimento contínuo.** Fases anteriores possuem entregas e validações documentadas, mas o produto ainda não está concluído. A branch `main` mantém a apresentação pública e a baseline documental; as implementações posteriores permanecem em branches e no PR indicados abaixo.
 
-## Problema e valor esperado
+## Problema de negócio
 
-O cenário fictício considera informações de pedidos, eventos de transporte e comprovantes em fontes distintas. Um analista precisa identificar entregas sem comprovante e divergências documentais para priorizar a regularização. A liderança precisa acompanhar essas pendências com métricas consistentes.
+Pedidos, eventos de transporte e comprovantes podem estar distribuídos em fontes diferentes. Isso dificulta identificar rapidamente:
 
-**Entrega concluída e documentação aprovada são estados independentes.** A solução deve preservar essa distinção.
+- entregas sem comprovante;
+- divergências entre pedido, evento e documento;
+- documentos substituídos ou pendentes de revisão;
+- atrasos e ocorrências que exigem priorização;
+- diferenças entre conclusão física e regularidade documental.
 
-## Demonstração planejada
+O projeto preserva uma regra central: **entrega física e aprovação documental são estados independentes**.
 
-1. Ingerir pedidos e consumir eventos de uma API local simulada.
-2. Preservar a origem, tratar os dados e registrar a execução.
-3. Extrair campos de PDF textual e XML de formato educacional.
-4. Conciliar documentos com entregas e explicar divergências.
-5. Consultar pendências em uma aplicação Python.
-6. Apresentar uma página de indicadores no Power BI Desktop.
-7. Avaliar um experimento de LLM local para ocorrências textuais, condicionado à viabilidade no equipamento.
+## Solução em desenvolvimento
 
-## Tecnologias propostas
+O ILC está sendo construído para:
 
-Python, PostgreSQL, SQL, Streamlit, FastAPI, Git e Power BI Desktop. Execução local; sem contratação de serviços ou dependência de créditos de nuvem. Agendamento inicial pelo Windows. OCR e LLM local dependem de avaliação; RAG fica para evolução.
+1. consumir eventos de uma API local simulada e importar dados sintéticos;
+2. preservar origem, histórico, tentativas e decisões;
+3. armazenar dados em PostgreSQL com migrações controladas;
+4. extrair campos de documentos PDF textual e XML educacional;
+5. aplicar conferência determinística e explicar divergências;
+6. disponibilizar busca, filtros e histórico em aplicação Streamlit;
+7. produzir métricas SQL e uma camada analítica para consumo no Power BI;
+8. avaliar IA local de forma isolada, sem aprovação automática de documentos.
 
-## Documentação
+## Estado das fases
 
-- [Entendimento do negócio](docs/01-business-understanding.md)
-- [Escopo e critérios de aceite](docs/02-scope-and-acceptance.md)
-- [Arquitetura e decisões iniciais](docs/03-architecture.md)
-- [Plano de execução e aprendizagem](docs/04-delivery-and-learning-plan.md)
-- [Métricas e regras](docs/05-metrics-and-rules.md)
-- [Fluxo de contribuição](CONTRIBUTING.md)
+| Fase | Escopo | Estado |
+|---|---|---|
+| **F1** | Entendimento do negócio, escopo, arquitetura, contratos e modelo de dados | **Fechada documentalmente** e integrada à `main` |
+| **F2** | Ambiente reproduzível, PostgreSQL, Alembic, modelo físico e dados sintéticos | **Fechada com limitações**; consolidada no [PR #2](https://github.com/Soba-Jopeca/integrated-logistics-control/pull/2), ainda sem merge |
+| **F3** | FastAPI, captura, carga, idempotência, falhas controladas e recuperação | **Fechada com limitações**; preservada nas [branches F3](https://github.com/Soba-Jopeca/integrated-logistics-control/branches/all?query=feat%2Ff3) |
+| **F4** | Extração PDF/XML, validação documental, histórico e experimento local de IA | **Fechada com limitações**; consolidação em [docs/f4-p04-consolidation](https://github.com/Soba-Jopeca/integrated-logistics-control/tree/docs/f4-p04-consolidation) |
+| **F5** | Aplicação local, métricas SQL, camada Gold e Power BI | **Em desenvolvimento**, distribuída nas [branches F5](https://github.com/Soba-Jopeca/integrated-logistics-control/branches/all?query=feat%2Ff5) |
+| **F6** | CI/E2E, backup, recuperação, empacotamento e release | **Não iniciada** |
 
-## Execução
+Os estados acima representam o escopo demonstrado em cada fase. Não significam integração automática à `main`, prontidão produtiva ou conclusão integral do projeto.
 
-Ainda não há aplicação executável, dependências fixadas ou instruções de instalação validadas. Essas instruções serão adicionadas conforme cada etapa for implementada e testada.
+## Entregas técnicas já demonstradas
+
+- ambiente Python isolado e dependências fixadas;
+- PostgreSQL local dedicado, SQLAlchemy e migrações Alembic;
+- modelo com histórico, vínculos, restrições e dados sintéticos reproduzíveis;
+- API FastAPI com OpenAPI, paginação e falhas controladas;
+- captura e carga com rastreabilidade, idempotência e conflitos explícitos;
+- retry limitado, checkpoint e retomada de execução;
+- extração de PDF textual e XML educacional;
+- conferência documental determinística, versionamento e histórico;
+- aplicação Streamlit e referências analíticas SQL em branches F5;
+- experimentação local com IA mantida fora do fluxo de aprovação.
+
+## Tecnologias
+
+| Área | Tecnologias |
+|---|---|
+| **Dados e backend** | Python, SQL, PostgreSQL, SQLAlchemy e Alembic |
+| **API e ingestão** | FastAPI, HTTPX, CSV e dados sintéticos |
+| **Aplicação e analytics** | Streamlit, SQL analítico e Power BI Desktop |
+| **Qualidade e desenvolvimento** | Pytest, Ruff, Git e GitHub |
+| **Experimento local de IA** | Ollama e Qwen2.5, de forma isolada |
+
+## Navegação técnica
+
+A `main` não contém todas as implementações já desenvolvidas. Para acompanhar a evolução:
+
+- [Documentação de negócio e arquitetura na main](docs/)
+- [F2 — consolidação e ambiente reproduzível](https://github.com/Soba-Jopeca/integrated-logistics-control/tree/docs/f2-p04-consolidation)
+- [F3 — API, ingestão e confiabilidade](https://github.com/Soba-Jopeca/integrated-logistics-control/tree/feat/f3-p03-reliability)
+- [F4 — documentos, conferência e IA experimental](https://github.com/Soba-Jopeca/integrated-logistics-control/tree/docs/f4-p04-consolidation)
+- [F5 — aplicação, analytics e Power BI](https://github.com/Soba-Jopeca/integrated-logistics-control/tree/feat/f5-p03a-gold)
+
+Cada branch mantém suas próprias instruções, evidências, limitações e comandos de reprodução. Não executar instruções de uma fase a partir da `main` desatualizada para aquele recorte.
 
 ## Limites e transparência
 
-Dados e documentos exclusivamente sintéticos. Não há integração com ERP/WMS reais nem representação oficial da Ever Express. O case foi motivado por requisitos profissionais, sem afirmar conhecimento da arquitetura interna de qualquer empresa.
+- Dados, documentos, empresas e operações são sintéticos ou educacionais.
+- Não há integração com ERP, WMS ou TMS corporativos reais.
+- O projeto não representa oficialmente a arquitetura de nenhuma empresa.
+- Não há ganhos financeiros ou operacionais empresariais medidos.
+- A execução é local e ainda não representa ambiente produtivo.
+- O experimento de IA não aprova documentos nem altera decisões do domínio.
+- Branches de desenvolvimento ainda não foram consolidadas em uma release única.
+- CI/E2E, backup, recuperação e release permanecem no escopo futuro da F6.
 
-Não há resultados operacionais reais ou ganhos financeiros medidos. Evidências futuras serão resultados da simulação. Revisão humana será necessária em situações ambíguas.
+## Próximos passos
 
-## Atualização documental — F1-P04
+- concluir e validar as entregas restantes da F5;
+- reconciliar resultados SQL, camada Gold e Power BI;
+- organizar a integração controlada das branches aprovadas;
+- atualizar instruções de execução após a consolidação;
+- iniciar a F6 somente após o fechamento da F5.
 
-Negócio, contratos, proteção inicial Git e modelagem foram aceitos
-por passo pela gestão. A F1 permanece aberta; P04 está em consolidação.
-Não há implementação executável.
+---
 
-- [Contratos](docs/06-event-and-document-contracts.md)
-- [Modelo conceitual e lógico](docs/07-conceptual-and-logical-model.md)
-- [Consolidação, proposta analítica e R01–R17](docs/08-f1-consolidation-and-analytical-model.md)
-
-21/10/2026 é alvo de demonstração inicial sujeito a reestimativa.
+**Autor:** [João Pedro Caneca](https://github.com/Soba-Jopeca)  
+**Portfólio:** [soba-jopeca.github.io](https://soba-jopeca.github.io/)  
+**LinkedIn:** [joao-caneca](https://www.linkedin.com/in/joao-caneca/)
